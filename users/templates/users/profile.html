@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}"> <!-- Подключаем внешний файл стилей -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+  <!-- Основной контент -->
+  <main class="main-content">
+    <section class="profile-section">
+      <div class="profile-header">
+        <img src="{% static 'images/logo (1).png' %}" alt="Profile Picture" class="profile-img">
+        <h1 class="profile-name">{{ object.first_name }} {{ object.last_name }}</h1>
+        <button class="btn-edit-profile">Редактировать профиль</button>
+      </div>
+
+      <div class="profile-details">
+        <h2>Информация о пользователе</h2>
+        <div class="profile-info">
+          <p><strong>{{ object.role }}:</strong> Автор</p>
+          <p><strong>Электронный адрес:</strong> {{ object.email }}</p>
+          <p><strong>Зарегистрирован с:</strong> {{ object.date_joined }}</p>
+          <p><strong>Последняя активность:</strong> 5 дней назад</p>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <h2>Настройки</h2>
+        <button class="btn">Изменить пароль</button>
+        <button class="btn">Удалить аккаунт</button>
+      </div>
+    </section>
+  </main>
+{% endblock %}

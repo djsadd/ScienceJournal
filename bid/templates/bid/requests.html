@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+  {% block title %}
+  <title>Мои заявки</title>
+  {% endblock %}
+  {% block css %}
+  <link rel="stylesheet" href="{% static 'css/requests.css' %}"> <!-- Подключаем внешний файл стилей -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  {% endblock %}
+{% block content %}
+  <!-- Основной контент -->
+  <main class="main-content">
+    <h2>Мои заявки</h2>
+
+    <!-- Секция с заявками -->
+    <section class="requests-section">
+      <div class="request-item">
+        <h3 class="request-title">Заявка №1: Подать статью на публикацию</h3>
+        <p class="request-date">Дата подачи: 1 апреля 2025</p>
+        <p class="request-status">Статус: Ожидает рассмотрения</p>
+        <div class="request-actions">
+          <button class="btn">Подробнее</button>
+          <button class="btn">Отредактировать</button>
+          <button class="btn">Удалить</button>
+        </div>
+      </div>
+
+      <div class="request-item">
+        <h3 class="request-title">Заявка №2: Ожидание рецензии</h3>
+        <p class="request-date">Дата подачи: 28 марта 2025</p>
+        <p class="request-status">Статус: В процессе рецензирования</p>
+        <div class="request-actions">
+          <button class="btn">Подробнее</button>
+          <button class="btn">Отредактировать</button>
+          <button class="btn">Удалить</button>
+        </div>
+      </div>
+
+      <!-- Можно добавить другие заявки по аналогии -->
+    </section>
+  </main>
+{% endblock %}

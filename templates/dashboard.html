@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Загрузка статьи</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Подключаем внешний файл стилей -->
+<!-- Подключаем Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+{% block content %}
+  <!-- Основной контент -->
+  <main class="main-content">
+    <section class="upload-section">
+      <h2>Загрузить статью</h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="input-group">
+          <label for="title">Название статьи</label>
+          <input type="text" id="title" placeholder="Введите название статьи" required />
+        </div>
+
+        <div class="input-group">
+          <label for="annotation">Аннотация</label>
+          <textarea id="annotation" placeholder="Введите аннотацию" required></textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="keywords">Ключевые слова</label>
+          <input type="text" id="keywords" placeholder="Введите ключевые слова" required />
+        </div>
+
+        <div class="input-group">
+          <label for="file">Загрузить файл статьи</label>
+          <input type="file" id="file" required />
+        </div>
+
+        <button type="submit" class="btn">Загрузить статью</button>
+      </form>
+    </section>
+  </main>
+{% endblock %}}

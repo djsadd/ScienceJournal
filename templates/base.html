@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block title %}
+  <title>Профиль</title>
+  {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    {% endblock %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Хедер -->
+  <header class="header">
+        <div class="logo-container">
+          <img src="{% static 'images/logo (1).png' %}" alt="Вестник Туран" class="logo-img">
+          <span class="logo-text">Вестник университета Туран-Астана</span>
+        </div>
+    <nav>
+      <ul>
+        <li><a href="{% url 'dashboard' %}"><span class="material-icons">dashboard</span> Моя панель</a></li>
+        <li><a href="{% url 'my_articles' %}"><span class="material-icons">article</span> Мои статьи</a></li>
+        <li><a href="{% url 'my_bids' %}"><span class="material-icons">assignment</span> Мои заявки</a></li>
+        <li><a href="{% url 'profile' %}"><span class="material-icons">account_circle</span> Профиль</a></li>
+        <li><a href="{% url 'logout' %}"><span class="material-icons">logout</span> Выход</a></li>
+      </ul>
+    </nav>
+  </header>
+
+{% block content %}
+
+{% endblock %}
+  <footer class="footer">
+    <p>&copy; 2025 Вестник Туран. Все права защищены.</p>
+    <p><a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
+  </footer>
+
+
+</body>
+</html>

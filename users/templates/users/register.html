@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="base.css"> <!-- Подключаем внешний файл стилей -->
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="form-container">
+      <h2>Регистрация</h2>
+      <form id="registerForm">
+        <div class="input-group">
+          <label for="firstName">Имя</label>
+          <input type="text" id="firstName" placeholder="Введите ваше имя" required />
+        </div>
+        <div class="input-group">
+          <label for="lastName">Фамилия</label>
+          <input type="text" id="lastName" placeholder="Введите вашу фамилию" required />
+        </div>
+        <div class="input-group">
+          <label for="email">Электронная почта</label>
+          <input type="email" id="email" placeholder="Введите вашу электронную почту" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" placeholder="Введите ваш пароль" required />
+        </div>
+        <button type="submit" class="btn">Зарегистрироваться</button>
+        <p class="switch-form">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      
+      // Проверка (только пример)
+      if (firstName && lastName && email && password) {
+        alert("Регистрация успешна!");
+      } else {
+        alert("Пожалуйста, заполните все поля.");
+      }
+    });
+  </script>
+
+</body>
+</html>

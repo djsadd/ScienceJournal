@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/requests.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <!-- Основной контент -->
+  <main class="main-content">
+    <section class="requests-section">
+      <h1>Мои заявки</h1>
+      <div class="filters">
+        <input type="text" placeholder="Поиск по заявкам" class="search-bar">
+        <select class="status-filter">
+          <option value="all">Все статусы</option>
+          <option value="in-progress">На рассмотрении</option>
+          <option value="completed">Завершено</option>
+        </select>
+      </div>
+
+      <div class="requests-list">
+        <!-- Пример заявки -->
+        <div class="request-item">
+          <h2>Название статьи 1</h2>
+          <p>Статус: На рассмотрении</p>
+          <p>Дата подачи: 10 апреля 2025</p>
+          <button class="btn">Просмотр</button>
+          <button class="btn">Редактировать</button>
+        </div>
+        <!-- Повторите для других заявок -->
+      </div>
+
+      <div class="add-request">
+        <button class="btn">Добавить новую заявку</button>
+      </div>
+    </section>
+  </main>
+{% endblock %}
+
