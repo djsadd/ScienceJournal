@@ -31,10 +31,27 @@
           <p>Аннотация: {{ obj.annotation }}</p>
           <p>Дата подачи: {{ obj.date }}</p>
           <button class="btn">Просмотр</button>
-          <button class="btn">Редактировать</button>
+          <!-- Кнопка для открытия формы -->
+<!-- Кнопка для открытия формы -->
+<button class="btn" id="openModalBtn">Отправить на публикацию</button>
+
+
+
+
         </div>
         <!-- Повторите для других заявок -->
       </div>
+      <!-- Модальное окно -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+      <span id="closeModalBtn" class="close">&times;</span>
+      <h2>Форма для отправки статьи</h2>
+      <form id="publicationForm">
+          <textarea id="textField" placeholder="Введите текст статьи..." rows="6" cols="50"></textarea><br>
+          <button type="submit" class="btn">Отправить</button>
+      </form>
+  </div>
+</div>
       {% endfor %}
       <div class="add-request">
         <a href="{% url 'dashboard' %}">
@@ -43,5 +60,38 @@
       </div>
     </section>
   </main>
+<script>
+// Получаем элементы
+const openModalBtn = document.getElementById('openModalBtn');
+const modal = document.getElementById('modal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const form = document.getElementById('publicationForm');
+
+// Открытие модального окна при клике на кнопку
+openModalBtn.addEventListener('click', () => {
+    modal.style.display = "block";
+});
+
+// Закрытие модального окна при клике на крестик
+closeModalBtn.addEventListener('click', () => {
+    modal.style.display = "none";
+});
+
+// Закрытие модального окна, если кликнуть в любое место вне окна
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+// Отправка формы (можно обработать здесь данные)
+form.addEventListener('submit', (event) => {
+    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+    alert('Форма отправлена!');
+    modal.style.display = "none"; // Закрыть модальное окно после отправки
+});
+
+
+</script>
 {% endblock %}
 
