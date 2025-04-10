@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Публикации</title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Хедер -->
+  <header class="header">
+    <div class="logo-container">
+      <img src="{% static 'images/logo (1).png' %}" alt="Вестник Туран" class="logo-img">
+      <span class="logo-text">Вестник университета Туран-Астана</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{% url 'login' %}"><span class="material-icons">login</span> Войти</a></li>
+        <li><a href="news.html"><span class="material-icons">announcement</span> Новости</a></li>
+        <li><a href="archives.html"><span class="material-icons">archive</span> Архивы</a></li>
+        <li><a href="contacts.html"><span class="material-icons">contacts</span> Контакты</a></li>
+        <li><a href="about.html"><span class="material-icons">info</span> О нас</a></li>
+        <li><a href="authors.html"><span class="material-icons">edit</span> Авторам</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Основной контент -->
+  <main class="main-content">
+    <h1>Публикации</h1>
+    
+    <!-- Поиск -->
+    <section class="search-section">
+      <input type="text" class="search-bar" placeholder="Поиск публикаций...">
+      <button class="btn">Поиск</button>
+    </section>
+    
+    <div class="content-wrapper">
+      <!-- Список публикаций -->
+      <section class="publications-section">
+        <div class="publication-item">
+          <h2>ЭКОНОМИКА: ИСТОРИЯ, ТЕОРИЯ, ПРАКТИКА</h2>
+          <p><strong>Проблемы и факторы, влияющие на развитие принципов циркулярной экономики в Казахстане</strong></p>
+          <p><strong>Авторы:</strong> З. С. Мухамбетова, Н. Н. Нурмухаметов, А. Б. Темирова, Г. Т. Кунафина</p>
+          <p><strong>PDF:</strong> <a href="publication.pdf" target="_blank">Скачать PDF (Kaz)</a></p>
+          <p><strong>Страницы:</strong> 9-24</p>
+          <p><strong>Цитирования:</strong> 103</p>
+          <p><strong>Просмотры:</strong> 150</p> <!-- Количество просмотров -->
+          <p><strong>Аннотация:</strong> <span class="annotation-text">В данной статье рассматриваются проблемы и факторы, влияющие на развитие принципов циркулярной экономики в Казахстане...</span></p>
+          <a href="view-article.html" class="btn">Просмотреть статью</a> <!-- Кнопка для просмотра статьи -->
+        </div>
+
+        <!-- Добавьте больше публикаций -->
+        <div class="publication-item">
+          <h2>Будущее устойчивого развития в Азии</h2>
+          <p><strong>Авторы:</strong> М. М. Сайдашев, А. Б. Шарипова</p>
+          <p><strong>PDF:</strong> <a href="publication2.pdf" target="_blank">Скачать PDF</a></p>
+          <p><strong>Страницы:</strong> 35-50</p>
+          <p><strong>Цитирования:</strong> 125</p>
+          <p><strong>Просмотры:</strong> 230</p> <!-- Количество просмотров -->
+          <p><strong>Аннотация:</strong> <span class="annotation-text">В статье рассматриваются ключевые аспекты устойчивого развития в регионе Азии...</span></p>
+          <a href="view-article2.html" class="btn">Просмотреть статью</a>
+        </div>
+
+        <!-- Больше публикаций можно добавить здесь -->
+        
+      </section>
+
+      <!-- Популярные статьи -->
+      <aside class="popular-articles">
+        <!-- Кнопка отправки статьи -->
+<div class="submit-article-btn-container">
+  <a href="login.html" class="btn submit-article-btn">Отправить статью</a>
+</div>
+
+        <h3>Популярные статьи</h3>
+        <ul>
+          <li><a href="#">Как цифровизация меняет экономику Казахстана</a> — Просмотры: 250</li>
+          <li><a href="#">Будущее устойчивого развития в Азии</a> — Просмотры: 215</li>
+          <li><a href="#">Перспективы зеленой экономики в мире</a> — Просмотры: 180</li>
+        </ul>
+      </aside>
+    </div>
+
+    <!-- Пагинация -->
+    <div class="pagination">
+      <a href="#">« Предыдущая</a>
+      <a href="#">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">Следующая »</a>
+    </div>
+
+  </main>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <p>&copy; 2025 Вестник Туран. Все права защищены.</p>
+    <p><a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
+  </footer>
+
+</body>
+</html>

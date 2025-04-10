@@ -19,21 +19,27 @@
           <option value="completed">Завершено</option>
         </select>
       </div>
+      <br>
+      {% for obj in object_list %}
+
 
       <div class="requests-list">
         <!-- Пример заявки -->
         <div class="request-item">
-          <h2>Название статьи 1</h2>
-          <p>Статус: На рассмотрении</p>
-          <p>Дата подачи: 10 апреля 2025</p>
+          <h2>{{ obj.title }}</h2>
+          <p>Авторы: {{ obj.authors }}</p>
+          <p>Аннотация: {{ obj.annotation }}</p>
+          <p>Дата подачи: {{ obj.date }}</p>
           <button class="btn">Просмотр</button>
           <button class="btn">Редактировать</button>
         </div>
         <!-- Повторите для других заявок -->
       </div>
-
+      {% endfor %}
       <div class="add-request">
-        <button class="btn">Добавить новую заявку</button>
+        <a href="{% url 'dashboard' %}">
+          <button class="btn">Добавить новую заявку</button>
+        </a>
       </div>
     </section>
   </main>
