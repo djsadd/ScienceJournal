@@ -19,6 +19,7 @@ class CustomLoginView(LoginView):
 class ProfileView(LoginRequiredMixin, DetailView):
     model = CustomUser
     template_name = "users/profile.html"
+    login_url = '/users/login/'
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -28,4 +29,6 @@ def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
         return redirect('login')  # или твой путь для редиректа после выхода
+
+    login_url = '/users/login/'
     return HttpResponseForbidden()  # Отказ от доступа для GET-запроса

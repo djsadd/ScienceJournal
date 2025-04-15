@@ -39,8 +39,10 @@
             <div class="modal-content">
               <span class="close" data-modal-id="modal{{ obj.id }}">&times;</span>
               <h2>Форма для отправки статьи</h2>
-              <form id="publicationForm{{ obj.id }}">
-                <textarea id="textField{{ obj.id }}" placeholder="Введите текст статьи..." rows="6" cols="50"></textarea><br>
+              <form method="POST"  id="publicationForm{{ obj.id }}">
+                {% csrf_token %}
+                <input type="hidden" name="article_id" value="{{ obj.id }}">
+                <textarea name="content" id="textField{{ obj.id }}" placeholder="Введите текст статьи..." rows="6" cols="50"></textarea><br>
                 <button type="submit" class="btn">Отправить</button>
               </form>
             </div>
@@ -89,16 +91,5 @@
       });
     });
 
-    // Отправка формы
-    const forms = document.querySelectorAll('form[id^="publicationForm"]');
-    forms.forEach(form => {
-      form.addEventListener('submit', (event) => {
-        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-        alert('Форма отправлена!');
-        const modalId = form.id.replace('publicationForm', 'modal');
-        const modal = document.getElementById(modalId);
-        modal.style.display = "none"; // Закрыть модальное окно после отправки
-      });
-    });
   </script>
 {% endblock %}

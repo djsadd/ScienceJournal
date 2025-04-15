@@ -14,27 +14,20 @@
 
     <!-- Секция с заявками -->
     <section class="requests-section">
-      <div class="request-item">
-        <h3 class="request-title">Заявка №1: Подать статью на публикацию</h3>
-        <p class="request-date">Дата подачи: 1 апреля 2025</p>
-        <p class="request-status">Статус: Ожидает рассмотрения</p>
-        <div class="request-actions">
-          <button class="btn">Подробнее</button>
-          <button class="btn">Отредактировать</button>
-          <button class="btn">Удалить</button>
-        </div>
-      </div>
+      {% for obj in object_list %}
 
-      <div class="request-item">
-        <h3 class="request-title">Заявка №2: Ожидание рецензии</h3>
-        <p class="request-date">Дата подачи: 28 марта 2025</p>
-        <p class="request-status">Статус: В процессе рецензирования</p>
-        <div class="request-actions">
-          <button class="btn">Подробнее</button>
-          <button class="btn">Отредактировать</button>
-          <button class="btn">Удалить</button>
+        <div class="request-item">
+          <h3 class="request-title">{{ obj.title }}</h3>
+          <p class="request-date">Дата подачи: {{ obj.date_created }}</p>
+          <p class="request-status">Статус: {{ obj.get_status_display  }}</p>
+          <div class="request-actions">
+            <button class="btn">Подробнее</button>
+            <button class="btn">Отредактировать</button>
+            <button class="btn">Удалить</button>
+          </div>
         </div>
-      </div>
+
+      {% endfor %}
 
       <!-- Можно добавить другие заявки по аналогии -->
     </section>
