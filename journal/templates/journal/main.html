@@ -1,34 +1,7 @@
+{% extends 'guest-base.html' %}
+
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Публикации</title>
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body>
-
-  <!-- Хедер -->
-  <header class="header">
-    <div class="logo-container">
-      <img src="{% static 'images/logo (1).png' %}" alt="Вестник Туран" class="logo-img">
-      <span class="logo-text">Вестник университета Туран-Астана</span>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="{% url 'login' %}"><span class="material-icons">login</span> Войти</a></li>
-        <li><a href="news.html"><span class="material-icons">announcement</span> Новости</a></li>
-        <li><a href="archives.html"><span class="material-icons">archive</span> Архивы</a></li>
-        <li><a href="contacts.html"><span class="material-icons">contacts</span> Контакты</a></li>
-        <li><a href="about.html"><span class="material-icons">info</span> О нас</a></li>
-        <li><a href="authors.html"><span class="material-icons">edit</span> Авторам</a></li>
-      </ul>
-    </nav>
-  </header>
-
+{% block content %}
   <!-- Основной контент -->
   <main class="main-content">
     <h1>Публикации</h1>
@@ -98,10 +71,5 @@
   </main>
 
   <!-- Футер -->
-  <footer class="footer">
-    <p>&copy; 2025 Вестник Туран. Все права защищены.</p>
-    <p><a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
-  </footer>
 
-</body>
-</html>
+{% endblock %}}

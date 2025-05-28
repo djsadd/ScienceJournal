@@ -1,0 +1,56 @@
+{% extends 'redactor-base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main-content">
+  <section class="editor-review">
+    <h2>Проверка статьи</h2>
+
+    <div class="article-info">
+      <p><strong>Название статьи: </strong> {{ object.article.title }}</p>
+      <p><strong>Аннотация: </strong>{{ object.article.annotation|safe }}</p>
+      <p><strong>Ключевые слова:</strong> искусственный интеллект, обучение, нейросети</p>
+      <p><strong>Файл статьи:</strong> <a href="{{ object.article.file.url }}" target="_blank">Скачать</a></p>
+    </div>
+    {% if object.review %}
+    <div class="reviewer-response">
+      <h3>Ответ рецензента</h3>
+      <p><strong>Рецензент:</strong> {{ object.reviewer }}</p>
+      <p><strong>Комментарий:</strong> {{ object.review|safe }}</p>
+    </div>
+    {% endif %}
+
+    <form id="editorDecisionForm">
+      <div class="input-group">
+        <label for="editor-comment">Комментарий редактора</label>
+        <textarea id="editor-comment" placeholder="Введите комментарий для автора или рецензента" required></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn reject" onclick="sendBackToAuthor()">Отправить на доработку</button>
+        <button type="button" class="btn approve" onclick="sendToReviewer()">Отправить рецензенту</button>
+      </div>
+    </form>
+  </section>
+</main>
+</div>
+
+
+<script>
+  function sendBackToAuthor() {
+    const comment = document.getElementById('editor-comment').value.trim();
+    if (!comment) return alert('Пожалуйста, введите комментарий.');
+
+    alert('Статья отправлена автору на доработку с комментарием.');
+    // Здесь можно сделать POST-запрос на сервер с решением редактора
+  }
+
+  function sendToReviewer() {
+    const comment = document.getElementById('editor-comment').value.trim();
+    if (!comment) return alert('Пожалуйста, введите комментарий.');
+
+    alert('Статья отправлена рецензенту на рассмотрение.');
+    // Здесь можно сделать POST-запрос на сервер для направления статьи рецензенту
+  }
+</script>
+{% endblock %}}

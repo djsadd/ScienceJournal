@@ -8,6 +8,33 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Подключаем внешний файл стилей -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  .input-group {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .input-group select,
+  .input-group input,
+  .input-group textarea {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+  }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -15,25 +42,48 @@
   <main class="main-content">
     <section class="upload-section">
       <h2>Загрузить статью</h2>
-      <form method="post" enctype="multipart/form-data" id="uploadForm">
+  {{ form.media }}
+
+  <form method="post" enctype="multipart/form-data" id="uploadForm">
   {% csrf_token %}
   <div class="input-group">
-    {{ form.title.label_tag }}
+    Название статьи на Английском:
+    {{ form.category }}
+  </div>
+  <div class="input-group">
+    Название статьи на Английском:
     {{ form.title }}
   </div>
-
   <div class="input-group">
-    {{ form.annotation.label_tag }}
-    {{ form.annotation }}
+    Название статьи на Казахском:
+    {{ form.title_kk }}
+  </div>
+  <div class="input-group">
+    Название статьи на Русском:
+    {{ form.title_ru }}
   </div>
 
   <div class="input-group">
-    {{ form.authors.label_tag }}
+    Аннотация на Английском:
+    {{ form.annotation }}
+  </div>
+  <div class="input-group">
+    Аннотация на Казахском:
+    {{ form.annotation_kk }}
+  </div>
+  <div class="input-group">
+    Аннотация на Русском:
+    {{ form.annotation_ru }}
+  </div>
+
+
+  <div class="input-group">
+    Авторы:
     {{ form.authors }}
   </div>
 
   <div class="input-group">
-    {{ form.file.label_tag }}
+    Загрузить статью:
     {{ form.file }}
   </div>
 
@@ -43,4 +93,5 @@
     </section>
 
   </main>
+
 {% endblock %}}

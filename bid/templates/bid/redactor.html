@@ -1,0 +1,77 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактор – Проверка статьи</title>
+  <link rel="stylesheet" href="{% static 'css/redactor.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+<header class="header">
+  <div class="logo-container">
+    <img src="logo.png" alt="Вестник Туран" class="logo-img">
+    <span class="logo-text">Вестник университета Туран-Астана</span>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="editor-dashboard.html"><span class="material-icons">dashboard</span> Панель редактора</a></li>
+      <li><a href="review-queue.html"><span class="material-icons">assignment</span> Очередь статей</a></li>
+      <li><a href="profile.html"><span class="material-icons">account_circle</span> Профиль</a></li>
+      <li><a href="logout.html"><span class="material-icons">logout</span> Выход</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="main-content">
+  <section class="editor-review">
+    <h2>Проверка статьи</h2>
+
+    <div class="article-info">
+      <p><strong>Название статьи:</strong> Исследование в области ИИ</p>
+      <p><strong>Аннотация:</strong> Данная статья посвящена современным подходам к использованию ИИ в образовании...</p>
+      <p><strong>Ключевые слова:</strong> искусственный интеллект, обучение, нейросети</p>
+      <p><strong>Файл статьи:</strong> <a href="uploads/article1.pdf" target="_blank">Скачать</a></p>
+    </div>
+
+    <form id="editorDecisionForm">
+      <div class="input-group">
+        <label for="editor-comment">Комментарий редактора</label>
+        <textarea id="editor-comment" placeholder="Введите комментарий для автора или рецензента" required></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn reject" onclick="sendBackToAuthor()">Отправить на доработку</button>
+        <button type="button" class="btn approve" onclick="sendToReviewer()">Отправить рецензенту</button>
+      </div>
+    </form>
+  </section>
+</main>
+</div>
+<footer class="footer">
+  <p>&copy; 2025 Вестник Туран. Все права защищены.</p>
+</footer>
+
+<script>
+  function sendBackToAuthor() {
+    const comment = document.getElementById('editor-comment').value.trim();
+    if (!comment) return alert('Пожалуйста, введите комментарий.');
+
+    alert('Статья отправлена автору на доработку с комментарием.');
+    // Здесь можно сделать POST-запрос на сервер с решением редактора
+  }
+
+  function sendToReviewer() {
+    const comment = document.getElementById('editor-comment').value.trim();
+    if (!comment) return alert('Пожалуйста, введите комментарий.');
+
+    alert('Статья отправлена рецензенту на рассмотрение.');
+    // Здесь можно сделать POST-запрос на сервер для направления статьи рецензенту
+  }
+</script>
+
+</body>
+</html>

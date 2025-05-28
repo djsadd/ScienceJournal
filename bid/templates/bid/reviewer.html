@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Рецензирование статей</title>
+  <link rel="stylesheet" href="reviewer.css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- Хедер -->
+    <header class="header">
+      <div class="logo-container">
+        <img src="logo.png" alt="Вестник Туран" class="logo-img" />
+        <span class="logo-text">Вестник университета Туран-Астана</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html"><span class="material-icons">dashboard</span> Панель</a></li>
+          <li><a href="reviews.html"><span class="material-icons">rate_review</span> Рецензии</a></li>
+          <li><a href="profile.html"><span class="material-icons">account_circle</span> Профиль</a></li>
+          <li><a href="logout.html"><span class="material-icons">logout</span> Выход</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+      <section class="upload-section">
+        <h2>Рецензирование статьи</h2>
+
+        <div class="input-group">
+          <label>Название статьи</label>
+          <p>Пример названия статьи</p>
+        </div>
+
+        <div class="input-group">
+          <label>Аннотация</label>
+          <p>Краткая аннотация загруженной статьи...</p>
+        </div>
+
+        <div class="input-group">
+          <label>Файл статьи</label>
+          <a href="uploads/example.pdf" target="_blank">Скачать статью</a>
+        </div>
+
+        <form id="reviewForm" enctype="multipart/form-data">
+          <div class="input-group">
+            <label for="review">Текст рецензии</label>
+            <textarea id="review" placeholder="Введите текст рецензии..." required></textarea>
+          </div>
+
+          <div class="input-group">
+            <label for="reviewFile">Загрузить файл рецензии</label>
+            <input type="file" id="reviewFile" required/>
+          </div>
+
+          <div class="input-group">
+            <button type="submit" class="btn">Отправить рецензию</button>
+            <button type="button" class="btn" onclick="sendForRevision()">Отправить на доработку</button>
+            <button type="button" class="btn" onclick="rejectArticle()">Отклонить статью</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <p>&copy; 2025 Вестник Туран. Все права защищены.</p>
+    <p><a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('reviewForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Рецензия успешно отправлена!');
+    });
+
+    function sendForRevision() {
+      alert('Статья отправлена на доработку автору.');
+    }
+
+    function rejectArticle() {
+      alert('Статья отклонена.');
+    }
+  </script>
+</body>
+</html>

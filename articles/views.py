@@ -8,6 +8,7 @@ from .models import Article
 from bid.models import Bid, BidStatus
 # Forms
 from .forms import ArticleCreateForm
+from bid.forms import BidForm
 # Create your views here.
 
 
@@ -17,17 +18,28 @@ class MyArticles(LoginRequiredMixin, ListView):
     template_name = "articles/articles.html"
     login_url = '/users/login/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = BidForm()  # Передаём форму в контекст
+        return context
+
     def post(self, request, *args, **kwargs):
-        article_id = self.request.POST.get("article_id")
-        article = Article.objects.get(pk=article_id)
-        content = request.POST.get("content")
-        bids = Bid(
-            title=content,
-            article=article
-        )
-        bids.status = BidStatus.SUBMITTED
-        bids.save()
-        return redirect('my_bids')
+        form = BidForm(request.POST, request.FILES)
+        if form.is_valid():
+            bid = form.save(commit=False)
+            print(form, "VALID")
+            article_id = request.POST.get("article_id")
+            article = Article.objects.get(pk=article_id)
+            bid.article = article
+
+            bid.status = BidStatus.SUBMITTED
+            bid.responsible = request.user
+            bid.save()
+
+            return redirect("my_bids")
+        else:
+            print("Форма недействительна:", form.errors)
+            return self.get(request, *args, **kwargs)  # Или верни с ошибкой
 
 
 class Dashboard(LoginRequiredMixin, FormView):

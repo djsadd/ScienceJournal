@@ -1,4 +1,5 @@
 from django.contrib.auth import logout
+from django.shortcuts import render
 from django.shortcuts import redirect
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,6 +24,19 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+
+        if self.request.user.role == CustomUser.REDACTOR:
+            return render(request, "users/redactor-profile.html", context)
+        return render(request, "users/profile.html", context)
 
 
 def logout_view(request):

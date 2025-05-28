@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Редактировать заявку</title>
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/edit-request.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+<body>
+  <div class="page-wrapper">
+
+    <main class="main-content">
+      <section class="edit-request-section">
+        <h1>Редактировать заявку</h1>
+        <form action="/update-request" method="POST" class="edit-request-form">
+          <label for="title">Название заявки:</label>
+          <input type="text" id="title" name="title" value="Подать статью на публикацию" required />
+
+          <label for="date">Дата подачи:</label>
+          <input type="date" id="date" name="date" value="2025-04-01" required />
+
+          <label for="status">Статус заявки:</label>
+          <select id="status" name="status" required>
+            <option value="pending" selected>Ожидает рассмотрения</option>
+            <option value="review">В процессе рецензирования</option>
+            <option value="approved">Одобрена</option>
+            <option value="rejected">Отклонена</option>
+          </select>
+
+          <label for="description">Описание:</label>
+          <textarea id="description" name="description" rows="4" placeholder="Добавьте подробное описание заявки..."></textarea>
+
+          <div class="form-buttons">
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            <a href="requests.html" class="btn btn-secondary">Отмена</a>
+          </div>
+        </form>
+      </section>
+    </main>
+
+
+  </div>
+</body>
+{% endblock %}

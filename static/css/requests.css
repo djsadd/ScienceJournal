@@ -1,109 +1,11 @@
-/* Стили для модального окна */
-.modal {
-  margin-top: 50px;
-  display: none; /* Скрыто по умолчанию */
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный фон */
-  animation: fadeIn 0.3s ease-in-out;
+ul li a {
+  display: flex;
+  align-items: center;  /* Центрирует по вертикали */
+  gap: 8px;             /* Расстояние между иконкой и текстом */
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
 }
-
-.modal-content {
-  background-color: #fff;
-  margin: 5% auto;
-  padding: 40px;
-  border-radius: 12px;
-  width: 70%; /* Увеличена ширина */
-  max-width: 700px; /* Увеличена максимальная ширина */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Больше тени */
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-  }
-  to {
-      opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-      transform: translateY(-50px);
-  }
-  to {
-      transform: translateY(0);
-  }
-}
-
-.close {
-  color: #aaa;
-  font-size: 30px;
-  font-weight: bold;
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
-textarea {
-  width: 100%;
-  padding: 15px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  resize: vertical;
-  margin-bottom: 20px;
-  transition: border 0.3s ease;
-}
-
-textarea:focus {
-  border-color: #4CAF50;
-  outline: none;
-}
-
-button {
-  padding: 14px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-button:active {
-  background-color: #388e3c;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
 
 /* Основной контент */
 .main-content {
@@ -124,71 +26,109 @@ button:disabled {
     letter-spacing: 1px;
   }
   
-  /* Секция заявок */
-  .requests-section {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    margin-top: 30px;
-  }
-  
-  /* Элемент заявки */
-  .request-item {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-  }
-  
-  .request-item:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* Заголовок заявки */
-  .request-title {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  /* Дата подачи заявки */
-  .request-date {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 15px;
-  }
-  
-  /* Статус заявки */
-  .request-status {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 20px;
-  }
-  
-  /* Кнопки действий */
-  .request-actions {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .request-actions .btn {
-    background-color: rgba(114,20,56,0.9411764705882353);
-    color: white;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .request-actions .btn:hover {
-    background-color: #9c1a4a;
-    transform: scale(1.05);
-  }
+.requests-section {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.requests-section h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.filters {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.search-bar,
+.status-filter {
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-width: 250px;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus,
+.status-filter:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  outline: none;
+}
+
+.requests-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.request-item {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: transform 0.2s ease;
+}
+
+.request-item:hover {
+  transform: translateY(-4px);
+}
+
+.request-item h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #34495e;
+}
+
+.request-item p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #555;
+}
+
+.request-item .btn {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.request-item{
+  margin-bottom: 20px;
+}
+.btn {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: rgba(114,20,56,0.9411764705882353); /* Новый цвет хедера */
+}
+
+.add-request {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.add-request .btn {
+  background-color: rgba(114,20,56,0.9411764705882353); /* Новый цвет хедера */
+}
+
+.add-request .btn:hover {
+  background-color: rgba(114,20,56,0.9411764705882353); /* Новый цвет хедера */
+}
 
   
   /* Основной стиль */
@@ -405,7 +345,7 @@ button:disabled {
     margin-top: 40px;
     position: relative;
     animation: slideUp 1s ease-out;
-    border-top: 3px solid #0056b3;
+ 
   }
   
   footer p {
@@ -458,4 +398,23 @@ button:disabled {
       padding: 10px 20px;
     }
   }
-  
+.modal {
+  display: none; /* скрыто по умолчанию */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  width: 70%;
+  border-radius: 5px;
+  position: relative;
+}

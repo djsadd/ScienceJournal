@@ -1,0 +1,49 @@
+{% extends 'redactor-base.html' %}
+{% load static %}
+
+  {% block title %}
+    <title>Редактор – Очередь статей</title>
+  {% endblock %}
+
+
+  {% block css %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/redactor.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/Articlequeue.css' %}" />
+  {% endblock %}
+
+{% block content %}
+
+  <main class="main-content">
+    <section class="article-queue">
+      <h2>Очередь статей</h2>
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Дата отправки</th>
+            <th>Статус</th>
+            <th>Действие</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for obj in object_list %}
+        <tr>
+            <td data-label="№">{{ obj.pk }}</td>
+            <td data-label="Название">{{ obj.article.title }}</td>
+            <td data-label="Автор">{{ obj.article.authors }}</td>
+            <td data-label="Дата отправки">{{ obj.date_created }}</td>
+            <td data-label="Статус">{{ obj.get_status_display  }}</td>
+            <td data-label="Действие"><a href="{% url 'edit-request-redactor' obj.pk %}" class="btn-small">Проверить</a></td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+</div>
+{% endblock %}

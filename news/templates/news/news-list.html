@@ -1,0 +1,54 @@
+{% extends 'guest-base.html' %}
+{% load static %}
+{% block title %}
+<title>Новости — Вестник Туран</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+{% endblock %}
+
+
+ {% block content %}
+
+  <!-- Основной контент -->
+  <main class="main-content">
+    <h1>Новости журнала</h1>
+
+    <section class="news-list">
+      {% for obj in object_list %}
+      <article class="news-card">
+        <img src="{{ obj.image.url }}" alt="Прием статей" class="news-thumb" />
+        <div class="news-info">
+          <h2><a href="news-detail.html?id=1">{{ obj.title_eng }}</a></h2>
+          <p class="news-meta">Дата: {{ obj.date }} | Автор: Редакция</p>
+          <p>{{ obj.description_eng|safe }}</p>
+          <a href="news-detail.html" class="btn">Читать далее</a>
+        </div>
+      </article>
+      {% endfor %}
+
+      <article class="news-card">
+        <img src="img.jpg" alt="Январский выпуск" class="news-thumb" />
+        <div class="news-info">
+          <h2><a href="news-detail.html?id=2">Опубликован январский выпуск 2025 года</a></h2>
+          <p class="news-meta">Дата: 25 января 2025 | Автор: Редакция</p>
+          <p>Доступен для чтения и скачивания первый выпуск 2025 года. Включает статьи по экономике, образованию и менеджменту...</p>
+          <a href="news-detail.html" class="btn">Читать далее</a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Пагинация -->
+    <div class="pagination">
+      <a href="#" class="page-btn">«</a>
+      <a href="#" class="page-btn active">1</a>
+      <a href="#" class="page-btn">2</a>
+      <a href="#" class="page-btn">3</a>
+      <a href="#" class="page-btn">»</a>
+    </div>
+  </main>
+
+{% endblock %}
