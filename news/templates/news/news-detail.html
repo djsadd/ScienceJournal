@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'guest-base.html' %}
 
-</body>
-</html>
+{% load static %}
+{% block title %}
+  <title>Детали новости — Вестник Туран</title>
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+  <!-- Основной контент -->
+  <main class="main-content">
+    <article class="news-detail">
+      <h1>{{ object.title_eng }}</h1>
+      <p class="news-meta">Дата: 20 мая 2025 | Автор: Редакция</p>
+      <img src="{{ object.image.url }}" alt="Прием статей" class="news-detail-img" />
+
+      <div class="news-body">
+        {{ object.description_eng|safe }}
+      </div>
+    </article>
+
+    <a href="news.html" class="btn back-btn">← Назад к новостям</a>
+  </main>
+
+  <!-- Футер -->
+{% endblock %}

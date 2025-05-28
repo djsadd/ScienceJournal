@@ -21,10 +21,10 @@
       <article class="news-card">
         <img src="{{ obj.image.url }}" alt="Прием статей" class="news-thumb" />
         <div class="news-info">
-          <h2><a href="news-detail.html?id=1">{{ obj.title_eng }}</a></h2>
+          <h2><a href="{% url 'detail-news' obj.pk %}">{{ obj.title_eng }}</a></h2>
           <p class="news-meta">Дата: {{ obj.date }} | Автор: Редакция</p>
           <p>{{ obj.description_eng|safe }}</p>
-          <a href="news-detail.html" class="btn">Читать далее</a>
+          <a href="{% url 'detail-news' obj.pk %}" class="btn">Читать далее</a>
         </div>
       </article>
       {% endfor %}
@@ -32,7 +32,7 @@
       <article class="news-card">
         <img src="img.jpg" alt="Январский выпуск" class="news-thumb" />
         <div class="news-info">
-          <h2><a href="news-detail.html?id=2">Опубликован январский выпуск 2025 года</a></h2>
+          <h2><a href="">Опубликован январский выпуск 2025 года</a></h2>
           <p class="news-meta">Дата: 25 января 2025 | Автор: Редакция</p>
           <p>Доступен для чтения и скачивания первый выпуск 2025 года. Включает статьи по экономике, образованию и менеджменту...</p>
           <a href="news-detail.html" class="btn">Читать далее</a>

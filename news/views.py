@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import News
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 # Create your views here.
 
@@ -8,3 +9,8 @@ from django.views.generic.list import ListView
 class NewsListView(ListView):
     model = News
     template_name = "news/news-list.html"
+
+
+class NewsDetailView(DetailView):
+    model = News
+    template_name = "news/news-detail.html"
