@@ -1,0 +1,40 @@
+{% extends 'guest-base.html' %}
+{% load static %}
+  {% block title %}
+  <title>Архивы</title>
+  {% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="page-wrapper">
+
+
+    <!-- Контент -->
+    <main class="main-content">
+      <h1>Архивы публикаций</h1>
+      
+      <section class="archives-section">
+        {% for obj in object_list %}
+        <div class="archive-item">
+          <h2>{{ obj.title }}</h2>
+          <p><strong>Описание:</strong> {{ obj.description|safe }}</p>
+          <a href="{% url 'collection_detail' obj.pk %}" class="btn">Просмотреть онлайн</a>
+        </div>
+        {% endfor %}
+
+
+        <!-- Добавьте больше выпусков по мере необходимости -->
+      </section>
+    <!-- Пагинация -->
+    {% include "includes/pagination.html" %}
+
+
+    </main>
+
+  </div>
+    {% endblock %}

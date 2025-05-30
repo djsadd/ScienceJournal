@@ -1,0 +1,102 @@
+{% extends 'guest-base.html' %}
+{% load static %}
+{% block title %}
+  <title>Выпуск №1 (Январь 2025)</title>
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+ <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8fafc;
+      margin: 0;
+      color: #333;
+    }
+
+    .page-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .issue-info {
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    .article-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .article-title {
+      font-size: 20px;
+      margin: 0 0 10px;
+    }
+
+    .article-meta {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .article-annotation {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .btn-download {
+      background-color: #1e3a8a;
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-block;
+    }
+
+    .btn-download:hover {
+      background-color: #2745a2;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #999;
+      font-size: 14px;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <div class="page-wrapper">
+    <h1>Выпуск №1 (Январь 2025)</h1>
+    <p class="issue-info"><strong>Темы выпуска:</strong> Экономика, Менеджмент, Образование</p>
+
+    <!-- Статья 1 -->
+    {% for obj in object.articles.all %}
+    <div class="article-card">
+      <h2 class="article-title">{{ obj.title }}</h2>
+      <p class="article-meta">Автор: {{ obj.authors }}</p>
+      <p class="article-annotation">Аннотация: {{ obj.annotation|safe }}</p>
+      <a href="{{ obj.file.url }}" class="btn-download" download>Скачать PDF</a>
+    </div>
+    {% endfor %}
+
+
+  </div>
+{% endblock %}}

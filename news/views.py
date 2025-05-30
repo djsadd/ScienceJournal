@@ -9,6 +9,7 @@ from django.views.generic.detail import DetailView
 class NewsListView(ListView):
     model = News
     template_name = "news/news-list.html"
+    paginate_by = 3
 
 
 class NewsDetailView(DetailView):

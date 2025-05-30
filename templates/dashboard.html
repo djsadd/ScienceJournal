@@ -44,48 +44,89 @@
       <h2>Загрузить статью</h2>
   {{ form.media }}
 
-  <form method="post" enctype="multipart/form-data" id="uploadForm">
-  {% csrf_token %}
-  <div class="input-group">
-    Название статьи на Английском:
-    {{ form.category }}
-  </div>
-  <div class="input-group">
-    Название статьи на Английском:
-    {{ form.title }}
-  </div>
-  <div class="input-group">
-    Название статьи на Казахском:
-    {{ form.title_kk }}
-  </div>
-  <div class="input-group">
-    Название статьи на Русском:
-    {{ form.title_ru }}
-  </div>
+              <form method="post" enctype="multipart/form-data" id="uploadForm">
+              {% csrf_token %}
+              <div class="input-group">
+                Выберите тип статьи:
+                {{ form.category }}
+              </div>
+              <div class="input-group">
+                Название статьи на Английском:
+                {{ form.title }}
+              </div>
+              <div class="input-group">
+                Название статьи на Казахском:
+                {{ form.title_kk }}
+              </div>
+              <div class="input-group">
+                Название статьи на Русском:
+                {{ form.title_ru }}
+              </div>
 
-  <div class="input-group">
-    Аннотация на Английском:
-    {{ form.annotation }}
-  </div>
-  <div class="input-group">
-    Аннотация на Казахском:
-    {{ form.annotation_kk }}
-  </div>
-  <div class="input-group">
-    Аннотация на Русском:
-    {{ form.annotation_ru }}
-  </div>
+              <div class="input-group">
+                Аннотация на Английском:
+                {{ form.annotation }}
+              </div>
+              <div class="input-group">
+                Аннотация на Казахском:
+                {{ form.annotation_kk }}
+              </div>
+              <div class="input-group">
+                Аннотация на Русском:
+                {{ form.annotation_ru }}
+              </div>
 
 
-  <div class="input-group">
-    Авторы:
-    {{ form.authors }}
-  </div>
+              <div class="input-group">
+                Авторы:
+                {{ form.authors }}
+              </div>
 
-  <div class="input-group">
-    Загрузить статью:
-    {{ form.file }}
-  </div>
+              <div class="input-group">
+                Загрузить статью:
+                {{ form.file }}
+              </div>
+              <form method="POST" enctype="multipart/form-data" id="publicationForm{{ obj.id }}">
+              {% csrf_token %}
+                <input type="hidden" name="article_id" value="{{ obj.pk }}">
+
+              <div class="form-group">
+                {{ bid_form.exclusive_submission.label_tag }}
+                {{ bid_form.exclusive_submission }}
+              </div>
+
+              <div class="form-group">
+                {{ bid_form.no_plagiarism.label_tag }}
+                {{ bid_form.no_plagiarism }}
+              </div>
+
+              <div class="form-group">
+                {{ bid_form.authors_confirmed.label_tag }}
+                {{ bid_form.authors_confirmed }}
+              </div>
+
+              <div class="form-group">
+                {{ bid_form.ai_usage_details.label_tag }}<br>
+                {{ bid_form.ai_usage_details }}
+              </div>
+
+              <div class="form-group">
+                {{ bid_form.manuscript.label_tag }}
+                {{ bid_form.manuscript }}
+              </div>
+
+              <div class="form-group">
+                {{ bid_form.authors_file.label_tag }}
+                {{ bid_form.authors_file }}
+              </div>
+
+              <div class="form-group">
+                {{ bid_form.cover_letter.label_tag }}
+                {{ bid_form.cover_letter }}
+              </div>
+
+              <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
 
   <button type="submit" class="btn">Загрузить статью</button>
 </form>

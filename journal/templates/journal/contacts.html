@@ -1,0 +1,43 @@
+{% extends 'guest-base.html' %}
+{% load static %}
+  {% block title %}
+  <title>Контакты</title>
+  {% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div class="page-wrapper">
+
+
+    <!-- Контент -->
+    <main class="main-content">
+      <h1>Свяжитесь с нами</h1>
+      <section class="contact-section">
+        <div class="contact-card">
+          <h2><span class="material-icons">location_on</span> Адрес</h2>
+          <p>г. Астана, пр. Ықылас дүкенұлы, 29, Университет Туран-Астана</p>
+        </div>
+        
+        <div class="contact-card">
+          <h2><span class="material-icons">email</span> Электронная почта</h2>
+          <p><a href="mailto:journal@tau-edu.kz">journal@tau-edu.kz</a></p>
+        </div>
+        
+        <div class="contact-card">
+          <h2><span class="material-icons">phone</span> Телефон</h2>
+          <p>+7 (7172) 64-17-17 (вн. 109)</p>
+        </div>
+
+        <div class="contact-card">
+          <h2><span class="material-icons">person</span> Ответственный редактор</h2>
+          <p>Досанов А.Ж.<br>e-mail: <a href="mailto:editor@tau-edu.kz">editor@tau-edu.kz</a></p>
+        </div>
+      </section>
+    </main>
+
+
+  </div>
+{% endblock %}

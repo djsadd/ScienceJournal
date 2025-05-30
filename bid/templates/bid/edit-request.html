@@ -17,27 +17,72 @@
     <main class="main-content">
       <section class="edit-request-section">
         <h1>Редактировать заявку</h1>
-        <form action="/update-request" method="POST" class="edit-request-form">
-          <label for="title">Название заявки:</label>
-          <input type="text" id="title" name="title" value="Подать статью на публикацию" required />
+          {{ article_form.media }}
+        <form method="POST" class="edit-request-form" enctype="multipart/form-data" id="uploadForm">
+        {% csrf_token %}
+              <div class="input-group">
+                Выберите тип статьи:
+                {{ article_form.category }}
+              </div>
+              <div class="input-group">
+                Название статьи на Английском:
+                {{ article_form.title }}
+              </div>
+              <div class="input-group">
+                Название статьи на Казахском:
+                {{ article_form.title_kk }}
+              </div>
+              <div class="input-group">
+                Название статьи на Русском:
+                {{ article_form.title_ru }}
+              </div>
 
-          <label for="date">Дата подачи:</label>
-          <input type="date" id="date" name="date" value="2025-04-01" required />
+              <div class="input-group">
+                Аннотация на Английском:
+                {{ article_form.annotation }}
+              </div>
+              <div class="input-group">
+                Аннотация на Казахском:
+                {{ article_form.annotation_kk|safe }}
+              </div>
+              <div class="input-group">
+                Аннотация на Русском:
+                {{ article_form.annotation_ru }}
+              </div>
+              <div class="input-group">
+                Авторы:
+                {{ article_form.authors }}
+              </div>
 
-          <label for="status">Статус заявки:</label>
-          <select id="status" name="status" required>
-            <option value="pending" selected>Ожидает рассмотрения</option>
-            <option value="review">В процессе рецензирования</option>
-            <option value="approved">Одобрена</option>
-            <option value="rejected">Отклонена</option>
-          </select>
+              <div class="input-group">
+                Загрузить статью:
+                {{ article_form.file }}
+              </div>
+          {% csrf_token %}
+                <input type="hidden" name="article_id" value="{{ obj.pk }}">
+              <div class="form-group">
+                {{ form.ai_usage_details.label_tag }}<br>
+                {{ form.ai_usage_details }}
+              </div>
 
-          <label for="description">Описание:</label>
-          <textarea id="description" name="description" rows="4" placeholder="Добавьте подробное описание заявки..."></textarea>
+              <div class="form-group">
+                {{ form.manuscript.label_tag }}
+                {{ form.manuscript }}
+              </div>
+
+              <div class="form-group">
+                {{ form.authors_file.label_tag }}
+                {{ form.authors_file }}
+              </div>
+
+              <div class="form-group">
+                {{ form.cover_letter.label_tag }}
+                {{ form.cover_letter }}
+              </div>
 
           <div class="form-buttons">
             <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-            <a href="requests.html" class="btn btn-secondary">Отмена</a>
+<!--            <a href="requests.html" class="btn btn-secondary">Отмена</a>-->
           </div>
         </form>
       </section>

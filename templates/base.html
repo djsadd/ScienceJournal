@@ -9,7 +9,7 @@
   <title>Профиль</title>
   {% endblock %}
     {% block css %}
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% endblock %}
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -18,13 +18,15 @@
   <!-- Хедер -->
   <header class="header">
         <div class="logo-container">
+          <a href="{% url 'home' %}">
           <img src="{% static 'images/logo.png' %}" alt="Вестник Туран" class="logo-img">
+          </a>
           <span class="logo-text">Вестник университета Туран-Астана</span>
         </div>
     <nav>
       <ul>
         <li><a href="{% url 'dashboard' %}"><span class="material-icons">dashboard</span> Моя панель</a></li>
-        <li><a href="{% url 'my_articles' %}"><span class="material-icons">article</span> Мои статьи</a></li>
+<!--        <li><a href="{% url 'my_articles' %}"><span class="material-icons">article</span> Мои статьи</a></li>-->
         <li><a href="{% url 'my_bids' %}"><span class="material-icons">assignment</span> Мои заявки</a></li>
         <li><a href="{% url 'profile' %}"><span class="material-icons">account_circle</span> Профиль</a></li>
         <li><a href="{% url 'logout' %}"><span class="material-icons">logout</span> Выход</a></li>

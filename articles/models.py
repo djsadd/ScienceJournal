@@ -6,6 +6,13 @@ from files.models import File
 # Create your models here.
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     title_en = models.CharField(max_length=255, null=True, blank=True)
     title_kk = models.CharField(max_length=255, null=True, blank=True)
@@ -15,9 +22,17 @@ class Category(models.Model):
         return f"{self.title_ru}"
 
 
+class LanguageChoicesArticle(models.TextChoices):
+    RU = "Русский"
+    KZ = "Казахский"
+    ENG = "Английский"
+
+
 class Article(models.Model):
-    file = models.FileField(upload_to='articles/', null=True, blank=True)  # <-- сюда будет загружаться файл
-    #PDF
+    file = models.FileField(upload_to='articles/')  # <-- сюда будет загружаться файл
+    # PDF
+    language = models.CharField(choices=LanguageChoicesArticle.choices, default=LanguageChoicesArticle.RU)
+    tags = models.ManyToManyField(Tag, related_name="articles")
     date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     title_kk = models.CharField(max_length=255, null=True, blank=True)
@@ -28,3 +43,6 @@ class Article(models.Model):
     authors = models.CharField(max_length=255, null=True, blank=True)
     user = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, null=True, blank=True)
+
+
+

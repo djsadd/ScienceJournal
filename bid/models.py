@@ -4,7 +4,7 @@ from django.db import models
 from articles.models import Article
 from users.models import CustomUser
 from ckeditor.fields import RichTextField
-
+from journal.models import Collection
 
 # Create your models here.
 
@@ -23,7 +23,7 @@ class BidStatus(models.TextChoices):
 
 class Bid(models.Model):
     status = models.CharField(max_length=255, choices=BidStatus.choices, default=BidStatus.DRAFT)
-
+    # collection = models.ForeignKey(to=Collection, on_delete=models.PROTECT, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     review = RichTextField(null=True, blank=True)
     reviewer = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, blank=True)
@@ -75,4 +75,6 @@ class Bid(models.Model):
     )
 
 
-
+class ArticleVersion(models.Model):
+    bid = models.ForeignKey(Bid, on_delete=models.CASCADE, related_name="versions")
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="article_version")

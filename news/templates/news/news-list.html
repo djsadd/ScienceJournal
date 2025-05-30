@@ -1,5 +1,7 @@
 {% extends 'guest-base.html' %}
 {% load static %}
+{% load bid_filters %}
+
 {% block title %}
 <title>Новости — Вестник Туран</title>
 {% endblock %}
@@ -23,32 +25,19 @@
         <div class="news-info">
           <h2><a href="{% url 'detail-news' obj.pk %}">{{ obj.title_eng }}</a></h2>
           <p class="news-meta">Дата: {{ obj.date }} | Автор: Редакция</p>
-          <p>{{ obj.description_eng|safe }}</p>
+          <p>{{ obj.description_eng|clean_preview:50 }}</p>
+
           <a href="{% url 'detail-news' obj.pk %}" class="btn">Читать далее</a>
         </div>
       </article>
       {% endfor %}
 
-      <article class="news-card">
-        <img src="img.jpg" alt="Январский выпуск" class="news-thumb" />
-        <div class="news-info">
-          <h2><a href="">Опубликован январский выпуск 2025 года</a></h2>
-          <p class="news-meta">Дата: 25 января 2025 | Автор: Редакция</p>
-          <p>Доступен для чтения и скачивания первый выпуск 2025 года. Включает статьи по экономике, образованию и менеджменту...</p>
-          <a href="news-detail.html" class="btn">Читать далее</a>
-        </div>
-      </article>
 
     </section>
 
     <!-- Пагинация -->
-    <div class="pagination">
-      <a href="#" class="page-btn">«</a>
-      <a href="#" class="page-btn active">1</a>
-      <a href="#" class="page-btn">2</a>
-      <a href="#" class="page-btn">3</a>
-      <a href="#" class="page-btn">»</a>
-    </div>
+    {% include "includes/pagination.html" %}
+
   </main>
 
 {% endblock %}

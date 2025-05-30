@@ -5,7 +5,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 # My Models
 from .models import Article
-from bid.models import Bid, BidStatus
+from bid.models import Bid, BidStatus, ArticleVersion
 # Forms
 from .forms import ArticleCreateForm
 from bid.forms import BidForm
@@ -48,9 +48,31 @@ class Dashboard(LoginRequiredMixin, FormView):
     success_url = "/articles/my/"
     login_url = '/users/login/'
 
-    def form_valid(self, form):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['bid_form'] = BidForm(self.request.POST or None, self.request.FILES or None)
+        return context
 
-        article = form.save()
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        article_form = self.get_form()
+        bid_form = BidForm(request.POST, request.FILES)
+
+        if article_form.is_valid() and bid_form.is_valid():
+            return self.forms_valid(article_form, bid_form)
+        else:
+            return self.form_invalid(article_form)
+
+    def forms_valid(self, article_form, bid_form):
+        article = article_form.save(commit=False)
         article.user = self.request.user
+        article.save()
 
-        return super().form_valid(form)
+        bid = bid_form.save(commit=False)
+        bid.article = article
+        bid.status = BidStatus.SUBMITTED
+        bid.responsible = self.request.user
+        bid.save()
+        ArticleVersion(article=article, bid=bid).save()
+
+        return super().form_valid(article_form)
