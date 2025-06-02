@@ -37,4 +37,5 @@ class DashboardViewTests(TestCase):
         self.client.login(username='author', password='password123')
         response = self.client.post(self.url, data={})
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, 'form', 'title', 'This field is required.')
+        form = response.context['form']
+        self.assertFormError(form, 'title', 'This field is required.')
