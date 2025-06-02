@@ -1,8 +1,8 @@
-name: Django CI/CD with Telegram
+name: Django CI/CD with SSH password and Telegram
 
 on:
   push:
-    branches: [ main ]  # Или любая ветка, по которой запускается деплой
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -26,13 +26,14 @@ jobs:
       run: |
         python manage.py test
 
-    - name: Deploy via SSH
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
+    - name: Install sshpass
+      run: sudo apt-get update && sudo apt-get install -y sshpass
+
+    - name: Deploy to server using SSH password
+      env:
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+      run: |
+        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
           cd /path/to/your/project
           git pull origin main
           source venv/bin/activate
@@ -40,6 +41,7 @@ jobs:
           python manage.py migrate
           python manage.py collectstatic --noinput
           sudo systemctl restart gunicorn
+        EOF
 
     - name: Telegram Success Notification
       if: success()
