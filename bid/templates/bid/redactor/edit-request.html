@@ -11,6 +11,8 @@
       <p><strong>Аннотация: </strong>{{ object.article.annotation|safe }}</p>
       <p><strong>Ключевые слова:</strong> искусственный интеллект, обучение, нейросети</p>
       <p><strong>Файл статьи:</strong> <a href="{{ object.article.file.url }}" target="_blank">Скачать</a></p>
+      <p><strong>Статус:</strong> {{ object.get_status_display }}</p>
+
     </div>
     {% if object.review %}
     <div class="reviewer-response">
@@ -20,15 +22,12 @@
     </div>
     {% endif %}
 
-    <form id="editorDecisionForm">
-      <div class="input-group">
-        <label for="editor-comment">Комментарий редактора</label>
-        <textarea id="editor-comment" placeholder="Введите комментарий для автора или рецензента" required></textarea>
-      </div>
-
+    <form id="editorDecisionForm" method="POST">
+      {% csrf_token %}
       <div class="btn-group">
-        <button type="button" class="btn reject" onclick="sendBackToAuthor()">Отправить на доработку</button>
-        <button type="button" class="btn approve" onclick="sendToReviewer()">Отправить рецензенту</button>
+        <button type="submit" class="btn reject" name="decision" value="reject">Отправить на доработку</button>
+        <button type="submit" class="btn approve" name="decision" value="approve">Отправить рецензенту</button>
+        <button type="submit" class="btn approve" name="decision" value="accept">Принять к публикации</button>
       </div>
     </form>
   </section>

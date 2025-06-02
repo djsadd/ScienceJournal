@@ -36,6 +36,10 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
         if self.request.user.role == CustomUser.REDACTOR:
             return render(request, "users/redactor-profile.html", context)
+
+        if self.request.user.role == CustomUser.REVIEWER:
+            return render(request, "users/redactor-profile.html", context)
+
         return render(request, "users/profile.html", context)
 
 

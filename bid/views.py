@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
@@ -10,8 +10,11 @@ from users.models import CustomUser
 from .models import Bid, BidStatus
 from bid.forms import BidForm
 from articles.forms import ArticleCreateForm, ArticleUpdateForm
+from .forms import BidReviewForm
 from .models import ArticleVersion
 # Create your views here.
+from .components import send_to_recent
+from django.db.models import Q
 
 
 class BidListView(LoginRequiredMixin, ListView):
@@ -22,12 +25,17 @@ class BidListView(LoginRequiredMixin, ListView):
 
     def get_paginate_by(self, queryset):
         if self.request.user.role == CustomUser.REDACTOR:
-            return 10  # например, для редактора показывать по 10 заявок
-        return 3  # для остальных — по 3
+            return 10
+        return 3
 
     def get_queryset(self):
         if self.request.user.role == CustomUser.REDACTOR:
             return super().get_queryset()
+
+        if self.request.user.role == CustomUser.REVIEWER:
+            return super().get_queryset().filter(
+                Q(status=BidStatus.SENT_FOR_REVIEW) | Q(status=BidStatus.RE_REVIEW)
+            )
 
         queryset = super().get_queryset()
         return queryset.filter(responsible=self.request.user)
@@ -39,10 +47,13 @@ class BidListView(LoginRequiredMixin, ListView):
         if self.request.user.role == CustomUser.REDACTOR:
             return render(request, template_name="bid/redactor/bid-list.html", context=context)
 
+        if self.request.user.role == CustomUser.REVIEWER:
+            return render(request, template_name="bid/reviewer/bid-list.html", context=context)
+
         return render(request, template_name=self.template_name, context=context)
 
 
-class BidDetailView(DetailView):
+class BidDetailViewRedactor(DetailView):
     model = Bid
     template_name = "bid/redactor/edit-request.html"
 
@@ -55,6 +66,26 @@ class BidDetailView(DetailView):
 
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        decision = request.POST.get('decision')
+        bid_obj = self.get_object()
+        if not bid_obj.status == BidStatus.SENT_FOR_REVIEW and decision == "approve":
+            bid_obj = send_to_recent(request, bid_obj)
+        if decision == "reject":
+            bid_obj.status = BidStatus.REJECTED
+            bid_obj.save()
+        if decision == "accept":
+            bid_obj.status = BidStatus.ACCEPTED
+            bid_obj.save()
+        return redirect("my_bids")
+
+
+class BidDetailViewReviewer(UpdateView):
+    model = Bid
+    template_name = "bid/reviewer/edit-request.html"
+    form_class = BidReviewForm
+    success_url = reverse_lazy("my_bids")  # замените на нужный URL
 
 
 class UpdateBidView(UpdateView):

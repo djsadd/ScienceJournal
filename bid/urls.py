@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 # My Views
-from .views import BidListView, UpdateBidView, BidDetailView
+from .views import BidListView, UpdateBidView, BidDetailViewRedactor, BidDetailViewReviewer
 
 
 urlpatterns = [
     path("my/", BidListView.as_view(), name="my_bids"),
     path("edit/<int:pk>", UpdateBidView.as_view(), name="edit-request"),
-    path("request/<int:pk>", BidDetailView.as_view(), name="edit-request-redactor"),
+    path("request/<int:pk>", BidDetailViewRedactor.as_view(), name="edit-request-redactor"),
+    path("request-review/<int:pk>", BidDetailViewReviewer.as_view(), name="edit-request-reviewer"),
 ]

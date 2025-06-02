@@ -9,6 +9,7 @@ from bid.models import Bid, BidStatus, ArticleVersion
 # Forms
 from .forms import ArticleCreateForm
 from bid.forms import BidForm
+from users.models import CustomUser
 # Create your views here.
 
 
@@ -47,6 +48,15 @@ class Dashboard(LoginRequiredMixin, FormView):
     form_class = ArticleCreateForm
     success_url = "/articles/my/"
     login_url = '/users/login/'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        if request.user.role == CustomUser.REDACTOR or request.user.role == CustomUser.REVIEWER:
+            return redirect("my_bids")
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

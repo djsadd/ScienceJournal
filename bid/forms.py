@@ -1,5 +1,5 @@
 from django import forms
-from .models import Bid
+from .models import Bid, BidStatus
 
 
 class BidForm(forms.ModelForm):
@@ -24,6 +24,22 @@ class BidForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Устанавливаем required=True для всех полей
         for field_name, field in self.fields.items():
             field.required = True
+
+
+class BidReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = Bid
+        fields = ["review", ]
+        labels = {
+            "review": "Рецензия",
+        }
+
+    def save(self, commit=True):
+        bid = super().save(commit=False)
+        bid.status = BidStatus.EDITOR_REVIEW
+        if commit:
+            bid.save()
+        return bid
