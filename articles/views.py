@@ -50,10 +50,9 @@ class Dashboard(LoginRequiredMixin, FormView):
     login_url = '/users/login/'
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
-
-        if request.user.role == CustomUser.REDACTOR or request.user.role == CustomUser.REVIEWER:
+        if request.user.is_authenticated and (
+                request.user.role == CustomUser.REDACTOR or request.user.role == CustomUser.REVIEWER
+        ):
             return redirect("my_bids")
 
         return super().dispatch(request, *args, **kwargs)
