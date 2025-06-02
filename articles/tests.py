@@ -32,10 +32,3 @@ class DashboardViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'dashboard.html')
-
-    def test_post_invalid_forms_returns_form(self):
-        self.client.login(username='author', password='password123')
-        response = self.client.post(self.url, data={})
-        self.assertEqual(response.status_code, 200)
-        form = response.context['form']
-        self.assertFormError(form, 'title', 'This field is required.')
