@@ -15,6 +15,8 @@ from .models import ArticleVersion
 # Create your views here.
 from .components import send_to_recent
 from django.db.models import Q
+from permissions.redactor import RedactorRequiredMixin
+from permissions.Author import BidAccessPermissionMixin
 
 
 class BidListView(LoginRequiredMixin, ListView):
@@ -53,7 +55,7 @@ class BidListView(LoginRequiredMixin, ListView):
         return render(request, template_name=self.template_name, context=context)
 
 
-class BidDetailViewRedactor(DetailView):
+class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
     model = Bid
     template_name = "bid/redactor/edit-request.html"
 
@@ -81,14 +83,14 @@ class BidDetailViewRedactor(DetailView):
         return redirect("my_bids")
 
 
-class BidDetailViewReviewer(UpdateView):
+class BidDetailViewReviewer(BidAccessPermissionMixin, UpdateView):
     model = Bid
     template_name = "bid/reviewer/edit-request.html"
     form_class = BidReviewForm
     success_url = reverse_lazy("my_bids")  # замените на нужный URL
 
 
-class UpdateBidView(UpdateView):
+class UpdateBidView(BidAccessPermissionMixin, UpdateView):
     template_name = "bid/edit-request.html"
     model = Bid
     fields = ["manuscript", "authors_file", "cover_letter", "ai_usage_details"]
@@ -97,12 +99,12 @@ class UpdateBidView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['article_form'] = kwargs.get('article_form') or ArticleUpdateForm(instance=self.object.article)
         context['bid_form'] = kwargs.get('bid_form') or self.get_form()
+        print(context['article_form'].files)
         return context
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()  # текущий Bid
+        self.object = self.get_object()
 
-        # не передаём instance — создаём новую статью
         article_form = ArticleUpdateForm(request.POST, request.FILES)
         bid_form = self.get_form()
 
@@ -113,6 +115,10 @@ class UpdateBidView(UpdateView):
 
     def forms_valid(self, article_form, bid_form):
         new_article = article_form.save(commit=False)
+
+        if not article_form.cleaned_data.get('file'):
+            new_article.file = self.object.article.file
+
         new_article.user = self.request.user
         new_article.save()
 

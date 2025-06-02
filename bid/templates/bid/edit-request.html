@@ -17,54 +17,17 @@
     <main class="main-content">
       <section class="edit-request-section">
         <h1>Редактировать заявку</h1>
-          {{ article_form.media }}
-        <form method="POST" class="edit-request-form" enctype="multipart/form-data" id="uploadForm">
+        {{ article_form.media }}
+        <form enctype="multipart/form-data" method="POST" class="edit-request-form"  id="uploadForm">
         {% csrf_token %}
-              <div class="input-group">
-                Выберите тип статьи:
-                {{ article_form.category }}
-              </div>
-              <div class="input-group">
-                Название статьи на Английском:
-                {{ article_form.title }}
-              </div>
-              <div class="input-group">
-                Название статьи на Казахском:
-                {{ article_form.title_kk }}
-              </div>
-              <div class="input-group">
-                Название статьи на Русском:
-                {{ article_form.title_ru }}
-              </div>
-
-              <div class="input-group">
-                Аннотация на Английском:
-                {{ article_form.annotation }}
-              </div>
-              <div class="input-group">
-                Аннотация на Казахском:
-                {{ article_form.annotation_kk|safe }}
-              </div>
-              <div class="input-group">
-                Аннотация на Русском:
-                {{ article_form.annotation_ru }}
-              </div>
-              <div class="input-group">
-                Авторы:
-                {{ article_form.authors }}
-              </div>
-
-              <div class="input-group">
-                Загрузить статью:
-                {{ article_form.file }}
-              </div>
-          {% csrf_token %}
-                <input type="hidden" name="article_id" value="{{ obj.pk }}">
+            <div class="input-group">
+              {{ article_form.as_p }}
+            </div>
+            <input type="hidden" name="article_id" value="{{ obj.pk }}">
               <div class="form-group">
                 {{ form.ai_usage_details.label_tag }}<br>
                 {{ form.ai_usage_details }}
               </div>
-
               <div class="form-group">
                 {{ form.manuscript.label_tag }}
                 {{ form.manuscript }}
@@ -79,10 +42,8 @@
                 {{ form.cover_letter.label_tag }}
                 {{ form.cover_letter }}
               </div>
-
           <div class="form-buttons">
             <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-<!--            <a href="requests.html" class="btn btn-secondary">Отмена</a>-->
           </div>
         </form>
       </section>
