@@ -92,10 +92,9 @@ DATABASES = {
 
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    "/var/www/static/",
-]
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+
 
 LOGIN_REDIRECT_URL = '/users/profile/'
 LOGOUT_REDIRECT_URL = 'login/'
