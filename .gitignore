@@ -1,1 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+venv/
+env/
+ENV/
+.venv/
+
+# Django
+*.sqlite3
+db.sqlite3
+/media/
+staticfiles/
+
+# Django migrations
+*/migrations/*.pyc
+*/migrations/*.py[cod]
+*/migrations/__pycache__/
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Pytest cache
+.pytest_cache/
+
+# VSCode
+.vscode/
+
+# IDEs
+.idea/
+*.iml
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Byte-compiled / optimized / DLL files
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local settings file (если есть)
+local_settings.py
+
+# If using celery
+celerybeat-schedule
+celerybeat.pid
+
+# If using coverage.py
+.coverage
+.cache
+
+# Static files collected by collectstatic (если у вас есть staticfiles)
+staticfiles/
+
+# Media files (если они у вас хранятся локально)
 media/

@@ -2,10 +2,9 @@ from django.db import models
 from ckeditor.fields import RichTextField
 
 # My Models
-from files.models import File
-# Create your models here.
 
 
+# Model for keywords of article
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True)
 
@@ -13,6 +12,7 @@ class Tag(models.Model):
         return self.name
 
 
+# Model for categories of article
 class Category(models.Model):
     title_en = models.CharField(max_length=255, null=True, blank=True)
     title_kk = models.CharField(max_length=255, null=True, blank=True)
@@ -22,14 +22,16 @@ class Category(models.Model):
         return f"{self.title_ru}"
 
 
+# Languages article
 class LanguageChoicesArticle(models.TextChoices):
     RU = "Русский"
     KZ = "Казахский"
     ENG = "Английский"
 
 
+# Article model
 class Article(models.Model):
-    file = models.FileField(upload_to='articles/')  # <-- сюда будет загружаться файл
+    file = models.FileField(upload_to='articles/')
     # PDF
     language = models.CharField(choices=LanguageChoicesArticle.choices, default=LanguageChoicesArticle.RU)
     tags = models.ManyToManyField(Tag, related_name="articles")
