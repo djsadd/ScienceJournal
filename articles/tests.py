@@ -31,5 +31,5 @@ class DashboardViewTests(TestCase):
         self.client.login(username='author', password='password123')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'dashboard.html')
+        self.assertTemplateUsed(response, 'articles/dashboard.html')
 

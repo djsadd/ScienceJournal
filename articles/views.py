@@ -17,7 +17,7 @@ from users.models import CustomUser
 class Dashboard(LoginRequiredMixin, FormView):
     template_name = "articles/dashboard.html"
     form_class = ArticleCreateForm
-    success_url = "/articles/my/"
+    success_url = "/articles/dashboard/"
     login_url = '/users/login/'
 
     def dispatch(self, request, *args, **kwargs):
