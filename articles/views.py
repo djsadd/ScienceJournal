@@ -37,10 +37,11 @@ class Dashboard(LoginRequiredMixin, FormView):
         self.object = None
         article_form = self.get_form()
         bid_form = BidForm(request.POST, request.FILES)
-
         if article_form.is_valid() and bid_form.is_valid():
             return self.forms_valid(article_form, bid_form)
         else:
+            print(article_form.errors)
+            print(bid_form.errors)
             return self.form_invalid(article_form)
 
     def forms_valid(self, article_form, bid_form):

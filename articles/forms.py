@@ -12,7 +12,8 @@ class ArticleCreateForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ["category", "file", "title", "title_kk", "title_ru", "annotation", "annotation_kk", "annotation_ru", "authors"]
+        fields = ["category", "file", "title", "title_kk", "title_ru", "annotation", "annotation_kk", "annotation_ru",
+                  "authors"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
