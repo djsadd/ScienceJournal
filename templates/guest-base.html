@@ -26,7 +26,7 @@
     <nav>
       <ul>
         {% if not user.is_authenticated %}
-            <li><a href="{% url 'login' %}"><span class="material-icons">login</span> Войти</a></li>
+            <li><a href="{% url 'login' %}"><span class="material-icons">login</span> Войти в систему</a></li>
         {% endif %}
         {% if user.is_authenticated %}
           <li><a href="{% url 'dashboard' %}"><span class="material-icons">dashboard</span>Панель управления</a></li>
