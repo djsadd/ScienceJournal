@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-7clcqx9fza*&4o^8v(fg2o%gx_2p5@(-mvk9e3q=azwn^++vtf
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -91,9 +89,6 @@ DATABASES = {
 }
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
 LOGIN_REDIRECT_URL = '/users/profile/'
 LOGOUT_REDIRECT_URL = 'login/'
 
@@ -137,15 +132,12 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Папка, куда соберётся вся статика
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
-# URL, по которому будет доступна статика
+print(STATIC_ROOT)
 STATIC_URL = '/static/'
 
-# Дополнительные директории, где лежат статики, если нужно
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'ScienceJournal/staticfiles'),  # если используется
+    os.path.join(BASE_DIR, 'staticfiles'),  # если используется
 ]
 
 MEDIA_URL = '/media/'
