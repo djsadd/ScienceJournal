@@ -47,7 +47,6 @@ jobs:
           pip install -r requirements.txt
           python manage.py migrate
           python manage.py collectstatic --noinput
-          sudo /usr/bin/systemctl restart nginx
           sudo /usr/bin/systemctl restart gunicorn
         EOF
 
