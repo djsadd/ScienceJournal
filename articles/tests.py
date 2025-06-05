@@ -148,7 +148,6 @@ class DashboardViewTests(TestCase):
             'annotation_kk': 'Аннотация KK',
             'annotation_ru': 'Аннотация RU',
             'authors': 'Автор1, Автор2',
-            # НЕ передавать 'file' здесь
         }
 
         bid_data = {
@@ -156,7 +155,6 @@ class DashboardViewTests(TestCase):
             "exclusive_submission": True,
             "no_plagiarism": True,
             "authors_confirmed": True,
-            # НЕ передавать файлы здесь
         }
 
         file_data = {
