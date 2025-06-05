@@ -137,7 +137,7 @@ print(STATIC_ROOT)
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles'),  # если используется
+    os.path.join(BASE_DIR, 'простоstaticfiles'),  # если используется
 ]
 
 MEDIA_URL = '/media/'
@@ -150,6 +150,10 @@ CKEDITOR_CONFIGS = {
         'width': '100%',
     },
 }
+
+# Если вы не на HTTPS — отключите Secure
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
