@@ -40,8 +40,9 @@ jobs:
     - name: Deploy to server
       run: |
         ssh target-server << 'EOF'
-          cd /home/user/Journal
+          cd /home/user/Journal/ScienceJournal
           git pull origin main
+          cd /home/user/Journal
           source venv/bin/activate
           cd /home/user/Journal/ScienceJournal
           pip install -r requirements.txt
