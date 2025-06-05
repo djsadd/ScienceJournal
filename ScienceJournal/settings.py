@@ -155,5 +155,8 @@ CKEDITOR_CONFIGS = {
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://zharshy.tau-edu.kz",
+]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
