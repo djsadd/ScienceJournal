@@ -47,7 +47,6 @@ jobs:
           cd /home/user/Journal/ScienceJournal
           pip install -r requirements.txt
           python manage.py migrate
-          python manage.py collectstatic --clear --noinput
           sudo systemctl restart gunicorn
         EOF
 
