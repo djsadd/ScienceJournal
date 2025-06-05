@@ -131,12 +131,15 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# Указывает, где искать статику во время разработки
 STATIC_URL = '/static/'
 
+# Указывает, куда собирать статику при collectstatic (на проде)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles'),  # если используется
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 MEDIA_URL = '/media/'
