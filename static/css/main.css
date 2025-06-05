@@ -2,6 +2,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 /* Стиль для пагинации */
@@ -159,6 +160,11 @@ h3 {
   max-width: 1200px;
   margin: 0 auto;
 }
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 /* Поиск */
 .search-section {
@@ -270,9 +276,9 @@ a:hover {
   color: #e1e1e1;
   text-align: center;
   padding: 30px;
-
-  bottom: 0; /* Помещает футер в самый низ */
-  width: 100%; /* Заставляет футер растягиваться по ширине */
+}
+.main-content {
+  flex: 1;
 }
 
 .footer p {
