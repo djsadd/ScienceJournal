@@ -1,5 +1,5 @@
 from django import forms
-from .models import Bid, BidStatus
+from .models import Bid, BidStatus, Review
 
 
 class BidForm(forms.ModelForm):
@@ -29,18 +29,30 @@ class BidForm(forms.ModelForm):
             field.required = True
 
 
-class BidReviewForm(forms.ModelForm):
+class ReviewForm(forms.ModelForm):
 
     class Meta:
-        model = Bid
-        fields = ["review", ]
-        labels = {
-            "review": "Рецензия",
-        }
+        model = Review
+        fields = [
+            "plagiarism",
+            "novelty",
+            "originality",
+            "innovation",
+            "significance",
+            "structuredness",
+            "literary_level",
+            "design_quality",
+            "conclusion",
+        ]
 
-    def save(self, commit=True):
-        bid = super().save(commit=False)
-        bid.status = BidStatus.EDITOR_REVIEW
-        if commit:
-            bid.save()
-        return bid
+        labels = {
+            "plagiarism": "Важность, полезность и/или применимость идей, методов, технологий",
+            "novelty": "Новое освещение, применение в той или иной отрасли",
+            "originality": "Идеи, методы, способы, решения и результаты поставленных задач исследования ранее не были известны или апробированы",
+            "innovation": "Новый процесс, услуга, продукт, основанные на новых, неизвестных технологиях, методах или методологиях, определение новых для потребителей услуг",
+            "significance": "Изложение результатов, теоретическая и практическая значимость, выводы, научно-практическое значение",
+            "structuredness": "Логичность, последовательность, связность изложения",
+            "literary_level": "Коммуникативная ценность, соответствие научному стилю, языковым и стилистическим нормам",
+            "design_quality": "Соответствие требованиям редакции, использование терминологической лексики. Наличие аннотаций, пристатейного аппарата, ключевых слов, соблюдение определенных параметров страницы, библиографического списка",
+            "conclusion": "",
+        }

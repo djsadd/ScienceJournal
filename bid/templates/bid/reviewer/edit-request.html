@@ -21,14 +21,13 @@
 
         <div class="input-group">
           <label>Название статьи</label>
-          <p>{{ object.article.title }}</p>
+          <p>{{ object.bid.article.title }}</p>
         </div>
 
         <div class="input-group">
           <label>Аннотация</label>
-          <p>{{ object.article.annotation|safe }}.</p>
+          <p>{{ object.bid.article.annotation|safe }}</p>
         </div>
-
         <div class="input-group">
           <label>Файл статьи</label>
           <a href="{{ object.article.file.url }}" target="_blank">Скачать статью</a>

@@ -45,6 +45,7 @@ class Article(models.Model):
     authors = models.CharField(max_length=255, null=True, blank=True)
     user = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, null=True, blank=True)
+    plagiarism = models.FileField(null=True, blank=True)
 
 
 

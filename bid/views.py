@@ -7,16 +7,18 @@ from django.views.generic.detail import DetailView
 from articles.models import Article
 # Models
 from users.models import CustomUser
-from .models import Bid, BidStatus
+from .models import Bid, BidStatus, Review
 from bid.forms import BidForm
 from articles.forms import ArticleCreateForm, ArticleUpdateForm
-from .forms import BidReviewForm
+from .forms import ReviewForm
+from django.views.generic.edit import CreateView
 from .models import ArticleVersion
 # Create your views here.
 from .components import send_to_recent
 from django.db.models import Q
 from permissions.redactor import RedactorRequiredMixin
 from permissions.Author import BidAccessPermissionMixin
+from django.core.exceptions import PermissionDenied
 
 
 class BidListView(LoginRequiredMixin, ListView):
@@ -47,9 +49,12 @@ class BidListView(LoginRequiredMixin, ListView):
         context = self.get_context_data()
 
         if self.request.user.role == CustomUser.REDACTOR:
+
             return render(request, template_name="bid/redactor/bid-list.html", context=context)
 
         if self.request.user.role == CustomUser.REVIEWER:
+            reviews = Review.objects.filter(reviewer=request.user)
+            context["reviews"] = reviews
             return render(request, template_name="bid/reviewer/bid-list.html", context=context)
 
         return render(request, template_name=self.template_name, context=context)
@@ -66,7 +71,10 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
             self.object.status = BidStatus.EDITOR_REVIEW
             self.object.save()
 
+        reviews = Review.objects.filter(bid=self.object)
         context = self.get_context_data(object=self.object)
+        context["reviews"] = reviews
+
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -77,6 +85,9 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
         if decision == "reject":
             bid_obj.status = BidStatus.REJECTED
             bid_obj.save()
+        if decision == "revision":
+            bid_obj.status = BidStatus.NEEDS_REVISION
+            bid_obj.save()
         if decision == "accept":
             bid_obj.status = BidStatus.ACCEPTED
             bid_obj.save()
@@ -84,16 +95,31 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
 
 
 class BidDetailViewReviewer(BidAccessPermissionMixin, UpdateView):
-    model = Bid
+    model = Review
     template_name = "bid/reviewer/edit-request.html"
-    form_class = BidReviewForm
-    success_url = reverse_lazy("my_bids")  # замените на нужный URL
+    form_class = ReviewForm
+    success_url = reverse_lazy("my_bids")
+
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.responsible = self.request.user
+
+        self.object.bid.status = BidStatus.EDITOR_REVIEW
+        self.object.bid.save()
+        return super().form_valid(form)
 
 
 class UpdateBidView(BidAccessPermissionMixin, UpdateView):
     template_name = "bid/edit-request.html"
     model = Bid
     fields = ["manuscript", "authors_file", "cover_letter", "ai_usage_details"]
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.get_object().status not in [BidStatus.SUBMITTED, BidStatus.NEEDS_REVISION, BidStatus.REJECTED, BidStatus.PUBLISHED] and request.user.role == CustomUser.AUTHOR:
+            raise PermissionDenied()
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,6 +144,7 @@ class UpdateBidView(BidAccessPermissionMixin, UpdateView):
 
         if not article_form.cleaned_data.get('file'):
             new_article.file = self.object.article.file
+            new_article.plagiarism = self.object.article.plagiarism
 
         new_article.user = self.request.user
         new_article.save()
@@ -126,6 +153,7 @@ class UpdateBidView(BidAccessPermissionMixin, UpdateView):
         ArticleVersion(article=new_article, bid=bid).save()
 
         bid.article = new_article
+        bid.status = BidStatus.SUBMITTED
         bid.save()
 
         return redirect(self.get_success_url())

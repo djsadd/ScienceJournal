@@ -29,13 +29,13 @@
           </tr>
         </thead>
         <tbody>
-        {% for obj in object_list %}
+        {% for obj in reviews %}
         <tr>
-            <td data-label="№">{{ obj.pk }}</td>
-            <td data-label="Название">{{ obj.article.title }}</td>
-            <td data-label="Автор">{{ obj.article.authors }}</td>
-            <td data-label="Дата отправки">{{ obj.date_created }}</td>
-            <td data-label="Статус">{{ obj.get_status_display  }}</td>
+            <td data-label="№">{{ obj.bid.pk }}</td>
+            <td data-label="Название">{{ obj.bid.article.title }}</td>
+            <td data-label="Автор">{{ obj.bid.article.authors }}</td>
+            <td data-label="Дата отправки">{{ obj.bid.date_created }}</td>
+            <td data-label="Статус">{{ obj.bid.get_status_display  }}</td>
             <td data-label="Действие"><a href="{% url 'edit-request-reviewer' obj.pk %}" class="btn-small">Проверить</a></td>
           </tr>
         {% endfor %}

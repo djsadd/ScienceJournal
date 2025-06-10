@@ -86,6 +86,10 @@
                 Загрузить статью:
                 {{ form.file }}
               </div>
+            <div class="input-group">
+                Загрузить сведения об антиплагиате:
+                {{ form.plagiarism }}
+              </div>
               <form method="POST" enctype="multipart/form-data" id="publicationForm{{ obj.id }}">
               {% csrf_token %}
                 <input type="hidden" name="article_id" value="{{ obj.pk }}">

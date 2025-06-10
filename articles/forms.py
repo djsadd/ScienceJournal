@@ -12,8 +12,18 @@ class ArticleCreateForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ["category", "file", "title", "title_kk", "title_ru", "annotation", "annotation_kk", "annotation_ru",
-                  "authors"]
+        fields = [
+            "category",
+            "file",
+            "plagiarism",
+            "title",
+            "title_kk",
+            "title_ru",
+            "annotation",
+            "annotation_kk",
+            "annotation_ru",
+            "authors"
+                  ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -27,6 +37,7 @@ class ArticleCreateForm(forms.ModelForm):
         self.fields['title_ru'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
         self.fields['authors'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Авторы статьи'})
         self.fields['file'].widget.attrs.update({'class': 'form-control', 'required': 'required'})
+        self.fields['plagiarism'].widget.attrs.update({'class': 'form-control', 'required': 'required'})
 
 
 class ArticleUpdateForm(forms.ModelForm):
@@ -36,7 +47,7 @@ class ArticleUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ["category", "title", "title_kk", "title_ru", "annotation", "annotation_kk", "annotation_ru", "authors"]
+        fields = ["category", "title", "title_kk", "title_ru", "annotation", "annotation_kk", "annotation_ru", "authors",]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -49,3 +60,4 @@ class ArticleUpdateForm(forms.ModelForm):
         self.fields['title_kk'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
         self.fields['title_ru'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
         self.fields['authors'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Авторы статьи'})
+        # self.fields['plagiarism'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Сведения об антиплагиате'})

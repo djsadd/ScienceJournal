@@ -5,7 +5,7 @@ from articles.models import Article
 from users.models import CustomUser
 from ckeditor.fields import RichTextField
 from journal.models import Collection
-
+from django.core.exceptions import PermissionDenied
 # Create your models here.
 
 
@@ -25,8 +25,6 @@ class Bid(models.Model):
     status = models.CharField(max_length=255, choices=BidStatus.choices, default=BidStatus.DRAFT)
     # collection = models.ForeignKey(to=Collection, on_delete=models.PROTECT, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    review = RichTextField(null=True, blank=True)
-    reviewer = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, blank=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     responsible = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True, related_name='bids_responsible')
     comment = RichTextField(null=True, blank=True)
@@ -74,7 +72,38 @@ class Bid(models.Model):
         )
     )
 
+    def save(
+        self,
+        *args,
+        force_insert=False,
+        force_update=False,
+        using=None,
+        update_fields=None,
+    ):
+        if self.status == BidStatus.REJECTED:
+            return PermissionDenied()
+        return super().save(
+        *args,
+        force_insert=False,
+        force_update=False,
+        using=None,
+        update_fields=None,)
+
 
 class ArticleVersion(models.Model):
     bid = models.ForeignKey(Bid, on_delete=models.CASCADE, related_name="versions")
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="article_version")
+
+
+class Review(models.Model):
+    plagiarism = RichTextField()
+    novelty = RichTextField()
+    originality = RichTextField()
+    innovation = RichTextField()
+    significance = RichTextField()
+    structuredness = RichTextField()
+    literary_level = RichTextField()
+    design_quality = RichTextField()
+    conclusion = RichTextField()
+    reviewer = models.ForeignKey(to=CustomUser, on_delete=models.PROTECT, null=True, blank=True)
+    bid = models.ForeignKey(Bid, on_delete=models.PROTECT,null=True, blank=True)
