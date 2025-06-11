@@ -16,7 +16,10 @@
 
     <main class="main-content">
       <section class="edit-request-section">
-        <h1>Редактировать заявку</h1>
+        <h1>Редактировать заявку </h1>
+        {% if object.comment %}
+          <h3>Комментарии редактора: {{ object.comment|safe }}</h3>
+        {% endif %}
         {{ article_form.media }}
         <form enctype="multipart/form-data" method="POST" class="edit-request-form"  id="uploadForm">
         {% csrf_token %}
