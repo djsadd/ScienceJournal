@@ -1,7 +1,7 @@
 from django import forms
 
 # Models
-from .models import Article
+from .models import Article, Tag
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -9,11 +9,17 @@ class ArticleCreateForm(forms.ModelForm):
     annotation = forms.CharField(widget=CKEditorWidget())
     annotation_kk = forms.CharField(widget=CKEditorWidget())
     annotation_ru = forms.CharField(widget=CKEditorWidget())
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=forms.SelectMultiple,  # или forms.SelectMultiple
+        required=False
+    )
 
     class Meta:
         model = Article
         fields = [
             "category",
+            "tags",
             "file",
             "plagiarism",
             "title",
@@ -47,7 +53,7 @@ class ArticleUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ["category", "title", "title_kk", "title_ru", "annotation", "annotation_kk", "annotation_ru", "authors",]
+        fields = ["category", "title", "title_kk", "title_ru", "annotation", "annotation_kk", "annotation_ru", "authors"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

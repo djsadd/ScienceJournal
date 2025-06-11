@@ -8,8 +8,15 @@
 
     <div class="article-info">
       <p><strong>Название статьи: </strong> {{ object.article.title }}</p>
+      <p><strong>Автор статьи: </strong> {{ object.article.authors }}</p>
+      <p><strong>Электронный адрес отправителя: </strong> {{ object.responsible.email }}</p>
       <p><strong>Аннотация: </strong>{{ object.article.annotation|safe }}</p>
-      <p><strong>Ключевые слова:</strong> искусственный интеллект, обучение, нейросети</p>
+      <p><strong>Ключевые слова:</strong>
+        {% for tag in object.article.tags.all %}
+          {{ tag.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+
       <p><strong>Файл статьи:</strong> <a href="{{ object.article.file.url }}" target="_blank">Скачать</a></p>
       <p><strong>Сведения об антиплагиате:</strong> <a href="{{ object.article.plagiarism.url }}" target="_blank">Скачать</a></p>
       <p><strong>Статус:</strong> {{ object.get_status_display }}</p>
