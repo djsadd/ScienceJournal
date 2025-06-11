@@ -52,6 +52,59 @@
         <button type="submit" class="btn approve" name="decision" value="accept">Принять к публикации</button>
       </div>
     </form>
+    <!-- Кнопка для открытия модального окна -->
+<h2>Рецензенты</h2>
+
+<!-- Кнопка открытия модального окна -->
+<button type="button" class="btn add-reviewer-btn" onclick="openReviewerModal()" title="Добавить рецензента">
+  + Добавить
+</button>
+
+<!-- Таблица рецензентов -->
+<table class="reviewers-table">
+  <thead>
+    <tr>
+      <th>ФИО</th>
+      <th>Рецензия</th>
+      <th>Действие</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Тестовые данные -->
+    <tr>
+      <td>Иванов Иван Иванович</td>
+      <td><a href="#">Скачать рецензию</a></td>
+      <td><a href="#" class="btn btn-small">Перейти</a></td>
+    </tr>
+    <tr>
+      <td>Петров Петр Петрович</td>
+      <td><a href="#">Скачать рецензию</a></td>
+      <td><a href="#" class="btn btn-small">Перейти</a></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!-- Модальное окно -->
+<div id="reviewerModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeReviewerModal()">&times;</span>
+    <h3>Выберите рецензента</h3>
+    <form id="addReviewerForm" method="POST">
+      {% csrf_token %}
+      <label for="reviewer">Рецензент:</label>
+      <select name="reviewer" id="reviewer">
+        <option value="1">Иванов Иван Иванович</option>
+        <option value="2">Петров Петр Петрович</option>
+        <option value="3">Сидоров Сидор Сидорович</option>
+      </select>
+      <br><br>
+      <button type="button" onclick="assignReviewer()" class="btn approve">Назначить</button>
+    </form>
+  </div>
+</div>
+
   </section>
 </main>
 </div>
@@ -74,4 +127,33 @@
     // Здесь можно сделать POST-запрос на сервер для направления статьи рецензенту
   }
 </script>
+
+<script>
+  function openReviewerModal() {
+    document.getElementById('reviewerModal').style.display = 'block';
+  }
+
+  function closeReviewerModal() {
+    document.getElementById('reviewerModal').style.display = 'none';
+  }
+
+  function assignReviewer() {
+    const selected = document.getElementById('reviewer').value;
+    const name = document.getElementById('reviewer').options[document.getElementById('reviewer').selectedIndex].text;
+    
+    alert('Назначен рецензент: ' + name);
+    closeReviewerModal();
+    
+    // Здесь можно добавить отправку данных на сервер, если понадобится позже
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('reviewerModal');
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+
 {% endblock %}}
