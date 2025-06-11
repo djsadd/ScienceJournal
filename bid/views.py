@@ -10,7 +10,7 @@ from users.models import CustomUser
 from .models import Bid, BidStatus, Review
 from bid.forms import BidForm
 from articles.forms import ArticleCreateForm, ArticleUpdateForm
-from .forms import ReviewForm
+from .forms import ReviewForm, CommentBid
 from django.views.generic.edit import CreateView
 from .models import ArticleVersion
 # Create your views here.
@@ -73,13 +73,19 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
 
         reviews = Review.objects.filter(bid=self.object)
         context = self.get_context_data(object=self.object)
+        comment_form = CommentBid()
+        context["comment_form"] = comment_form
         context["reviews"] = reviews
 
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         decision = request.POST.get('decision')
+        comment = request.POST.get("comment")
+
         bid_obj = self.get_object()
+        if comment:
+            bid_obj.comment = comment
         if not bid_obj.status == BidStatus.SENT_FOR_REVIEW and decision == "approve":
             bid_obj = send_to_recent(request, bid_obj)
         if decision == "reject":

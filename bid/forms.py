@@ -1,5 +1,6 @@
 from django import forms
 from .models import Bid, BidStatus, Review
+from ckeditor.widgets import CKEditorWidget
 
 
 class BidForm(forms.ModelForm):
@@ -27,6 +28,18 @@ class BidForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.required = True
+
+
+class CommentBid(forms.Form):
+    comment = forms.CharField(
+        widget=CKEditorWidget(attrs={
+            'placeholder': 'Введите комментарий',
+            'class': 'form-control',
+            'rows': 5,
+            'cols': 40
+        }),
+        label='Комментарий',
+    )
 
 
 class ReviewForm(forms.ModelForm):

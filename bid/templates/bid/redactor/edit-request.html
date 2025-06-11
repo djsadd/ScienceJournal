@@ -38,9 +38,13 @@
       </div>
     {% endfor %}
     {% endif %}
-
+    {{ comment_form.media }}
     <form id="editorDecisionForm" method="POST">
       {% csrf_token %}
+        <div class="input-group">
+          {{ comment_form.as_p }}
+        </div>
+
       <div class="btn-group">
         <button type="submit" class="btn reject" name="decision" value="reject">Отклонить</button>
         <button type="submit" class="btn reject" name="decision" value="revision">Отправить на доработку</button>
