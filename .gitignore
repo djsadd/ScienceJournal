@@ -72,3 +72,5 @@ staticfiles/
 
 # Media files (если они у вас хранятся локально)
 media/
+github-actions-key
+github-actions-key.pub
