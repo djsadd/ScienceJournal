@@ -27,7 +27,12 @@
             <p class="request-status">Комментарии редактора: {{ obj.comment|safe  }}</p>
           {% endif %}
           <div class="request-actions">
-            <button class="btn">Подробнее</button>
+            <button class="btn">
+              <a style="color: inherit; text-decoration: none;"
+                 href="{% url 'view-request-author' obj.pk %}">
+                Подробнее
+              </a>
+            </button>
             <button class="btn">
               <a href="{% url 'edit-request' obj.pk %}" style="color: inherit; text-decoration: none;">Отредактировать</a>
             </button>

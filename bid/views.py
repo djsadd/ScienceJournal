@@ -216,3 +216,14 @@ def assign_reviewer(request):
         return JsonResponse({'message': f'Рецензент с ID {reviewer_id} назначен.'})
 
     return JsonResponse({'error': 'Неверный метод запроса'}, status=400)
+
+
+class BidAuthorDetailView(BidAccessPermissionMixin, DetailView):
+    model = Bid
+    template_name = "bid/view-request.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['reviews'] = Review.objects.filter(bid=self.object)
+        print(context["reviews"])
+        return context

@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 # My Views
-from .views import BidListView, UpdateBidView, BidDetailViewRedactor, BidDetailViewReviewer, ReviewDetailView, assign_reviewer
+from .views import (BidListView, UpdateBidView, BidDetailViewRedactor, BidDetailViewReviewer, ReviewDetailView,
+                    assign_reviewer, BidAuthorDetailView)
 
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     path("edit/<int:pk>", UpdateBidView.as_view(), name="edit-request"),
     path("request/<int:pk>", BidDetailViewRedactor.as_view(), name="edit-request-redactor"),
     path("request-review/<int:pk>", BidDetailViewReviewer.as_view(), name="edit-request-reviewer"),
+    path("request-author/<int:pk>", BidAuthorDetailView.as_view(), name="view-request-author"),
     path("review/<int:pk>", ReviewDetailView.as_view(), name="review-detail"),
     path("assign_reviewer/", assign_reviewer, name="assign_reviewer"),
 ]
