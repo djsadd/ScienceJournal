@@ -1,5 +1,8 @@
 from .models import BidStatus, Review
 from users.models import CustomUser
+from django.core.mail import send_mail
+
+from django.conf import settings
 
 
 def send_to_recent(request, obj):
@@ -10,6 +13,15 @@ def send_to_recent(request, obj):
     if Review.objects.filter(bid=obj, reviewer=request.user):
         obj.status = BidStatus.RE_REVIEW
         obj.save()
+        print("SEND")
+
+        send_mail(
+            'Успешно отправили статью на рецензирование',
+            'Текст письма',
+            settings.DEFAULT_FROM_EMAIL,
+            ['e.bahytzhanuly@tau-edu.kz'],
+            fail_silently=False,
+        )
         return obj
 
     review_obj = Review.objects.create()
@@ -19,4 +31,12 @@ def send_to_recent(request, obj):
 
     obj.status = BidStatus.SENT_FOR_REVIEW
     obj.save()
+    print("SEND")
+    send_mail(
+        'Успешно отправили статью на рецензирование',
+        'Текст письма',
+        settings.DEFAULT_FROM_EMAIL,
+        ['e.bahytzhanuly@tau-edu.kz'],
+        fail_silently=False,
+    )
     return obj

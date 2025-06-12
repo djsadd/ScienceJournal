@@ -159,3 +159,13 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True  # Используем SSL
+
+EMAIL_HOST_USER = 'turan.astana.university@yandex.ru'  # ваш адрес
+EMAIL_HOST_PASSWORD = 'qejyhjjlmnrttklb'     # обычный пароль или пароль приложения
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

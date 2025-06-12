@@ -17,8 +17,10 @@ from .models import ArticleVersion
 from .components import send_to_recent
 from django.db.models import Q
 from permissions.redactor import RedactorRequiredMixin
+from permissions.reviewer import ReviewRequiredMixin
 from permissions.Author import BidAccessPermissionMixin
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
 
 
 class BidListView(LoginRequiredMixin, ListView):
@@ -172,3 +174,9 @@ class UpdateBidView(BidAccessPermissionMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('my_bids')  # или "/dashboard/"
+
+
+class ReviewDetailView(RedactorRequiredMixin, DetailView):
+    model = Review
+    template_name = "bid/reviewer/review-detail.html"
+
