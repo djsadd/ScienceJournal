@@ -420,7 +420,8 @@ thead th {
   text-align: left;
   padding: 14px 16px;
   font-size: 15px;
-  color: rgba(114, 20, 56, 0.9);
+  background-color: rgba(114, 20, 56, 0.9);
+  color: #ffffff;
   font-weight: 600;
 }
 

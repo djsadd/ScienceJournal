@@ -485,19 +485,10 @@ ul li a {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
+ 
   }
 
-  .reviewers-table th,
-  .reviewers-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-
-  .reviewers-table th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }
-
+ 
   .btn-small {
     font-size: 14px;
     padding: 4px 8px;
