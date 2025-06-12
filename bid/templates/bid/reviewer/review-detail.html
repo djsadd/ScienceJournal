@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/redactor.css ' %}">
+{% endblock %}
+
 {% block content %}
 <main class="main-content">
   <section class="editor-review">
