@@ -20,7 +20,7 @@ from permissions.redactor import RedactorRequiredMixin
 from permissions.reviewer import ReviewRequiredMixin
 from permissions.Author import BidAccessPermissionMixin
 from django.core.exceptions import PermissionDenied
-from django.core.mail import send_mail
+from components.email import send_html_email
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
@@ -116,6 +116,9 @@ class BidDetailViewReviewer(BidAccessPermissionMixin, UpdateView):
     def post(self, request, *args, **kwargs):
         decision = request.POST.get('decision')
         print(decision)
+        if decision == 'save':
+            self.object.status = ReviewStatus.SAVED
+            self.object.save()
         if decision == 'submit':
             self.object.status = ReviewStatus.SUBMITTED
             self.object.save()

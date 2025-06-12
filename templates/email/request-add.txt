@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Заявка успешно подана!</title>
+</head>
+<body>
+    <h2>Здравствуйте, {{ user.first_name }}!</h2>
+    <p>Ваша заявка на статью: {{ article.title }} успешно подана!</p>
+    <p>С уважением,<br>Команда университета "Туран-Астана"</p>
+</body>
+</html>

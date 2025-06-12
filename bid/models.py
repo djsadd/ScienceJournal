@@ -5,6 +5,7 @@ from articles.models import Article
 from users.models import CustomUser
 from ckeditor.fields import RichTextField
 from journal.models import Collection
+from django.core.exceptions import ValidationError
 from django.core.exceptions import PermissionDenied
 # Create your models here.
 
@@ -119,3 +120,9 @@ class Review(models.Model):
 
     def is_not_draft(self):
         return self.status == ReviewStatus.DRAFT
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            if self.status == ReviewStatus.SUBMITTED:
+                raise ValidationError("Нельзя изменять объект со статусом 'Submitted'.")
+        super().save(*args, **kwargs)
