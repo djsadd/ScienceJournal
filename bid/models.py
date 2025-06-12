@@ -95,6 +95,12 @@ class ArticleVersion(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="article_version")
 
 
+class ReviewStatus(models.TextChoices):
+    DRAFT = 'draft', 'Черновик'
+    SAVED = 'saved', 'Сохранено'
+    SUBMITTED = 'submitted', 'Отправлено'
+
+
 class Review(models.Model):
     plagiarism = RichTextField()
     novelty = RichTextField()
@@ -107,3 +113,9 @@ class Review(models.Model):
     conclusion = RichTextField()
     reviewer = models.ForeignKey(to=CustomUser, on_delete=models.PROTECT, null=True, blank=True)
     bid = models.ForeignKey(Bid, on_delete=models.PROTECT,null=True, blank=True)
+    datetime_created = models.DateTimeField(auto_now_add=True)
+    datetime_submitted = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(max_length=255, choices=ReviewStatus.choices, default=ReviewStatus.DRAFT)
+
+    def is_not_draft(self):
+        return self.status == ReviewStatus.DRAFT

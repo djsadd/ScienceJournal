@@ -38,7 +38,7 @@ class CommentBid(forms.Form):
             'rows': 5,
             'cols': 40
         }),
-        label='Комментарий',
+        label='Комментарий для автора',
     )
 
 

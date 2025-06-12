@@ -7,7 +7,7 @@ from django.views.generic.detail import DetailView
 from articles.models import Article
 # Models
 from users.models import CustomUser
-from .models import Bid, BidStatus, Review
+from .models import Bid, BidStatus, Review, ReviewStatus
 from bid.forms import BidForm
 from articles.forms import ArticleCreateForm, ArticleUpdateForm
 from .forms import ReviewForm, CommentBid
@@ -21,6 +21,9 @@ from permissions.reviewer import ReviewRequiredMixin
 from permissions.Author import BidAccessPermissionMixin
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
 
 
 class BidListView(LoginRequiredMixin, ListView):
@@ -74,10 +77,12 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
             self.object.save()
 
         reviews = Review.objects.filter(bid=self.object)
+        reviewer = CustomUser.objects.filter(role=CustomUser.REVIEWER)
         context = self.get_context_data(object=self.object)
         comment_form = CommentBid()
         context["comment_form"] = comment_form
         context["reviews"] = reviews
+        context["reviewer"] = reviewer
 
         return self.render_to_response(context)
 
@@ -107,6 +112,14 @@ class BidDetailViewReviewer(BidAccessPermissionMixin, UpdateView):
     template_name = "bid/reviewer/edit-request.html"
     form_class = ReviewForm
     success_url = reverse_lazy("my_bids")
+
+    def post(self, request, *args, **kwargs):
+        decision = request.POST.get('decision')
+        print(decision)
+        if decision == 'submit':
+            self.object.status = ReviewStatus.SUBMITTED
+            self.object.save()
+        return super().post(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -180,3 +193,23 @@ class ReviewDetailView(RedactorRequiredMixin, DetailView):
     model = Review
     template_name = "bid/reviewer/review-detail.html"
 
+
+@csrf_exempt
+def assign_reviewer(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        # Get ID from templates
+        reviewer_id = data.get('reviewer_id')
+        reviewer = CustomUser.objects.get(pk=reviewer_id)
+
+        # Get objects in orm
+        bid_id = data.get('bid_id')
+        bid_obj = Bid.objects.get(id=bid_id)
+
+        # Create obj review
+        Review.objects.create(reviewer=reviewer, bid=bid_obj)
+
+        return JsonResponse({'message': f'Рецензент с ID {reviewer_id} назначен.'})
+
+    return JsonResponse({'error': 'Неверный метод запроса'}, status=400)

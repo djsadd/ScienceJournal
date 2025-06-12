@@ -40,8 +40,17 @@
         {% for review in reviews %}
           <tr>
             <td>{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</td>
-            <td><a href="{% url 'review-detail' review.pk %}">Скачать рецензию</a></td>
-            <td><a href="{% url 'review-detail' review.pk %}" class="btn btn-small">Перейти</a></td>
+            {% if review.is_not_draft %}
+              <td>Рецензия не готова</td>
+            {% else %}
+              <td><a href="{% url 'review-detail' review.pk %}">Скачать рецензию</a></td>
+            {% endif %}
+
+            {% if review.is_not_draft %}
+              <td><a href="" class="btn btn-small">Рецензия не готова</a></td>
+            {% else %}
+              <td><a href="{% url 'review-detail' review.pk %}" class="btn btn-small">Перейти</a></td>
+            {% endif %}
           </tr>
       {% endfor %}
 
@@ -57,30 +66,16 @@
       {% csrf_token %}
       <label for="reviewer">Рецензент:</label>
       <select name="reviewer" id="reviewer">
-
-        <option value="1">Иванов Иван Иванович</option>
-        <option value="2">Петров Петр Петрович</option>
-        <option value="3">Сидоров Сидор Сидорович</option>
+        {% for rev in reviewer %}
+          <option value="{{ rev.pk }}">{{ rev.first_name }} {{ rev.last_name }}</option>
+        {% endfor %}
       </select>
       <br><br>
       <button type="button" onclick="assignReviewer()" class="btn approve">Назначить</button>
     </form>
   </div>
 </div>
-      {% for review in reviews %}
-<!--      <div class="reviewer-response">-->
-<!--        <h3>Ответ рецензента</h3>-->
-<!--        <p><strong>Рецензент:</strong> {{ review.reviewer }}</p>-->
-<!--        <p><strong>Новизна:</strong> {{ review.novelty|safe }}</p>-->
-<!--        <p><strong>Оригинальность:</strong> {{ review.originality|safe }}</p>-->
-<!--        <p><strong>Инновационность:</strong> {{ review.innovation|safe }}</p>-->
-<!--        <p><strong>Значимость:</strong> {{ review.significance|safe }}</p>-->
-<!--        <p><strong>Структурированность:</strong> {{ review.structuredness|safe }}</p>-->
-<!--        <p><strong>Литературный уровень:</strong> {{ review.literary_level|safe }}</p>-->
-<!--        <p><strong>Качество оформления:</strong> {{ review.conclusion|safe }}</p>-->
-<!--        <p><strong>Заключение:</strong> {{ review.plagiarism|safe }}</p>-->
-<!--      </div>-->
-    {% endfor %}
+
     {{ comment_form.media }}
     <form id="editorDecisionForm" method="POST">
       {% csrf_token %}
@@ -101,6 +96,9 @@
 </main>
 </div>
 
+<script>
+    const assignReviewerUrl = "{% url 'assign_reviewer' %}";
+</script>
 
 <script>
   function sendBackToAuthor() {
@@ -129,15 +127,47 @@
     document.getElementById('reviewerModal').style.display = 'none';
   }
 
-  function assignReviewer() {
-    const selected = document.getElementById('reviewer').value;
-    const name = document.getElementById('reviewer').options[document.getElementById('reviewer').selectedIndex].text;
-    
-    alert('Назначен рецензент: ' + name);
-    closeReviewerModal();
-    
-    // Здесь можно добавить отправку данных на сервер, если понадобится позже
-  }
+function assignReviewer() {
+    const selectEl = document.getElementById('reviewer');
+    const selectedPk = selectEl.value;
+
+    fetch(assignReviewerUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()  // Защита от CSRF
+        },
+        body: JSON.stringify(
+        {
+         reviewer_id: selectedPk,
+         bid_id: {{ object.pk }},
+          }
+        )
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        closeReviewerModal();
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+    });
+}
+
+// Получение CSRF-токена из cookie
+function getCSRFToken() {
+    const name = 'csrftoken';
+    const cookies = document.cookie.split(';');
+    for (const cookie of cookies) {
+        const trimmed = cookie.trim();
+        if (trimmed.startsWith(name + '=')) {
+            return trimmed.substring(name.length + 1);
+        }
+    }
+    return '';
+}
+
+
 
   window.onclick = function(event) {
     const modal = document.getElementById('reviewerModal');
