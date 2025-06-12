@@ -39,7 +39,7 @@
       <tbody>
         {% for review in reviews %}
           <tr>
-            <td>Иванов Иван Иванович</td>
+            <td>{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</td>
             <td><a href="{% url 'review-detail' review.pk %}">Скачать рецензию</a></td>
             <td><a href="{% url 'review-detail' review.pk %}" class="btn btn-small">Перейти</a></td>
           </tr>
@@ -57,7 +57,7 @@
       {% csrf_token %}
       <label for="reviewer">Рецензент:</label>
       <select name="reviewer" id="reviewer">
-            {% if reviews %}
+
         <option value="1">Иванов Иван Иванович</option>
         <option value="2">Петров Петр Петрович</option>
         <option value="3">Сидоров Сидор Сидорович</option>
@@ -81,7 +81,6 @@
 <!--        <p><strong>Заключение:</strong> {{ review.plagiarism|safe }}</p>-->
 <!--      </div>-->
     {% endfor %}
-    {% endif %}
     {{ comment_form.media }}
     <form id="editorDecisionForm" method="POST">
       {% csrf_token %}
