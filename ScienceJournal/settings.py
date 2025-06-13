@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,6 +25,8 @@ SECRET_KEY = 'django-insecure-7clcqx9fza*&4o^8v(fg2o%gx_2p5@(-mvk9e3q=azwn^++vtf
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 ALLOWED_HOSTS = ["*"]
 # Application definition
@@ -161,11 +164,10 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True  # Используем SSL
 
-EMAIL_HOST_USER = 'turan.astana.university@yandex.ru'  # ваш адрес
-EMAIL_HOST_PASSWORD = 'qejyhjjlmnrttklb'     # обычный пароль или пароль приложения
-
+EMAIL_HOST_USER = 'e.bahytzhanuly@tau-edu.kz'  # ваш адрес
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
