@@ -120,8 +120,7 @@ class BidDetailViewReviewer(BidAccessPermissionMixin, UpdateView):
             self.object.status = ReviewStatus.SAVED
             self.object.save()
         if decision == 'submit':
-            self.object.status = ReviewStatus.SUBMITTED
-            self.object.save()
+            self.object.set_submit()
         return super().post(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):

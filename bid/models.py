@@ -121,8 +121,13 @@ class Review(models.Model):
     def is_not_draft(self):
         return self.status == ReviewStatus.DRAFT
 
-    def save(self, *args, **kwargs):
-        if self.pk:
+    def set_submit(self):
+        self.save(set_submit=True)
+
+    def save(self, *args, set_submit=False, **kwargs):
+        if self.status == ReviewStatus.SAVED and set_submit == True:
+            self.status = ReviewStatus.SUBMITTED
+        elif self.pk:
             if self.status == ReviewStatus.SUBMITTED:
                 raise ValidationError("Нельзя изменять объект со статусом 'Submitted'.")
         super().save(*args, **kwargs)

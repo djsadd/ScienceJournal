@@ -29,7 +29,7 @@
             <li><a href="{% url 'login' %}"><span class="material-icons">login</span> Войти в систему</a></li>
         {% endif %}
         {% if user.is_authenticated %}
-          <li><a href="{% url 'dashboard' %}"><span class="material-icons">dashboard</span>Панель управления</a></li>
+          <li><a href="{% url 'dashboard' %}"><span class="material-icons">dashboard</span>Личный кабинет</a></li>
         {% endif %}
         <li><a href="{% url 'list-news' %}"><span class="material-icons">announcement</span> Новости</a></li>
         <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span> Архив</a></li>

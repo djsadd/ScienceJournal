@@ -17,7 +17,9 @@
         {% endfor %}
       </p>
 
-      <p><strong>Файл статьи:</strong> <a href="{{ object.article.file.url }}" target="_blank">Скачать</a></p>
+      <p><strong>Файл рукописи статьи: </strong> <a href="{{ object.manuscript.url }}" target="_blank">Скачать</a></p>
+      <p><strong>Файл со сведениями об авторах: </strong> <a href="{{ object.authors_file.url }}" target="_blank">Скачать</a></p>
+      <p><strong>Файл с заполненным и подписанным всеми авторами письмом:</strong> <a href="{{ object.cover_letter.url }}" target="_blank">Скачать</a></p>
       <p><strong>Сведения об антиплагиате:</strong> <a href="{{ object.article.plagiarism.url }}" target="_blank">Скачать</a></p>
       <p><strong>Статус:</strong> {{ object.get_status_display }}</p>
 
