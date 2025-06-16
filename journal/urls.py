@@ -17,12 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 # My Views
-from .views import JournalView, CollectionListView, CollectionDetailView, ContactsView, AboutView, ForAuthorsView
+from .views import (JournalView, CollectionListView, CollectionDetailView, ContactsView, AboutView, ForAuthorsView,
+                    BidDetailView)
 
 urlpatterns = [
     path("", JournalView.as_view(), name="home"),
     path("collection/", CollectionListView.as_view(), name="collection"),
     path("collection-detail/<int:pk>", CollectionDetailView.as_view(), name="collection_detail"),
+    path("article-detail/<int:pk>", BidDetailView.as_view(), name="article_detail"),
     path("contacts/", ContactsView.as_view(), name="contacts"),
     path("about/", AboutView.as_view(), name="about"),
     path("for-authors/", ForAuthorsView.as_view(), name="for_authors"),

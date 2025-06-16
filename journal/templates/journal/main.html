@@ -8,38 +8,32 @@
     
     <!-- Поиск -->
     <section class="search-section">
-      <input type="text" class="search-bar" placeholder="Поиск публикаций...">
-      <button class="btn">Поиск</button>
+      <form method="get">
+        <input type="text" name="q" class="search-bar" placeholder="Поиск публикаций...">
+        <button type="submit" class="btn">Поиск</button>
+      </form>
+
     </section>
-    
+
     <div class="content-wrapper">
       <!-- Список публикаций -->
       <section class="publications-section">
-        <div class="publication-item">
-          <h2>ЭКОНОМИКА: ИСТОРИЯ, ТЕОРИЯ, ПРАКТИКА</h2>
-          <p><strong>Проблемйоууы и факторы, влияющие на развитие принципов циркулярной экономики в Казахстане</strong></p>
-          <p><strong>Авторы:</strong> З. С. Мухамбетова, Н. Н. Нурмухаметов, А. Б. Темирова, Г. Т. Кунафина</p>
-          <p><strong>PDF:</strong> <a href="#" target="_blank">Скачать PDF (Kaz)</a></p>
-          <p><strong>Страницы:</strong> 9-24</p>
-          <p><strong>Цитирования:</strong> 103</p>
-          <p><strong>Просмотры:</strong> 150</p> <!-- Количество просмотров -->
-          <p><strong>Аннотация:</strong> <span class="annotation-text">В данной статье рассматриваются проблемы и факторы, влияющие на развитие принципов циркулярной экономики в Казахстане...</span></p>
-          <a href="#" class="btn">Просмотреть статью</a> <!-- Кнопка для просмотра статьи -->
-        </div>
-
-        <!-- Добавьте больше публикаций -->
-        <div class="publication-item">
-          <h2>Будущее устойчивого развития в Азии</h2>
-          <p><strong>Авторы:</strong> М. М. Сайдашев, А. Б. Шарипова</p>
-          <p><strong>PDF:</strong> <a href="#" target="_blank">Скачать PDF</a></p>
-          <p><strong>Страницы:</strong> 35-50</p>
-          <p><strong>Цитирования:</strong> 125</p>
-          <p><strong>Просмотры:</strong> 230</p> <!-- Количество просмотров -->
-          <p><strong>Аннотация:</strong> <span class="annotation-text">В статье рассматриваются ключевые аспекты устойчивого развития в регионе Азии...</span></p>
-          <a href="#" class="btn">Просмотреть статью</a>
-        </div>
-
-        <!-- Больше публикаций можно добавить здесь -->
+        {% for obj in object_list %}
+          <div class="publication-item">
+            <h2>{{ obj.article.title_ru }}</h2>
+  <!--          <p><strong>{{ obj.article.annotation_ru|safe }}</strong></p>-->
+            <p><strong>Авторы: </strong>{{ obj.article.authors }}</p>
+            <p><strong>Категория: </strong>{{ obj.article.category.title_ru }}</p>
+            <p><strong>PDF:</strong> <a href="{{ obj.manuscript.url }}" target="_blank">Скачать PDF (Kaz)</a></p>
+            <p><strong>Страницы:</strong> 9-24</p>
+            <p><strong>Цитирования:</strong> 103</p>
+            <p><strong>Просмотры:</strong> 150</p>
+            <p><strong>Аннотация:</strong> <span class="annotation-text">{{ obj.article.annotation_ru|safe }}</span></p>
+            <a href="{% url 'article_detail' obj.pk %}" class="btn">Просмотреть статью</a>
+          </div>
+        {% empty %}
+            <p>Ничего не найдено.</p>
+        {% endfor %}
         
       </section>
 
@@ -59,17 +53,10 @@
       </aside>
     </div>
 
-    <!-- Пагинация -->
-    <div class="pagination">
-      <a href="#">« Предыдущая</a>
-      <a href="#">1</a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">Следующая »</a>
-    </div>
+       {% include "includes/pagination.html" %}
 
   </main>
 
   <!-- Футер -->
 
-{% endblock %}}
+{% endblock %}

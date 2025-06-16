@@ -69,7 +69,8 @@
       <label for="reviewer">Рецензент:</label>
       <select name="reviewer" id="reviewer">
         {% for rev in reviewer %}
-          <option value="{{ rev.pk }}">{{ rev.first_name }} {{ rev.last_name }}</option>
+          <option value="{{ rev.pk }}">{{ rev.first_name }} {{ rev.last_name }}. Языки - {{ rev.languages }}</option>
+
         {% endfor %}
       </select>
       <br><br>

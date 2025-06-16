@@ -7,6 +7,7 @@ from ckeditor.fields import RichTextField
 from journal.models import Collection
 from django.core.exceptions import ValidationError
 from django.core.exceptions import PermissionDenied
+import re
 # Create your models here.
 
 
@@ -21,6 +22,14 @@ class BidStatus(models.TextChoices):
     REJECTED = 'rejected', 'Отклонено'
     PUBLISHED = 'published', 'Опубликовано'
 
+
+class BidManager(models.Manager):
+    def published(self):
+        return self.get_queryset().filter(status=BidStatus.PUBLISHED)
+
+
+def normalize_text(text):
+    return re.sub(r'[^\w\s]', '', text).lower()
 
 class Bid(models.Model):
     status = models.CharField(max_length=255, choices=BidStatus.choices, default=BidStatus.DRAFT)
@@ -73,6 +82,8 @@ class Bid(models.Model):
         )
     )
 
+    objects = BidManager()
+
     def save(
         self,
         *args,
@@ -89,6 +100,9 @@ class Bid(models.Model):
         force_update=False,
         using=None,
         update_fields=None,)
+
+    def __str__(self):
+        return f"{self.article.title}"
 
 
 class ArticleVersion(models.Model):
