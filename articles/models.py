@@ -47,5 +47,5 @@ class Article(models.Model):
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, null=True, blank=True)
     plagiarism = models.FileField(null=True, blank=True)
 
-
-
+    def __str__(self):
+        return f"{self.title_ru}"
