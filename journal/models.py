@@ -8,6 +8,6 @@ class Collection(models.Model):
     title = models.CharField(null=True, blank=True)
     description = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    articles = models.ManyToManyField(Article)
+    articles = models.ManyToManyField(Article, null=True, blank=True)
 
 
