@@ -24,7 +24,6 @@
             <th>Название</th>
             <th>Автор</th>
             <th>Дата отправки</th>
-            <th>Статус</th>
             <th>Действие</th>
           </tr>
         </thead>
@@ -35,7 +34,6 @@
             <td data-label="Название">{{ version.bid.article.title }}</td>
             <td data-label="Автор">{{ version.bid.article.authors }}</td>
             <td data-label="Дата отправки">{{ version.bid.date_created }}</td>
-            <td data-label="Статус">{{ version.bid.get_status_display  }}</td>
           <td data-label="Действие"><a href="{% url 'version_detail' version.pk %}" class="btn-small">Проверить</a></td>
           </tr>
         {% endfor %}
