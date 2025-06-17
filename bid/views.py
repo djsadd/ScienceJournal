@@ -12,7 +12,7 @@ from bid.forms import BidForm
 from articles.forms import ArticleCreateForm, ArticleUpdateForm
 from .forms import ReviewForm, CommentBid
 from django.views.generic.edit import CreateView
-from .models import ArticleVersion
+from .models import ArticleVersion, BidVersion
 # Create your views here.
 from .components import send_to_recent
 from django.db.models import Q
@@ -148,23 +148,32 @@ class UpdateBidView(BidAccessPermissionMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['article_form'] = kwargs.get('article_form') or ArticleUpdateForm(instance=self.object.article)
         context['bid_form'] = kwargs.get('bid_form') or self.get_form()
-        print(context['article_form'].files)
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
 
         article_form = ArticleUpdateForm(request.POST, request.FILES)
+        obj = self.object
+        old_bid = BidVersion.objects.create(
+            bid=obj,
+            comment=obj.comment,
+            exclusive_submission=obj.exclusive_submission,
+            ai_usage_details=obj.ai_usage_details,
+            manuscript=obj.manuscript,
+            authors_file=obj.authors_file,
+            cover_letter=obj.cover_letter,
+        )
+        old_bid.save()
         bid_form = self.get_form()
 
         if article_form.is_valid() and bid_form.is_valid():
-            return self.forms_valid(article_form, bid_form)
+            return self.forms_valid(article_form, bid_form, old_bid)
         else:
             return self.form_invalid(article_form, bid_form)
 
-    def forms_valid(self, article_form, bid_form):
+    def forms_valid(self, article_form, bid_form, old_bid):
         new_article = article_form.save(commit=False)
-
         if not article_form.cleaned_data.get('file'):
             new_article.file = self.object.article.file
             new_article.plagiarism = self.object.article.plagiarism
@@ -173,7 +182,7 @@ class UpdateBidView(BidAccessPermissionMixin, UpdateView):
         new_article.save()
 
         bid = bid_form.save(commit=False)
-        ArticleVersion(article=new_article, bid=bid).save()
+        ArticleVersion(article=new_article, bid_version=old_bid).save()
 
         bid.article = new_article
         bid.status = BidStatus.SUBMITTED
@@ -217,12 +226,32 @@ def assign_reviewer(request):
     return JsonResponse({'error': 'Неверный метод запроса'}, status=400)
 
 
-class BidAuthorDetailView(BidAccessPermissionMixin, DetailView):
+class BidDetailView(BidAccessPermissionMixin, DetailView):
     model = Bid
     template_name = "bid/view-request.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['reviews'] = Review.objects.filter(bid=self.object)
-        print(context["reviews"])
+
+        if self.request.user.role == CustomUser.REDACTOR:
+            context['reviews'] = Review.objects.filter(bid=self.object)
         return context
+
+
+class BidVersionList(DetailView):
+    model = Bid
+    template_name = "bid/redactor/version-list.html"
+
+
+class BidVersionDetailView(DetailView):
+    model = BidVersion
+    template_name = "bid/redactor/version_view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        bid_version = self.get_object()
+        article_version = ArticleVersion.objects.get(bid_version=bid_version)
+        context["article_version"] = article_version
+
+        return context
+

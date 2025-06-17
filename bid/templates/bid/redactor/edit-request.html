@@ -8,6 +8,7 @@
 
     <div class="article-info">
       <p><strong>Название статьи: </strong> {{ object.article.title }}</p>
+      <p><strong>История версии статьи: </strong><a href="{% url 'version_list' object.pk %}">Просмотреть</a></p>
       <p><strong>Автор статьи: </strong> {{ object.article.authors }}</p>
       <p><strong>Электронный адрес отправителя: </strong> {{ object.responsible.email }}</p>
       <p><strong>Аннотация: </strong>{{ object.article.annotation|safe }}</p>

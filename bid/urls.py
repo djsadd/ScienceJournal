@@ -19,7 +19,7 @@ from django.urls import path, include
 
 # My Views
 from .views import (BidListView, UpdateBidView, BidDetailViewRedactor, BidDetailViewReviewer, ReviewDetailView,
-                    assign_reviewer, BidAuthorDetailView)
+                    assign_reviewer, BidDetailView, BidVersionList, BidVersionDetailView)
 
 
 urlpatterns = [
@@ -27,7 +27,9 @@ urlpatterns = [
     path("edit/<int:pk>", UpdateBidView.as_view(), name="edit-request"),
     path("request/<int:pk>", BidDetailViewRedactor.as_view(), name="edit-request-redactor"),
     path("request-review/<int:pk>", BidDetailViewReviewer.as_view(), name="edit-request-reviewer"),
-    path("request-author/<int:pk>", BidAuthorDetailView.as_view(), name="view-request-author"),
+    path("request-author/<int:pk>", BidDetailView.as_view(), name="view-request-author"),
     path("review/<int:pk>", ReviewDetailView.as_view(), name="review-detail"),
     path("assign_reviewer/", assign_reviewer, name="assign_reviewer"),
+    path("version_list/<int:pk>", BidVersionList.as_view(), name="version_list"),
+    path("version_detail_view/<int:pk>", BidVersionDetailView.as_view(), name="version_detail"),
 ]

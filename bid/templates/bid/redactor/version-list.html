@@ -1,0 +1,51 @@
+{% extends 'redactor-base.html' %}
+{% load static %}
+
+  {% block title %}
+    <title>Редактор – История версии</title>
+  {% endblock %}
+
+
+  {% block css %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/redactor.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/Articlequeue.css' %}" />
+  {% endblock %}
+
+{% block content %}
+
+  <main class="main-content">
+    <section class="article-queue">
+      <h2>История версии: {{ object.article.title }}</h2>
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Дата отправки</th>
+            <th>Статус</th>
+            <th>Действие</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for version in bid.bidversion_set.all %}
+        <tr>
+            <td data-label="№">{{ version.pk }}</td>
+            <td data-label="Название">{{ version.bid.article.title }}</td>
+            <td data-label="Автор">{{ version.bid.article.authors }}</td>
+            <td data-label="Дата отправки">{{ version.bid.date_created }}</td>
+            <td data-label="Статус">{{ version.bid.get_status_display  }}</td>
+          <td data-label="Действие"><a href="{% url 'version_detail' version.pk %}" class="btn-small">Проверить</a></td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+       {% include "includes/pagination.html" %}
+
+    </section>
+  </main>
+
+</div>
+{% endblock %}

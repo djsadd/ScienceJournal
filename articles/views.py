@@ -9,7 +9,7 @@ from components.email import send_html_email
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # My Models
-from bid.models import BidStatus, ArticleVersion
+from bid.models import BidStatus, ArticleVersion, BidVersion
 
 # Forms
 from .forms import ArticleCreateForm
@@ -56,7 +56,16 @@ class Dashboard(LoginRequiredMixin, FormView):
         bid.status = BidStatus.SUBMITTED
         bid.responsible = self.request.user
         bid.save()
-        ArticleVersion(article=article, bid=bid).save()
+        bid_version = BidVersion.objects.create(
+            bid=bid,
+            comment=bid.comment,
+            exclusive_submission=bid.exclusive_submission,
+            ai_usage_details=bid.ai_usage_details,
+            manuscript=bid.manuscript,
+            authors_file=bid.authors_file,
+            cover_letter=bid.cover_letter,
+        )
+        ArticleVersion(article=article, bid_version=bid_version).save()
 
         send_html_email(
             "Ваша заявка успешно отправлена!",
