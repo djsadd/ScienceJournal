@@ -75,3 +75,5 @@ class ForAuthorsView(View):
             "page_title": "Contacts"
         }
         return render(request, self.template_name, context)
+
+

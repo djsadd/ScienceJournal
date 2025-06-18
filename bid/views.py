@@ -1,3 +1,4 @@
+from journal.models import Collection
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
@@ -6,6 +7,7 @@ from django.views.generic import UpdateView
 from django.views.generic.detail import DetailView
 from articles.models import Article
 # Models
+from django.utils.timezone import now
 from users.models import CustomUser
 from .models import Bid, BidStatus, Review, ReviewStatus
 from bid.forms import BidForm
@@ -102,8 +104,9 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
             bid_obj.status = BidStatus.NEEDS_REVISION
             bid_obj.save()
         if decision == "accept":
-            bid_obj.status = BidStatus.ACCEPTED
-            bid_obj.save()
+            return redirect("collection-redactor", bid_pk=bid_obj.pk)
+            # bid_obj.status = BidStatus.ACCEPTED
+            # bid_obj.save()
         return redirect("my_bids")
 
 
@@ -254,4 +257,26 @@ class BidVersionDetailView(DetailView):
         context["article_version"] = article_version
 
         return context
+
+
+class CollectionRedactorListView(ListView):
+    model = Collection
+    template_name = "bid/redactor/collection-list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bid_pk = self.kwargs['bid_pk']
+        context['bid'] = Bid.objects.get(pk=bid_pk)  # Чтобы в шаблоне отобразить данные заявки
+        return context
+
+
+def select_collection_bid(request, bid_pk, collection_pk):
+    if request.user.role == CustomUser.REDACTOR:
+        bid_obj = Bid.objects.get(pk=bid_pk)
+        collection_obj = Collection.objects.get(pk=collection_pk)
+        bid_obj.collection = collection_obj
+        bid_obj.status = BidStatus.PUBLISHED
+        bid_obj.published_at = now().date()
+        bid_obj.save()
+        return redirect("my_bids")
 

@@ -2,9 +2,9 @@ from django.db import models
 from django.core.validators import RegexValidator
 # Models
 from articles.models import Article
+from journal.models import Collection
 from users.models import CustomUser
 from ckeditor.fields import RichTextField
-from journal.models import Collection
 from django.core.exceptions import ValidationError
 from django.core.exceptions import PermissionDenied
 import re
@@ -34,7 +34,8 @@ def normalize_text(text):
 
 class Bid(models.Model):
     status = models.CharField(max_length=255, choices=BidStatus.choices, default=BidStatus.DRAFT)
-    # collection = models.ForeignKey(to=Collection, on_delete=models.PROTECT, null=True, blank=True)
+    collection = models.ForeignKey(to=Collection, on_delete=models.PROTECT, null=True, blank=True)
+    published_at = models.DateField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     responsible = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True, related_name='bids_responsible')
@@ -85,7 +86,7 @@ class Bid(models.Model):
             'Перед загрузкой убедитесь, что файл оформлен в соответствии с '
             '<a href="URL_на_требования" target="_blank">требованиями</a>.'
         )
-    ) # To BidVersion
+    )
     doi = models.CharField(
         max_length=100, null=True, blank=True,
         unique=True,
@@ -111,6 +112,13 @@ class Bid(models.Model):
     ):
         if self.status == BidStatus.REJECTED:
             return PermissionDenied()
+
+        if self.pk:
+            old = self.__class__.objects.get(pk=self.pk)
+            if old.status == BidStatus.PUBLISHED and self.status != old.status:
+                raise PermissionDenied("Нельзя изменить статус после публикации")
+            if old.status == BidStatus.REJECTED and self.status != old.status:
+                raise PermissionDenied("Нельзя изменить отклонённую заявку")
         return super().save(
         *args,
         force_insert=False,

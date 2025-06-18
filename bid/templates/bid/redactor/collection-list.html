@@ -1,0 +1,46 @@
+{% extends 'redactor-base.html' %}
+{% load static %}
+
+  {% block title %}
+    <title>Тома – выбрать том</title>
+  {% endblock %}
+
+
+  {% block css %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/redactor.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/Articlequeue.css' %}" />
+  {% endblock %}
+
+{% block content %}
+
+  <main class="main-content">
+    <section class="article-queue">
+      <h2>Выберите том для статьи: {{ bid.article.title }}</h2>
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Название</th>
+
+            <th>Действие</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for obj in object_list %}
+        <tr>
+            <td data-label="№">{{ obj.pk }}</td>
+            <td data-label="Название">{{ obj.title }}</td>
+            <td data-label="Действие"><a href="{% url 'collection-select-redactor' bid.pk obj.pk %}" class="btn-small">Выбрать</a></td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+       {% include "includes/pagination.html" %}
+
+    </section>
+  </main>
+
+</div>
+{% endblock %}
