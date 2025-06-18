@@ -88,12 +88,12 @@
     <p class="issue-info"><strong>Темы выпуска:</strong> Экономика, Менеджмент, Образование</p>
 
     <!-- Статья 1 -->
-    {% for obj in object.articles.all %}
+    {% for obj in bids %}
     <div class="article-card">
-      <h2 class="article-title">{{ obj.title }}</h2>
-      <p class="article-meta">Автор: {{ obj.authors }}</p>
-      <p class="article-annotation">Аннотация: {{ obj.annotation|safe }}</p>
-      <a href="{{ obj.file.url }}" class="btn-download" download>Скачать PDF</a>
+      <h2 class="article-title">{{ obj.article.title }}</h2>
+      <p class="article-meta">Автор: {{ obj.article.authors }}</p>
+      <p class="article-annotation">Аннотация: {{ obj.article.annotation|safe }}</p>
+      <a href="{{ obj.manuscript.url }}" class="btn-download" download>Скачать PDF</a>
     </div>
     {% endfor %}
 

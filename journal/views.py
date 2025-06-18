@@ -41,6 +41,11 @@ class CollectionDetailView(DetailView):
     model = Collection
     template_name = "journal/collection_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["bids"] = Bid.objects.filter(collection=self.get_object())
+        return context
+
 
 class BidDetailView(DetailView):
     model = Bid

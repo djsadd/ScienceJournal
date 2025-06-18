@@ -118,7 +118,6 @@ class BidDetailViewReviewer(BidAccessPermissionMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
         decision = request.POST.get('decision')
-        print(decision)
         if decision == 'save':
             self.object.status = ReviewStatus.SAVED
             self.object.save()
@@ -223,6 +222,15 @@ def assign_reviewer(request):
 
         # Create obj review
         Review.objects.create(reviewer=reviewer, bid=bid_obj)
+        send_html_email(
+            f"Вам назначили рецензию: {bid_obj.article.title_ru}",
+            reviewer.user.email,
+            "email/request-add.html",
+            context={
+                "bid": bid_obj,
+            },
+
+        )
 
         return JsonResponse({'message': f'Рецензент с ID {reviewer_id} назначен.'})
 
@@ -255,7 +263,6 @@ class BidVersionDetailView(DetailView):
         bid_version = self.get_object()
         article_version = ArticleVersion.objects.get(bid_version=bid_version)
         context["article_version"] = article_version
-
         return context
 
 
@@ -278,5 +285,14 @@ def select_collection_bid(request, bid_pk, collection_pk):
         bid_obj.status = BidStatus.PUBLISHED
         bid_obj.published_at = now().date()
         bid_obj.save()
+        send_html_email(
+            f"Ваша статья {bid_obj.article.title_ru} успешно опубликована! Выпуск: {collection_obj.title}",
+            request.user.email,
+            "email/request-add.html",
+            context={
+                "collection": collection_obj,
+                "bid": bid_obj,
+            },
+        )
         return redirect("my_bids")
 
