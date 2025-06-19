@@ -34,8 +34,8 @@
     <table class="reviewers-table">
       <thead>
         <tr>
-          <th>ФИО</th>
-          <th>Рецензия</th>
+          <th>Исполнитель</th>
+          <th>Статус</th>
           <th>Действие</th>
         </tr>
       </thead>
@@ -48,12 +48,7 @@
             {% else %}
               <td><a href="{% url 'review-detail' review.pk %}">Скачать рецензию</a></td>
             {% endif %}
-
-            {% if review.is_not_draft %}
-              <td><a href="" class="btn btn-small">Рецензия не готова</a></td>
-            {% else %}
-              <td><a href="{% url 'review-detail' review.pk %}" class="btn btn-small">Перейти</a></td>
-            {% endif %}
+              <td><a href="{% url 'inactive-review' review.pk %}" class="btn btn-small">Удалить</a></td>
           </tr>
       {% endfor %}
 

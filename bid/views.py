@@ -7,6 +7,8 @@ from django.views.generic import UpdateView
 from django.views.generic.detail import DetailView
 from articles.models import Article
 # Models
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
 from users.models import CustomUser
 from .models import Bid, BidStatus, Review, ReviewStatus
@@ -60,7 +62,7 @@ class BidListView(LoginRequiredMixin, ListView):
             return render(request, template_name="bid/redactor/bid-list.html", context=context)
 
         if self.request.user.role == CustomUser.REVIEWER:
-            reviews = Review.objects.filter(reviewer=request.user)
+            reviews = Review.objects.filter(reviewer=request.user, is_active=True)
             context["reviews"] = reviews
             return render(request, template_name="bid/reviewer/bid-list.html", context=context)
 
@@ -221,13 +223,18 @@ def assign_reviewer(request):
         bid_obj = Bid.objects.get(id=bid_id)
 
         # Create obj review
-        Review.objects.create(reviewer=reviewer, bid=bid_obj)
+        review = Review.objects.create(reviewer=reviewer, bid=bid_obj)
+
+        review_url = reverse('edit-request-reviewer', args=[review.id])
+        review_link = request.build_absolute_uri(review_url)
+
         send_html_email(
             f"Вам назначили рецензию: {bid_obj.article.title_ru}",
-            reviewer.user.email,
-            "email/request-add.html",
+            reviewer.email,
+            "email/review-add.html",
             context={
                 "bid": bid_obj,
+                'review_link': review_link
             },
 
         )
@@ -296,3 +303,11 @@ def select_collection_bid(request, bid_pk, collection_pk):
         )
         return redirect("my_bids")
 
+
+def inactive_review(request, review_pk):
+    if request.user.role == CustomUser.REDACTOR:
+        obj = get_object_or_404(Review, id=review_pk)
+        obj.is_active = False
+        obj.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

@@ -193,6 +193,11 @@ class ReviewStatus(models.TextChoices):
     SUBMITTED = 'submitted', 'Отправлено'
 
 
+class ActiveReviewManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
+
 class Review(models.Model):
     plagiarism = RichTextField()
     novelty = RichTextField()
@@ -203,11 +208,15 @@ class Review(models.Model):
     literary_level = RichTextField()
     design_quality = RichTextField()
     conclusion = RichTextField()
+    is_active = models.BooleanField(default=True)
     reviewer = models.ForeignKey(to=CustomUser, on_delete=models.PROTECT, null=True, blank=True)
     bid = models.ForeignKey(Bid, on_delete=models.PROTECT,null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_submitted = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=255, choices=ReviewStatus.choices, default=ReviewStatus.DRAFT)
+
+    objects = ActiveReviewManager()
+    all_objects = models.Manager()
 
     def is_not_draft(self):
         return self.status == ReviewStatus.DRAFT
