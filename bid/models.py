@@ -225,7 +225,7 @@ class Review(models.Model):
         self.save(set_submit=True)
 
     def save(self, *args, set_submit=False, **kwargs):
-        if self.status == ReviewStatus.SAVED and set_submit == True:
+        if self.status == ReviewStatus.SAVED and set_submit==True:
             self.status = ReviewStatus.SUBMITTED
         elif self.pk:
             if self.status == ReviewStatus.SUBMITTED:
