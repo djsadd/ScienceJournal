@@ -14,10 +14,12 @@ class DashboardViewTests(TestCase):
         self.client = Client()
         self.url = reverse('dashboard')
         self.user = User.objects.create_user(
-            username='author', password='password123', role=CustomUser.AUTHOR
+            username='author', password='password123', role=CustomUser.AUTHOR, is_active=True,
+            email="e.bahytzhanuly@tau-edu.kz"
         )
         self.redactor = User.objects.create_user(
-            username='red', password='password123', role=CustomUser.REDACTOR
+            username='red', password='password123', role=CustomUser.REDACTOR, is_active=True,
+            email="e.bahytzhanuly@tau-edu.kz"
         )
 
     # Test if user not authenticated
