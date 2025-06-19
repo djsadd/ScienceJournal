@@ -25,6 +25,9 @@ class Dashboard(LoginRequiredMixin, FormView):
     login_url = '/users/login/'
 
     def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and not request.user.is_active:
+            messages.error(request, 'Произошла ошибка.')
+            return redirect("home")
         if request.user.is_authenticated and (
                 request.user.role == CustomUser.REDACTOR or request.user.role == CustomUser.REVIEWER
         ):

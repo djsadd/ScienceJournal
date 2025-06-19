@@ -168,6 +168,6 @@ EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True  # Используем SSL
 
-EMAIL_HOST_USER = 'e.bahytzhanuly@tau-edu.kz'  # ваш адрес
+EMAIL_HOST_USER = 'zharshy@tau-edu.kz'  # ваш адрес
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

@@ -2,11 +2,12 @@ from django.contrib.auth import logout
 from django.shortcuts import render
 from django.shortcuts import redirect
 # Create your views here.
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
 from django.http import HttpResponseForbidden
 from django.contrib.auth.views import LoginView
-
+from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
@@ -14,6 +15,9 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
+from django.contrib.auth import login
+from django.http import HttpResponseRedirect
+
 # Models
 from .forms import CustomLoginForm, CustomRegisterForm
 from .models import CustomUser
@@ -22,6 +26,20 @@ from .models import CustomUser
 class CustomLoginView(LoginView):
     template_name = 'users/login.html'
     form_class = CustomLoginForm
+
+    def form_valid(self, form):
+        user = form.get_user()
+
+        if not user.is_active:
+            messages.error(self.request, 'Ваш аккаунт не активен.')
+            return self.form_invalid(form)
+
+        if not getattr(user, 'email_confirmed', True):
+            messages.error(self.request, 'Подтвердите вашу почту.')
+            return self.form_invalid(form)
+
+        login(self.request, user)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProfileView(LoginRequiredMixin, DetailView):
@@ -34,7 +52,9 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         user = request.user
-
+        if user.is_authenticated and not user.is_active:
+            messages.error(request, 'Произошла ошибка.')
+            print("НЕ АУТЕНТИФИЦРОВАН")
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -80,7 +100,7 @@ def register_view(request):
             send_mail(
                 subject,
                 message,
-                "e.bahytzhanuly@tau-edu.kz",
+                settings.EMAIL_HOST_USER,
                 [user.email],
             )
 
@@ -100,6 +120,7 @@ def activate(request, uidb64, token):
 
     if user and default_token_generator.check_token(user, token):
         user.is_active = True
+        user.email_confirmed = True
         user.save()
         return render(request, 'email/activation_success.html')
     else:

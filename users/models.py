@@ -27,7 +27,7 @@ class CustomUser(AbstractUser):
     # bids = models.ManyToManyField(Bid, null=True, blank=True)
     role = models.CharField(max_length=255, choices=choices, default=AUTHOR)
     languages = MultiSelectField(choices=LANG_CHOICES, default='ru')
-    is_active = models.BooleanField(default=False)
+    email_confirmed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.languages}"

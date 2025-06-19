@@ -9,9 +9,14 @@
   <title>Профиль</title>
   {% endblock %}
     {% block css %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% endblock %}
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- В head шаблона -->
+
 </head>
 <body>
 
@@ -36,6 +41,17 @@
 {% block content %}
 
 {% endblock %}
+  {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
   <footer class="footer">
     <p>&copy; 2025 Вестник Туран. Все права защищены.</p>
     <p><a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
