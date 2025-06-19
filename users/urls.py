@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 # My Views
-from .views import CustomLoginView, ProfileView, logout_view
+from .views import CustomLoginView, ProfileView, logout_view, register_view, activate
 
 urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
     path("profile/", ProfileView.as_view(), name="profile"),
     path('logout/', logout_view, name='logout'),
+    path('register/', register_view, name='register'),
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
 ]

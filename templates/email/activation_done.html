@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Активация успешна</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .message-box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .message-box h2 {
+            color: #2e7d32;
+        }
+        .message-box a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .message-box a:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box">
+        <h2>Ваш аккаунт успешно активирован!</h2>
+        <p>Теперь вы можете войти в систему, используя свои учетные данные.</p>
+        <a href="{% url 'login' %}">Войти</a>
+    </div>
+</body>
+</html>
