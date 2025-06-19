@@ -7,6 +7,7 @@ from django.views.generic import UpdateView
 from django.views.generic.detail import DetailView
 from articles.models import Article
 # Models
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
@@ -97,19 +98,22 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
         bid_obj = self.get_object()
         if comment:
             bid_obj.comment = comment
+            messages.success(self.request, 'Комментарии успешно оставлен!')
         if not bid_obj.status == BidStatus.SENT_FOR_REVIEW and decision == "approve":
             bid_obj = send_to_recent(request, bid_obj)
         if decision == "reject":
             bid_obj.status = BidStatus.REJECTED
             bid_obj.save()
+            messages.success(self.request, 'Статья успешно отклонена!')
         if decision == "revision":
             bid_obj.status = BidStatus.NEEDS_REVISION
             bid_obj.save()
+            messages.success(self.request, 'Статья успешно отправлена на доработку!')
         if decision == "accept":
             return redirect("collection-redactor", bid_pk=bid_obj.pk)
             # bid_obj.status = BidStatus.ACCEPTED
             # bid_obj.save()
-        return redirect("my_bids")
+        return redirect(request.path)
 
 
 class BidDetailViewReviewer(BidAccessPermissionMixin, UpdateView):
@@ -125,6 +129,7 @@ class BidDetailViewReviewer(BidAccessPermissionMixin, UpdateView):
             self.object.save()
         if decision == 'submit':
             self.object.set_submit()
+            return redirect("my_bids")
         return super().post(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):

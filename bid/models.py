@@ -225,9 +225,17 @@ class Review(models.Model):
         self.save(set_submit=True)
 
     def save(self, *args, set_submit=False, **kwargs):
-        if self.status == ReviewStatus.SAVED and set_submit==True:
+        old_status = None
+        if self.pk:
+            old_instance = type(self).objects.get(pk=self.pk)
+            old_status = old_instance.status
+            print(old_instance)
+            print(old_status)
+
+            if old_status == ReviewStatus.SUBMITTED:
+                raise ValidationError("Нельзя изменять объект со статусом 'Submitted'. Review")
+
+        if self.status == ReviewStatus.SAVED and set_submit:
             self.status = ReviewStatus.SUBMITTED
-        elif self.pk:
-            if self.status == ReviewStatus.SUBMITTED:
-                raise ValidationError("Нельзя изменять объект со статусом 'Submitted'.")
+
         super().save(*args, **kwargs)
