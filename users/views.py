@@ -101,6 +101,6 @@ def activate(request, uidb64, token):
     if user and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        return render(request, 'activation_success.html')
+        return render(request, 'email/activation_success.html')
     else:
-        return render(request, 'activation_invalid.html')
+        return render(request, 'email/activation_invalid.html')
