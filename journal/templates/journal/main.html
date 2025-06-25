@@ -29,7 +29,7 @@
             <p><strong>{% trans 'Страницы' %}:</strong> 9-24</p>
             <p><strong>{% trans 'Цитирования' %}:</strong> 103</p>
             <p><strong>{% trans 'Просмотры' %}:</strong> 150</p>
-            <p><strong>{% trans 'Аннотация' %}:</strong> <span class="annotation-text">{{ obj.article.annotation_ru|safe }}</span></p>
+            <p><strong>{% trans 'Аннотация' %}:</strong> <span class="annotation-text">{{ obj.article.annotation|safe }}</span></p>
             <a href="{% url 'article_detail' obj.pk %}" class="btn">{% trans 'Просмотреть статью' %}</a>
           </div>
         {% empty %}
