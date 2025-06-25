@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # My Models
 from bid.models import BidStatus, ArticleVersion, BidVersion
-
+from django.contrib import messages
 # Forms
 from .forms import ArticleCreateForm
 from bid.forms import BidForm
