@@ -143,10 +143,10 @@ class DashboardViewTests(TestCase):
 
         article_data = {
             'category': str(category.pk),  # pk как строка
-            'title': 'Заголовок статьи',
+            'title_en': 'Заголовок статьи',
             'title_kk': 'Заголовок статьи KK',
             'title_ru': 'Заголовок статьи RU',
-            'annotation': 'Аннотация',
+            'annotation_en': 'Аннотация',
             'annotation_kk': 'Аннотация KK',
             'annotation_ru': 'Аннотация RU',
             'authors': 'Автор1, Автор2',
