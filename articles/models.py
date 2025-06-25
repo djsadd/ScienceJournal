@@ -44,4 +44,4 @@ class Article(models.Model):
     plagiarism = models.FileField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.title_ru}"
+        return f"{self.title}"

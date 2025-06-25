@@ -6,7 +6,7 @@ from ckeditor.widgets import CKEditorWidget
 
 
 class ArticleCreateForm(forms.ModelForm):
-    annotation = forms.CharField(widget=CKEditorWidget())
+    annotation_en = forms.CharField(widget=CKEditorWidget())
     annotation_kk = forms.CharField(widget=CKEditorWidget())
     annotation_ru = forms.CharField(widget=CKEditorWidget())
     tags = forms.ModelMultipleChoiceField(
@@ -22,10 +22,10 @@ class ArticleCreateForm(forms.ModelForm):
             "tags",
             "file",
             "plagiarism",
-            "title",
+            "title_en",
             "title_kk",
             "title_ru",
-            "annotation",
+            "annotation_en",
             "annotation_kk",
             "annotation_ru",
             "authors"
@@ -38,7 +38,7 @@ class ArticleCreateForm(forms.ModelForm):
             'required': 'required',
         }
         self.fields['category'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите категорию статьи'})
-        self.fields['title'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
+        self.fields['title_en'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
         self.fields['title_kk'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
         self.fields['title_ru'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
         self.fields['authors'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Авторы статьи'})
