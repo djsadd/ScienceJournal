@@ -19,9 +19,14 @@ class JournalView(ListView):
         if query:
             return Bid.objects.published().filter(
                 Q(article__title_ru__iregex=query) |
+                Q(article__title_en__iregex=query) |
+                Q(article__title_kk__iregex=query) |
                 Q(article__authors__iregex=query) |
-                Q(article__category__title_ru__iregex=query)
-                # Q(article__title_kz__icontains=query)
+                Q(article__authors_kk__iregex=query) |
+                Q(article__authors_en__iregex=query) |
+                Q(article__category__title_ru__iregex=query) |
+                Q(article__category__title_kk__iregex=query) |
+                Q(article__category__title_en__iregex=query)
             )
         return Bid.objects.published()
 
