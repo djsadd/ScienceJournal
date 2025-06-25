@@ -32,6 +32,7 @@ urlpatterns += i18n_patterns(
     path("bid/", include("bid.urls")),
     path("news/", include("news.urls")),
     path("", include("journal.urls")),
+    path('i18n/', include('django.conf.urls.i18n')),  # ОБЯЗАТЕЛЬНО!
     prefix_default_language=False
 )
 

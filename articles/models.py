@@ -14,12 +14,10 @@ class Tag(models.Model):
 
 # Model for categories of article
 class Category(models.Model):
-    title_en = models.CharField(max_length=255, null=True, blank=True)
-    title_kk = models.CharField(max_length=255, null=True, blank=True)
-    title_ru = models.CharField(max_length=255, null=True, blank=True)
+    title = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.title_ru}"
+        return f"{self.title}"
 
 
 # Languages article

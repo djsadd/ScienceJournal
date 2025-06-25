@@ -1,8 +1,9 @@
 {% extends 'redactor-base.html' %}
+{% load i18n %}
 {% load static %}
 
   {% block title %}
-    <title>Тома – выбрать том</title>
+    <title>{% trans 'Тома – выбрать том' %}</title>
   {% endblock %}
 
 
@@ -16,14 +17,14 @@
 
   <main class="main-content">
     <section class="article-queue">
-      <h2>Выберите том для статьи: {{ bid.article.title }}</h2>
+      <h2>{% trans 'Выберите том для статьи' %}: {{ bid.article.title }}</h2>
       <table class="article-table">
         <thead>
           <tr>
             <th>№</th>
-            <th>Название</th>
+            <th>{% trans 'Название' %}</th>
 
-            <th>Действие</th>
+            <th>{% trans 'Действие' %}</th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +32,7 @@
         <tr>
             <td data-label="№">{{ obj.pk }}</td>
             <td data-label="Название">{{ obj.title }}</td>
-            <td data-label="Действие"><a href="{% url 'collection-select-redactor' bid.pk obj.pk %}" class="btn-small">Выбрать</a></td>
+            <td data-label="Действие"><a href="{% url 'collection-select-redactor' bid.pk obj.pk %}" class="btn-small">{% trans 'Выбрать' %}</a></td>
           </tr>
         {% endfor %}
 

@@ -1,6 +1,6 @@
 {% extends 'redactor-base.html' %}
 {% load static %}
-
+{% load i18n %}
   {% block title %}
     <title>Редактор – История версии</title>
   {% endblock %}
@@ -16,15 +16,15 @@
 
   <main class="main-content">
     <section class="article-queue">
-      <h2>История версии: {{ object.article.title }}</h2>
+      <h2>{% trans 'История версии' %}: {{ object.article.title }}</h2>
       <table class="article-table">
         <thead>
           <tr>
             <th>№</th>
-            <th>Название</th>
-            <th>Автор</th>
-            <th>Дата отправки</th>
-            <th>Действие</th>
+            <th>{% trans 'Название' %}</th>
+            <th>{% trans 'Автор' %}</th>
+            <th>{% trans 'Дата отправки' %}</th>
+            <th>{% trans 'Действие' %}</th>
           </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@
             <td data-label="Название">{{ version.bid.article.title }}</td>
             <td data-label="Автор">{{ version.bid.article.authors }}</td>
             <td data-label="Дата отправки">{{ version.bid.date_created }}</td>
-          <td data-label="Действие"><a href="{% url 'version_detail' version.pk %}" class="btn-small">Проверить</a></td>
+          <td data-label="Действие"><a href="{% url 'version_detail' version.pk %}" class="btn-small">{% trans 'Проверить' %}</a></td>
           </tr>
         {% endfor %}
 

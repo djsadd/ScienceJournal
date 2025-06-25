@@ -23,11 +23,11 @@
         <thead>
           <tr>
             <th>№</th>
-            <th>Название</th>
-            <th>Автор</th>
-            <th>Дата отправки</th>
-            <th>Статус</th>
-            <th>Действие</th>
+            <th>{% trans 'Название' %}</th>
+            <th>{% trans 'Автор' %}</th>
+            <th>{% trans 'Дата отправки' %}</th>
+            <th>{% trans 'Статус' %}</th>
+            <th>{% trans 'Действие' %}</th>
           </tr>
         </thead>
         <tbody>
@@ -38,7 +38,7 @@
             <td data-label="Автор">{{ obj.article.authors }}</td>
             <td data-label="Дата отправки">{{ obj.date_created }}</td>
             <td data-label="Статус">{{ obj.get_status_display  }}</td>
-            <td data-label="Действие"><a href="{% url 'edit-request-redactor' obj.pk %}" class="btn-small">Проверить</a></td>
+            <td data-label="Действие"><a href="{% url 'edit-request-redactor' obj.pk %}" class="btn-small">{% trans 'Проверить' %}</a></td>
           </tr>
         {% endfor %}
 

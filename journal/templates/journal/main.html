@@ -20,10 +20,10 @@
       <section class="publications-section">
         {% for obj in object_list %}
           <div class="publication-item">
-            <h2>{{ obj.article.title_ru }}</h2>
+            <h2>{{ obj.article.title }}</h2>
   <!--          <p><strong>{{ obj.article.annotation_ru|safe }}</strong></p>-->
             <p><strong>Авторы: </strong>{{ obj.article.authors }}</p>
-            <p><strong>Категория: </strong>{{ obj.article.category.title_ru }}</p>
+            <p><strong>Категория: </strong>{{ obj.article.category.title }}</p>
             <p><strong>PDF:</strong> <a href="{{ obj.manuscript.url }}" target="_blank">Скачать PDF (Kaz)</a></p>
             <p><strong>Страницы:</strong> 9-24</p>
             <p><strong>Цитирования:</strong> 103</p>

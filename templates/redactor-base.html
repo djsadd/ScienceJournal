@@ -40,15 +40,21 @@
 
     </ul>
   </nav>
-              <!-- Языковой селектор -->
+{% get_current_language as LANGUAGE_CODE %}
+{% with LANGUAGE_CODE|slice:":2" as LANG %}
+  <form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
     <div class="d-flex align-items-center">
       <label for="languageSelect" class="me-2 mb-0">Язык:</label>
-      <select id="languageSelect" class="form-select form-select-sm" style="width: auto;">
-        <option value="ru">Русский</option>
-        <option value="kk">Қазақша</option>
-        <option value="en">English</option>
+      <select name="language" id="languageSelect" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">
+        <option value="ru" {% if LANG == 'ru' %}selected{% endif %}>Русский</option>
+        <option value="kk" {% if LANG == 'kk' %}selected{% endif %}>Қазақша</option>
+        <option value="en" {% if LANG == 'en' %}selected{% endif %}>English</option>
       </select>
     </div>
+    <input type="hidden" name="next" value="{{ request.path }}">
+  </form>
+{% endwith %}
 </header>
 
 {% block content %}

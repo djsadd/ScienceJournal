@@ -1,39 +1,40 @@
 {% extends 'redactor-base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
 <main class="main-content">
   <section class="editor-review">
-    <h2>Версия статьи №{{ object.pk }}</h2>
+    <h2>{% trans 'Версия статьи №' %}{{ object.pk }}</h2>
 
     <div class="article-info">
-      <p><strong>Название статьи: </strong> {{ article_version.article.title }}</p>
-      <p><strong>Автор статьи: </strong> {{ article_version.article.authors }}</p>
-      <p><strong>Электронный адрес отправителя: </strong> {{ article_version.responsible.email }}</p>
-      <p><strong>Аннотация: </strong>{{ article_version.article.annotation|safe }}</p>
-      <p><strong>Сведения об антиплагиате: </strong><a href="{{ article_version.article.plagiarism.url }}">Скачать</a></p>
-      <p><strong>Ключевые слова:</strong>
+      <p><strong>{% trans 'Название статьи' %}: </strong> {{ article_version.article.title }}</p>
+      <p><strong>{% trans 'Автор статьи' %}: </strong> {{ article_version.article.authors }}</p>
+      <p><strong>{% trans 'Электронный адрес отправителя' %}: </strong> {{ article_version.responsible.email }}</p>
+      <p><strong>{% trans 'Аннотация' %}: </strong>{{ article_version.article.annotation|safe }}</p>
+      <p><strong>{% trans 'Сведения об антиплагиате' %}: </strong><a href="{{ article_version.article.plagiarism.url }}">{% trans 'Скачать' %}</a></p>
+      <p><strong>{% trans 'Ключевые слова' %}:</strong>
         {% for tag in article_version.article.tags.all %}
           {{ tag.name }}{% if not forloop.last %}, {% endif %}
         {% endfor %}
       </p>
 
-      <p><strong>Файл рукописи статьи: </strong> <a href="{{ object.manuscript.url }}" target="_blank">Скачать</a></p>
-      <p><strong>Файл со сведениями об авторах: </strong> <a href="{{ object.authors_file.url }}" target="_blank">Скачать</a></p>
-      <p><strong>Файл с заполненным и подписанным всеми авторами письмом:</strong> <a href="{{ object.cover_letter.url }}" target="_blank">Скачать</a></p>
-      <p><strong>Сведения об антиплагиате:</strong> <a href="{{ object.article.plagiarism.url }}" target="_blank">Скачать</a></p>
+      <p><strong>{% trans 'Файл рукописи статьи' %}: </strong> <a href="{{ object.manuscript.url }}" target="_blank">{% trans 'Скачать' %}</a></p>
+      <p><strong>{% trans 'Файл со сведениями об авторах' %}: </strong> <a href="{{ object.authors_file.url }}" target="_blank">{% trans 'Скачать' %}</a></p>
+      <p><strong>{% trans 'Файл с заполненным и подписанным всеми авторами письмом' %}:</strong> <a href="{{ object.cover_letter.url }}" target="_blank">{% trans 'Скачать' %}</a></p>
+      <p><strong>{% trans 'Сведения об антиплагиате' %}:</strong> <a href="{{ object.article.plagiarism.url }}" target="_blank">{% trans 'Скачать' %}</a></p>
 
     </div>
     {% if reviews %}
-    <h2>Рецензенты</h2>
+    <h2>{% trans 'Рецензенты' %}</h2>
 
     {% if reviews %}
     <table class="reviewers-table">
       <thead>
         <tr>
-          <th>ФИО</th>
-          <th>Рецензия</th>
-          <th>Действие</th>
+          <th>{% trans ФИО' %}</th>
+          <th>{% trans Рецензия' %}</th>
+          <th>{% trans Действие' %}</th>
         </tr>
       </thead>
       <tbody>
@@ -41,15 +42,15 @@
           <tr>
             <td>Скрыто</td>
             {% if review.is_not_draft %}
-              <td>Рецензия не готова</td>
+              <td>{% trans 'Рецензия не готова' %}</td>
             {% else %}
-              <td><a href="{% url 'review-detail' review.pk %}">Скачать рецензию</a></td>
+              <td><a href="{% url 'review-detail' review.pk %}">{% trans 'Скачать рецензию' %}</a></td>
             {% endif %}
 
             {% if review.is_not_draft %}
-              <td><a href="" class="btn btn-small">Рецензия не готова</a></td>
+              <td><a href="" class="btn btn-small">{% trans 'Рецензия не готова' %}</a></td>
             {% else %}
-              <td><a href="{% url 'review-detail' review.pk %}" class="btn btn-small">Перейти</a></td>
+              <td><a href="{% url 'review-detail' review.pk %}" class="btn btn-small">{% trans 'Перейти' %}</a></td>
             {% endif %}
           </tr>
       {% endfor %}
@@ -66,10 +67,10 @@
         </div>
 
       <div class="btn-group">
-        <button type="submit" class="btn reject" name="decision" value="reject">Отклонить</button>
-        <button type="submit" class="btn reject" name="decision" value="revision">Отправить на доработку</button>
-        <button type="submit" class="btn approve" name="decision" value="approve">Отправить рецензенту</button>
-        <button type="submit" class="btn approve" name="decision" value="accept">Принять к публикации</button>
+        <button type="submit" class="btn reject" name="decision" value="reject">{% trans 'Отклонить' %}</button>
+        <button type="submit" class="btn reject" name="decision" value="revision">{% trans 'Отправить на доработку' %}</button>
+        <button type="submit" class="btn approve" name="decision" value="approve">{% trans 'Отправить рецензенту' %}</button>
+        <button type="submit" class="btn approve" name="decision" value="accept">{% trans 'Принять к публикации' %}</button>
       </div>
     </form>
   {% endif %}
