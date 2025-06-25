@@ -1,9 +1,9 @@
 {% extends 'guest-base.html' %}
 {% load static %}
-
+{% load i18n %}
 
 {% block title %}
-  <title>Авторам</title>
+  <title>{% trans 'Авторам' %}</title>
 {% endblock %}
 
 {% block css %}
@@ -16,11 +16,11 @@
 
     <!-- Контент -->
     <main class="main-content">
-      <h1>Информация для авторов</h1>
+      <h1>{% trans 'Информация для авторов' %}</h1>
       <section class="authors-section">
-        <p><strong>Уважаемые авторы!</strong> Благодарим вас за интерес к публикации в нашем научном журнале. Ниже представлены основные требования и рекомендации.</p>
+        <p><strong>{% trans 'Уважаемые авторы!' %}</strong>{% trans 'Благодарим вас за интерес к публикации в нашем научном журнале. Ниже представлены основные требования и рекомендации.' %}</p>
 
-        <h2>Требования к статьям:</h2>
+        <h2>{% trans 'Требования к статьям:' %}</h2>
         <ul>
           <li>Оригинальность и научная новизна материала;</li>
           <li>Объем статьи — от 5 до 15 страниц;</li>
@@ -43,8 +43,8 @@
         <p>Авторы обязуются соблюдать академическую честность, избегать плагиата и предоставлять достоверную информацию.</p>
 
         <div class="btn-group">
-          <a href="documents/template.docx" class="btn" download>Скачать шаблон статьи</a>
-          <a href="documents/author-form.docx" class="btn" download>Скачать авторскую справку</a>
+          <a href="documents/template.docx" class="btn" download>{% trans 'Скачать шаблон статьи' %}</a>
+          <a href="documents/author-form.docx" class="btn" download>{% trans 'Скачать авторскую справку' %}</a>
         </div>
       </section>
     </main>

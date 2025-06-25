@@ -1,4 +1,6 @@
 {% extends 'guest-base.html' %}
+{% load i18n %}
+
 {% load static %}
 {% load bid_filters %}
 
@@ -16,7 +18,7 @@
  <div class="wrapper">
   <!-- Основной контент -->
   <main class="main-content">
-    <h1>Новости журнала</h1>
+    <h1>{% trans 'Новости журнала' %}</h1>
 
     <section class="news-list">
       {% for obj in object_list %}
@@ -27,7 +29,7 @@
           <p class="news-meta">Дата: {{ obj.date }} | Автор: Редакция</p>
           <p>{{ obj.description_eng|clean_preview:50 }}</p>
 
-          <a href="{% url 'detail-news' obj.pk %}" class="btn">Читать далее</a>
+          <a href="{% url 'detail-news' obj.pk %}" class="btn">{% trans 'Читать далее' %}</a>
         </div>
       </article>
       {% endfor %}

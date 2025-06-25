@@ -1,8 +1,9 @@
 {% extends 'guest-base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-<title>Просмотр статьи — Вестник Туран</title>
+<title>{% trans 'Просмотр статьи — Вестник Туран' %}</title>
 {% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/main.css' %}" />
@@ -15,25 +16,25 @@
   <main class="main-content article-page">
     <article class="article-detail">
       <h1>{{ object.article.title_ru }}</h1>
-      <p class="article-meta"><strong>Авторы: </strong>{{ object.article.authors }}</p>
-      <p class="article-meta"><strong>Дата публикации: </strong>{{ object.date_created }} <strong> Страницы:</strong> 9–24</p>
+      <p class="article-meta"><strong>{% trans 'Авторы:' %} </strong>{{ object.article.authors }}</p>
+      <p class="article-meta"><strong>{% trans 'Дата публикации:' %} </strong>{{ object.date_created }} <strong> {% trans 'Страницы:' %}</strong> 9–24</p>
 
       <div class="article-actions">
-        <a href="{{ object.manuscript.url }}" target="_blank" class="btn">Скачать PDF</a>
-        <span class="views">Просмотры: 150</span>
-        <span class="citations">Цитирования: 103</span>
+        <a href="{{ object.manuscript.url }}" target="_blank" class="btn">{% trans 'Скачать PDF' %}</a>
+        <span class="views">{% trans 'Просмотры:' %} 150</span>
+        <span class="citations">{% trans 'Цитирования' %}: 103</span>
       </div>
 
-      <h2>Аннотация</h2>
+      <h2>{% trans 'Аннотация' %}</h2>
       <p>
         {{ object.article.annotation_ru|safe }}
       </p>
 
-      <h2>Введение</h2>
-      <p>Циркулярная экономика представляет собой модель устойчивого развития, предполагающую максимальное использование ресурсов, снижение отходов и замкнутый цикл производства и потребления. В условиях Казахстана данная модель набирает всё большую актуальность...</p>
+      <h2>{% trans 'Введение' %}</h2>
+      <p>{% trans 'Циркулярная экономика представляет собой модель устойчивого развития, предполагающую максимальное использование ресурсов, снижение отходов и замкнутый цикл производства и потребления. В условиях Казахстана данная модель набирает всё большую актуальность...' %}</p>
 
       <!-- Пример основного содержания -->
-      <h2>Основное содержание</h2>
+      <h2>{% trans 'Основное содержание' %}</h2>
       <p>... Здесь может быть текст статьи с подзаголовками, таблицами, иллюстрациями и цитатами. Обычно контент загружается из базы данных или отдельного HTML/MD-файла. Вы можете добавить любые структурные элементы, такие как:</p>
       <ul>
         <li>Анализ текущей ситуации</li>

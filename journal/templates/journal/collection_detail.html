@@ -1,6 +1,8 @@
 {% extends 'guest-base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}
+
   <title>Выпуск №1 (Январь 2025)</title>
 {% endblock %}
 {% block css %}
@@ -84,8 +86,8 @@
 {% endblock %}
 {% block content %}
   <div class="page-wrapper">
-    <h1>Выпуск №1 (Январь 2025)</h1>
-    <p class="issue-info"><strong>Темы выпуска:</strong> Экономика, Менеджмент, Образование</p>
+    <h1>{{ object.title }}</h1>
+    <p class="issue-info"><strong>{% trans 'Темы выпуска:' %}</strong> {{ object.description|safe  }}</p>
 
     <!-- Статья 1 -->
     {% for obj in bids %}

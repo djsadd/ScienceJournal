@@ -1,8 +1,8 @@
 {% extends 'guest-base.html' %}
-
+{% load i18n %}
 {% load static %}
 {% block title %}
-  <title>Детали новости — Вестник Туран</title>
+  <title>{% trans 'Детали новости — Вестник Туран' %}</title>
 {% endblock %}
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}" />
@@ -15,7 +15,7 @@
   <main class="main-content">
     <article class="news-detail">
       <h1>{{ object.title_eng }}</h1>
-      <p class="news-meta">Дата: 20 мая 2025 | Автор: Редакция</p>
+      <p class="news-meta">{% trans 'Дата: 20 мая 2025 | Автор: Редакция' %}</p>
       <img src="{{ object.image.url }}" alt="Прием статей" class="news-detail-img" />
 
       <div class="news-body">
@@ -23,7 +23,7 @@
       </div>
     </article>
 
-  <a href="javascript:history.back()" class="btn back-btn">← Назад</a>
+  <a href="javascript:history.back()" class="btn back-btn">{% trans '← Назад' %}</a>
   </main>
 
   <!-- Футер -->

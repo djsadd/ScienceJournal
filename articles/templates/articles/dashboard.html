@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
+
 
 {% block title %}
-<title>Загрузка статьи</title>
+<title>{% trans 'Загрузка статьи' %}</title>
 {% endblock %}
 
 {% block css %}
@@ -41,57 +43,57 @@
   <!-- Основной контент -->
   <main class="main-content">
     <section class="upload-section">
-      <h2>Загрузить статью</h2>
+      <h2>{% trans 'Загрузить статью' %}</h2>
   {{ form.media }}
 
               <form method="post" enctype="multipart/form-data" id="uploadForm">
               {% csrf_token %}
               <div class="input-group">
-                Выберите тип статьи:
+                {% trans 'Выберите тип статьи' %}:
                 {{ form.category }}
               </div>
               <div class="input-group">
-                Выберите ключевые слова:
+                {% trans 'Выберите ключевые слова' %}:
                 {{ form.tags }}
               </div>
               <div class="input-group">
-                Название статьи на Английском:
+                {% trans 'Название статьи на Английском' %}:
                 {{ form.title }}
               </div>
               <div class="input-group">
-                Название статьи на Казахском:
+                {% trans 'Название статьи на Казахском' %}:
                 {{ form.title_kk }}
               </div>
               <div class="input-group">
-                Название статьи на Русском:
+                {% trans 'Название статьи на Русском' %}:
                 {{ form.title_ru }}
               </div>
 
               <div class="input-group">
-                Аннотация на Английском:
+                {% trans 'Аннотация на Английском' %}:
                 {{ form.annotation }}
               </div>
               <div class="input-group">
-                Аннотация на Казахском:
+                {% trans 'Аннотация на Казахском' %}:
                 {{ form.annotation_kk }}
               </div>
               <div class="input-group">
-                Аннотация на Русском:
+                {% trans 'Аннотация на Русском' %}:
                 {{ form.annotation_ru }}
               </div>
 
 
               <div class="input-group">
-                Авторы:
+                {% trans 'Авторы' %}:
                 {{ form.authors }}
               </div>
 
               <div class="input-group">
-                Загрузить статью:
+                {% trans 'Загрузить статью' %}:
                 {{ form.file }}
               </div>
             <div class="input-group">
-                Загрузить сведения об антиплагиате:
+                {% trans 'Загрузить сведения об антиплагиате' %}:
                 {{ form.plagiarism }}
               </div>
               <form method="POST" enctype="multipart/form-data" id="publicationForm{{ obj.id }}">
@@ -133,10 +135,10 @@
                 {{ bid_form.cover_letter }}
               </div>
 
-              <button type="submit" class="btn btn-primary">Отправить</button>
+              <button type="submit" class="btn btn-primary">{% trans 'Отправить' %}</button>
             </form>
 
-  <button type="submit" class="btn">Загрузить статью</button>
+  <button type="submit" class="btn">{% trans 'Загрузить статью' %}</button>
 </form>
 
     </section>

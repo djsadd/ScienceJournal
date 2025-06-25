@@ -1,7 +1,9 @@
 {% extends 'guest-base.html' %}
+{% load i18n %}
+
 {% load static %}
   {% block title %}
-  <title>Архивы</title>
+  <title>{% trans 'Архивы' %}</title>
   {% endblock %}
 
 {% block css %}
@@ -16,15 +18,15 @@
 
     <!-- Контент -->
     <main class="main-content">
-      <h1>Архивы публикаций</h1>
+      <h1>{% trans 'Архивы публикаций' %}</h1>
       
       <section class="archives-section">
         {% for obj in object_list %}
         <div class="archive-item">
           <h2>{{ obj.title }}</h2>
-          <p><strong>Описание:</strong> {{ obj.description|safe }}</p>
-          <a href="{% url 'collection_detail' obj.pk %}" class="btn">Скачать PDF</a>
-          <a href="{% url 'collection_detail' obj.pk %}" class="btn">Просмотреть онлайн</a>
+          <p><strong>{% trans 'Описание:' %}</strong> {{ obj.description|safe }}</p>
+          <a href="{% url 'collection_detail' obj.pk %}" class="btn">{% trans 'Скачать PDF' %}</a>
+          <a href="{% url 'collection_detail' obj.pk %}" class="btn">{% trans 'Просмотреть онлайн' %}</a>
         </div>
         {% endfor %}
 

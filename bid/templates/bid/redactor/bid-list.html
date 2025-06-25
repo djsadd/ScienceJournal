@@ -1,8 +1,10 @@
-{% extends 'redactor-base.html' %}
+{% extends 'redacor-base.html' %}
+{% load i18n %}
+
 {% load static %}
 
   {% block title %}
-    <title>Редактор – Очередь статей</title>
+    <title>{% trans 'Редактор – Очередь статей' %} </title>
   {% endblock %}
 
 
@@ -16,7 +18,7 @@
 
   <main class="main-content">
     <section class="article-queue">
-      <h2>Очередь статей</h2>
+      <h2>{% trans 'Очередь статей' %}</h2>
       <table class="article-table">
         <thead>
           <tr>

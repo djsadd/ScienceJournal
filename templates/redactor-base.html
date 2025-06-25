@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% block title %}
-  <title>Редактор – Проверка статьи</title>
+  <title>{% trans 'Редактор – Проверка статьи' %}</title>
     {% endblock %}
 
     {% block css %}
@@ -30,13 +30,13 @@
     <a href="{% url 'home' %}">
     <img src="{% static 'images/logo.png' %}" alt="Вестник Туран" class="logo-img">
     </a>
-    <span class="logo-text">Вестник университета Туран-Астана</span>
+    <span class="logo-text">{% trans 'Вестник университета Туран-Астана' %}</span>
   </div>
   <nav>
     <ul>
-      <li><a href="{% url 'my_bids' %}"><span class="material-icons">assignment</span> Очередь статей</a></li>
-      <li><a href="{% url 'profile' %}"><span class="material-icons">account_circle</span> Профиль</a></li>
-      <li><a href="{% url 'logout' %}"><span class="material-icons">logout</span> Выход</a></li>
+      <li><a href="{% url 'my_bids' %}"><span class="material-icons">assignment</span>{% trans 'Очередь статей' %}</a></li>
+      <li><a href="{% url 'profile' %}"><span class="material-icons">account_circle</span> {% trans 'Профиль' %}</a></li>
+      <li><a href="{% url 'logout' %}"><span class="material-icons">logout</span> {% trans 'Выход' %}</a></li>
 
     </ul>
   </nav>
@@ -77,8 +77,8 @@
 {% endif %}
 
 <footer class="footer">
-    <p>&copy; 2025 Вестник Туран. Все права защищены.</p>
-    <p><a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
+    <p>{% trans '&copy; 2025 Вестник Туран. Все права защищены.' %}</p>
+    <p><a href="#">{% trans 'Политика конфиденциальности' %}</a> | <a href="#">{% trans 'Условия использования' %}</a></p>
 </footer>
 
 </body>
