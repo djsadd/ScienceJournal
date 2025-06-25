@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/redactor.css ' %}">
@@ -8,18 +9,18 @@
 {% block content %}
 <main class="main-content">
   <section class="editor-review">
-    <h2>Проверка статьи</h2>
+    <h2>{% trans 'Проверка статьи' %}</h2>
         <div class="reviewer-response">
-            <h3>Ответ рецензента</h3>
-            <p><strong>Рецензент:</strong> {{ review.reviewer }}</p>
-            <p><strong>Новизна:</strong> {{ review.novelty|safe }}</p>
-            <p><strong>Оригинальность:</strong> {{ review.originality|safe }}</p>
-            <p><strong>Инновационность:</strong> {{ review.innovation|safe }}</p>
-            <p><strong>Значимость:</strong> {{ review.significance|safe }}</p>
-            <p><strong>Структурированность:</strong> {{ review.structuredness|safe }}</p>
-            <p><strong>Литературный уровень:</strong> {{ review.literary_level|safe }}</p>
-            <p><strong>Качество оформления:</strong> {{ review.conclusion|safe }}</p>
-            <p><strong>Заключение:</strong> {{ review.plagiarism|safe }}</p>
+            <h3>{% trans 'Ответ рецензента' %}</h3>
+            <p><strong>{% trans 'Рецензент' %}:</strong> {{ review.reviewer }}</p>
+            <p><strong>{% trans 'Новизна' %}:</strong> {{ review.novelty|safe }}</p>
+            <p><strong>{% trans 'Оригинальность' %}:</strong> {{ review.originality|safe }}</p>
+            <p><strong>{% trans 'Инновационность' %}:</strong> {{ review.innovation|safe }}</p>
+            <p><strong>{% trans 'Значимость' %}:</strong> {{ review.significance|safe }}</p>
+            <p><strong>{% trans 'Структурированность' %}:</strong> {{ review.structuredness|safe }}</p>
+            <p><strong>{% trans 'Литературный уровень' %}:</strong> {{ review.literary_level|safe }}</p>
+            <p><strong>{% trans 'Качество оформления' %}:</strong> {{ review.conclusion|safe }}</p>
+            <p><strong>{% trans 'Заключение' %}:</strong> {{ review.plagiarism|safe }}</p>
         </div>
   </section>
 </main>

@@ -93,9 +93,9 @@
     {% for obj in bids %}
     <div class="article-card">
       <h2 class="article-title">{{ obj.article.title }}</h2>
-      <p class="article-meta">Автор: {{ obj.article.authors }}</p>
-      <p class="article-annotation">Аннотация: {{ obj.article.annotation|safe }}</p>
-      <a href="{{ obj.manuscript.url }}" class="btn-download" download>Скачать PDF</a>
+      <p class="article-meta">{% trans 'Автор' %}: {{ obj.article.authors }}</p>
+      <p class="article-annotation">{% trans 'Аннотация' %}: {{ obj.article.annotation|safe }}</p>
+      <a href="{{ obj.manuscript.url }}" class="btn-download" download>{% trans 'Скачать PDF' %}</a>
     </div>
     {% endfor %}
 

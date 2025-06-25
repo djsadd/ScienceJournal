@@ -1,4 +1,5 @@
 {% extends 'guest-base.html' %}
+{% load i18n %}
 
 {% load static %}
 {% block content %}
@@ -9,8 +10,8 @@
     <!-- Поиск -->
     <section class="search-section">
       <form method="get">
-        <input type="text" name="q" class="search-bar" placeholder="Поиск публикаций...">
-        <button type="submit" class="btn">Поиск</button>
+        <input type="text" name="q" class="search-bar" placeholder="{% trans 'Поиск публикаций...' %}">
+        <button type="submit" class="btn">{% trans 'Поиск' %}</button>
       </form>
 
     </section>
@@ -22,14 +23,14 @@
           <div class="publication-item">
             <h2>{{ obj.article.title }}</h2>
   <!--          <p><strong>{{ obj.article.annotation_ru|safe }}</strong></p>-->
-            <p><strong>Авторы: </strong>{{ obj.article.authors }}</p>
-            <p><strong>Категория: </strong>{{ obj.article.category.title }}</p>
-            <p><strong>PDF:</strong> <a href="{{ obj.manuscript.url }}" target="_blank">Скачать PDF (Kaz)</a></p>
-            <p><strong>Страницы:</strong> 9-24</p>
-            <p><strong>Цитирования:</strong> 103</p>
-            <p><strong>Просмотры:</strong> 150</p>
-            <p><strong>Аннотация:</strong> <span class="annotation-text">{{ obj.article.annotation_ru|safe }}</span></p>
-            <a href="{% url 'article_detail' obj.pk %}" class="btn">Просмотреть статью</a>
+            <p><strong>{% trans 'Авторы' %}: </strong>{{ obj.article.authors }}</p>
+            <p><strong>{% trans 'Категория' %}: </strong>{{ obj.article.category.title }}</p>
+            <p><strong>{% trans 'PDF' %}:</strong> <a href="{{ obj.manuscript.url }}" target="_blank">{% trans 'Скачать PDF (Kaz)' %}</a></p>
+            <p><strong>{% trans 'Страницы' %}:</strong> 9-24</p>
+            <p><strong>{% trans 'Цитирования' %}:</strong> 103</p>
+            <p><strong>{% trans 'Просмотры' %}:</strong> 150</p>
+            <p><strong>{% trans 'Аннотация' %}:</strong> <span class="annotation-text">{{ obj.article.annotation_ru|safe }}</span></p>
+            <a href="{% url 'article_detail' obj.pk %}" class="btn">{% trans 'Просмотреть статью' %}</a>
           </div>
         {% empty %}
             <p>Ничего не найдено.</p>
@@ -41,7 +42,7 @@
       <aside class="popular-articles">
         <!-- Кнопка отправки статьи -->
 <div class="submit-article-btn-container">
-  <a href="{%  url 'login' %}" class="btn submit-article-btn">Отправить статью</a>
+  <a href="{%  url 'login' %}" class="btn submit-article-btn">{% trans 'Отправить статью' %}</a>
 </div>
 
         <h3>Популярные статьи</h3>

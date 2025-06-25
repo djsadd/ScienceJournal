@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block title %}
-  <title>Редактировать заявку</title>
+  <title>{% trans 'Редактировать заявку' %}</title>
 {% endblock %}
 
 {% block css %}
@@ -16,9 +16,9 @@
 
     <main class="main-content">
       <section class="edit-request-section">
-        <h1>Редактировать заявку </h1>
+        <h1>{% trans 'Редактировать заявку' %} </h1>
         {% if object.comment %}
-          <h3>Комментарии редактора: {{ object.comment|safe }}</h3>
+          <h3>{% trans 'Комментарии редактора' %}: {{ object.comment|safe }}</h3>
         {% endif %}
         {{ article_form.media }}
         <form enctype="multipart/form-data" method="POST" class="edit-request-form"  id="uploadForm">
@@ -46,7 +46,7 @@
                 {{ form.cover_letter }}
               </div>
           <div class="form-buttons">
-            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            <button type="submit" class="btn btn-primary">{% trans 'Сохранить изменения' %}</button>
           </div>
         </form>
       </section>

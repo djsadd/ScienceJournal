@@ -1,11 +1,11 @@
-
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Редактор – Проверка статьи</title>
+  <title>{% trans 'Редактор – Проверка статьи' %}</title>
   <link rel="stylesheet" href="{% static 'css/redactor.css' %}">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -14,45 +14,45 @@
 <header class="header">
   <div class="logo-container">
     <img src="logo.png" alt="Вестник Туран" class="logo-img">
-    <span class="logo-text">Вестник университета Туран-Астана</span>
+    <span class="logo-text">{% trans 'Вестник университета Туран-Астана' %}</span>
   </div>
   <nav>
     <ul>
-      <li><a href="editor-dashboard.html"><span class="material-icons">dashboard</span> Панель редактора</a></li>
-      <li><a href="review-queue.html"><span class="material-icons">assignment</span> Очередь статей</a></li>
-      <li><a href="profile.html"><span class="material-icons">account_circle</span> Профиль</a></li>
-      <li><a href="logout.html"><span class="material-icons">logout</span> Выход</a></li>
+      <li><a href="editor-dashboard.html"><span class="material-icons">dashboard</span>{% trans 'Панель редактора' %}</a></li>
+      <li><a href="review-queue.html"><span class="material-icons">assignment</span> {% trans 'Очередь статей' %}</a></li>
+      <li><a href="profile.html"><span class="material-icons">account_circle</span> {% trans 'Профиль' %}</a></li>
+      <li><a href="logout.html"><span class="material-icons">logout</span> {% trans 'Выход' %}</a></li>
     </ul>
   </nav>
 </header>
 
 <main class="main-content">
   <section class="editor-review">
-    <h2>Проверка статьи</h2>
+    <h2>{% trans 'Проверка статьи' %}</h2>
 
     <div class="article-info">
-      <p><strong>Название статьи:</strong> Исследование в области ИИ</p>
-      <p><strong>Аннотация:</strong> Данная статья посвящена современным подходам к использованию ИИ в образовании...</p>
-      <p><strong>Ключевые слова:</strong> искусственный интеллект, обучение, нейросети</p>
-      <p><strong>Файл статьи:</strong> <a href="uploads/article1.pdf" target="_blank">Скачать</a></p>
+      <p><strong>{% trans 'Название статьи' %}:</strong> {% trans 'Исследование в области ИИ' %}</p>
+      <p><strong>{% trans 'Аннотация' %}:</strong> {% trans 'Данная статья посвящена современным подходам к использованию ИИ в образовании...' %}</p>
+      <p><strong>{% trans 'Ключевые слова' %}:</strong> {% trans 'искусственный интеллект, обучение, нейросети' %}</p>
+      <p><strong>{% trans 'Файл статьи' %}:</strong> <a href="uploads/article1.pdf" target="_blank">{% trans 'Скачать' %}</a></p>
     </div>
 
     <form id="editorDecisionForm">
       <div class="input-group">
-        <label for="editor-comment">Комментарий редактора</label>
+        <label for="editor-comment">{% trans 'Комментарий редактора' %}</label>
         <textarea id="editor-comment" placeholder="Введите комментарий для автора или рецензента" required></textarea>
       </div>
 
       <div class="btn-group">
-        <button type="button" class="btn reject" onclick="sendBackToAuthor()">Отправить на доработку</button>
-        <button type="button" class="btn approve" onclick="sendToReviewer()">Отправить рецензенту</button>
+        <button type="button" class="btn reject" onclick="sendBackToAuthor()">{% trans 'Отправить на доработку' %}</button>
+        <button type="button" class="btn approve" onclick="sendToReviewer()">{% trans 'Отправить рецензенту' %}</button>
       </div>
     </form>
   </section>
 </main>
 </div>
 <footer class="footer">
-  <p>&copy; 2025 Вестник Туран. Все права защищены.</p>
+  <p>{% trans '&copy; 2025 Вестник Туран. Все права защищены.' %}</p>
 </footer>
 
 <script>

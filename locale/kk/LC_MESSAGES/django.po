@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-25 09:54+0500\n"
+"POT-Creation-Date: 2025-06-25 16:15+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,643 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+#: .\articles\templates\articles\dashboard.html:7
+msgid "Загрузка статьи"
+msgstr "Мақаланы жүктеу"
 
+#: .\articles\templates\articles\dashboard.html:46
+#: .\articles\templates\articles\dashboard.html:92
+#: .\articles\templates\articles\dashboard.html:141
+msgid "Загрузить статью"
+msgstr "Мақаланы жүктеу"
 
-#: .\journal\templates\journal\about.html:24
+#: .\articles\templates\articles\dashboard.html:52
+msgid "Выберите тип статьи"
+msgstr "Мақала түрін таңдаңыз"
+
+#: .\articles\templates\articles\dashboard.html:56
+msgid "Выберите ключевые слова"
+msgstr "Кілт сөздерді таңдаңыз"
+
+#: .\articles\templates\articles\dashboard.html:60
+msgid "Название статьи на Английском"
+msgstr "Ағылшын тіліндегі мақала атауы"
+
+#: .\articles\templates\articles\dashboard.html:64
+msgid "Название статьи на Казахском"
+msgstr "Қазақ тіліндегі мақала атауы"
+
+#: .\articles\templates\articles\dashboard.html:68
+msgid "Название статьи на Русском"
+msgstr "Орыс тіліндегі мақала атауы"
+
+#: .\articles\templates\articles\dashboard.html:73
+msgid "Аннотация на Английском"
+msgstr "Ағылшын тіліндегі аннотация"
+
+#: .\articles\templates\articles\dashboard.html:77
+msgid "Аннотация на Казахском"
+msgstr "Қазақ тіліндегі аннотация"
+
+#: .\articles\templates\articles\dashboard.html:81
+msgid "Аннотация на Русском"
+msgstr "Орыс тіліндегі аннотация"
+
+#: .\articles\templates\articles\dashboard.html:87
+msgid "Авторы"
+msgstr "Авторлар"
+
+#: .\articles\templates\articles\dashboard.html:96
+msgid "Загрузить сведения об антиплагиате"
+msgstr "Антиплагиат туралы мәліметті жүктеу"
+
+#: .\articles\templates\articles\dashboard.html:138
+msgid "Отправить"
+msgstr "Жіберу"
+
+#: .\bid\templates\bid\edit-request.html:5
+#: .\bid\templates\bid\edit-request.html:19
+msgid "Редактировать заявку"
+msgstr "Өтінімді өңдеу"
+
+#: .\bid\templates\bid\edit-request.html:21
+#: .\bid\templates\bid\requests.html:28
+msgid "Комментарии редактора"
+msgstr "Редактордың түсіндірмелері"
+
+#: .\bid\templates\bid\edit-request.html:49
+msgid "Сохранить изменения"
+msgstr "Өзгерістерді сақтау"
+
+#: .\bid\templates\bid\redactor.html:8 .\templates\redactor-base.html:10
+msgid "Редактор – Проверка статьи"
+msgstr "Редактор – Мақаланы тексеру"
+
+#: .\bid\templates\bid\redactor.html:17
+#: .\journal\templates\journal\about.html:24 .\templates\base.html:30
+#: .\templates\guest-base.html:29 .\templates\redactor-base.html:33
 msgid "Вестник университета Туран-Астана"
-msgstr "Вестник университета ТАУ"
+msgstr "Туран-Астана университетінің хабаршысы"
+
+#: .\bid\templates\bid\redactor.html:21
+msgid "Панель редактора"
+msgstr "Редактор панелі"
+
+#: .\bid\templates\bid\redactor.html:22
+#: .\bid\templates\bid\redactor\bid-list.html:21
+#: .\bid\templates\bid\reviewer\bid-list.html:20
+#: .\templates\redactor-base.html:37
+msgid "Очередь статей"
+msgstr "Мақалалар кезегі"
+
+#: .\bid\templates\bid\redactor.html:23 .\templates\base.html:10
+#: .\templates\base.html:36 .\templates\redactor-base.html:38
+msgid "Профиль"
+msgstr "Профиль"
+
+#: .\bid\templates\bid\redactor.html:24 .\templates\base.html:37
+#: .\templates\redactor-base.html:39
+msgid "Выход"
+msgstr "Шығу"
+
+#: .\bid\templates\bid\redactor.html:31
+#: .\bid\templates\bid\redactor\edit-request.html:7
+#: .\bid\templates\bid\reviewer\review-detail.html:12
+#: .\bid\templates\bid\view-request.html:9
+msgid "Проверка статьи"
+msgstr "Мақаланы тексеру"
+
+#: .\bid\templates\bid\redactor.html:34
+#: .\bid\templates\bid\redactor\edit-request.html:10
+#: .\bid\templates\bid\redactor\version_view.html:11
+#: .\bid\templates\bid\reviewer\edit-request.html:24
+#: .\bid\templates\bid\view-request.html:12
+msgid "Название статьи"
+msgstr "Мақала атауы"
+
+#: .\bid\templates\bid\redactor.html:34
+msgid "Исследование в области ИИ"
+msgstr "Жасанды интеллект саласындағы зерттеу"
+
+#: .\bid\templates\bid\redactor.html:35
+#: .\bid\templates\bid\redactor\edit-request.html:14
+#: .\bid\templates\bid\redactor\version_view.html:14
+#: .\bid\templates\bid\reviewer\edit-request.html:29
+#: .\journal\templates\journal\article_detail.html:28
+#: .\journal\templates\journal\collection_detail.html:97
+msgid "Аннотация"
+msgstr "Аннотация"
+
+#: .\bid\templates\bid\redactor.html:35
+msgid ""
+"Данная статья посвящена современным подходам к использованию ИИ в "
+"образовании..."
+msgstr "Бұл мақала білім беруде ЖИ қолданудың заманауи тәсілдеріне арналған..."
+
+#: .\bid\templates\bid\redactor.html:36
+#: .\bid\templates\bid\redactor\edit-request.html:15
+#: .\bid\templates\bid\redactor\version_view.html:16
+msgid "Ключевые слова"
+msgstr "Кілт сөздер"
+
+#: .\bid\templates\bid\redactor.html:36
+msgid "искусственный интеллект, обучение, нейросети"
+msgstr "жасанды интеллект, оқыту, нейрожелілер"
+
+#: .\bid\templates\bid\redactor.html:37
+#: .\bid\templates\bid\reviewer\edit-request.html:33
+msgid "Файл статьи"
+msgstr "Мақала файлы"
+
+#: .\bid\templates\bid\redactor.html:37
+#: .\bid\templates\bid\redactor\edit-request.html:21
+#: .\bid\templates\bid\redactor\edit-request.html:22
+#: .\bid\templates\bid\redactor\edit-request.html:23
+#: .\bid\templates\bid\redactor\edit-request.html:24
+#: .\bid\templates\bid\redactor\version_view.html:15
+#: .\bid\templates\bid\redactor\version_view.html:22
+#: .\bid\templates\bid\redactor\version_view.html:23
+#: .\bid\templates\bid\redactor\version_view.html:24
+#: .\bid\templates\bid\redactor\version_view.html:25
+#: .\bid\templates\bid\view-request.html:22
+#: .\bid\templates\bid\view-request.html:23
+#: .\bid\templates\bid\view-request.html:24
+#: .\bid\templates\bid\view-request.html:25
+msgid "Скачать"
+msgstr "Жүктеп алу"
+
+#: .\bid\templates\bid\redactor.html:42
+msgid "Комментарий редактора"
+msgstr "Редактордың пікірі"
+
+#: .\bid\templates\bid\redactor.html:47
+#: .\bid\templates\bid\redactor\edit-request.html:87
+#: .\bid\templates\bid\redactor\version_view.html:71
+#: .\bid\templates\bid\view-request.html:72
+msgid "Отправить на доработку"
+msgstr "Қайта өңдеуге жіберу"
+
+#: .\bid\templates\bid\redactor.html:48
+#: .\bid\templates\bid\redactor\edit-request.html:88
+#: .\bid\templates\bid\redactor\version_view.html:72
+#: .\bid\templates\bid\view-request.html:73
+msgid "Отправить рецензенту"
+msgstr "Рецензентке жіберу"
+
+#: .\bid\templates\bid\redactor.html:55 .\templates\base.html:94
+#: .\templates\redactor-base.html:95
+msgid "&copy; 2025 Вестник Туран. Все права защищены."
+msgstr "&copy; 2025 Туран Хабаршысы. Барлық құқықтар қорғалған."
+#: .\bid\templates\bid\redactor\bid-list.html:7
+msgid "Редактор – Очередь статей"
+msgstr "Редактор – Мақалалар кезегі"
+
+#: .\bid\templates\bid\redactor\bid-list.html:26
+#: .\bid\templates\bid\redactor\collection-list.html:25
+#: .\bid\templates\bid\redactor\version-list.html:24
+#: .\bid\templates\bid\reviewer\bid-list.html:25
+msgid "Название"
+msgstr "Атауы"
+
+#: .\bid\templates\bid\redactor\bid-list.html:27
+#: .\bid\templates\bid\redactor\version-list.html:25
+#: .\journal\templates\journal\collection_detail.html:96
+msgid "Автор"
+msgstr "Автор"
+
+#: .\bid\templates\bid\redactor\bid-list.html:28
+#: .\bid\templates\bid\redactor\version-list.html:26
+#: .\bid\templates\bid\reviewer\bid-list.html:27
+msgid "Дата отправки"
+msgstr "Жіберілген күні"
+
+#: .\bid\templates\bid\redactor\bid-list.html:29
+#: .\bid\templates\bid\redactor\edit-request.html:25
+#: .\bid\templates\bid\redactor\edit-request.html:38
+#: .\bid\templates\bid\requests.html:26
+#: .\bid\templates\bid\reviewer\bid-list.html:28
+#: .\bid\templates\bid\view-request.html:26
+msgid "Статус"
+msgstr "Күйі"
+
+#: .\bid\templates\bid\redactor\bid-list.html:30
+#: .\bid\templates\bid\redactor\collection-list.html:27
+#: .\bid\templates\bid\redactor\edit-request.html:39
+#: .\bid\templates\bid\redactor\version-list.html:27
+#: .\bid\templates\bid\reviewer\bid-list.html:29
+#: .\bid\templates\bid\view-request.html:38
+msgid "Действие"
+msgstr "Әрекет"
+
+#: .\bid\templates\bid\redactor\bid-list.html:41
+#: .\bid\templates\bid\redactor\version-list.html:37
+#: .\bid\templates\bid\reviewer\bid-list.html:40
+msgid "Проверить"
+msgstr "Тексеру"
+
+#: .\bid\templates\bid\redactor\collection-list.html:6
+msgid "Тома – выбрать том"
+msgstr "Томдар – томды таңдау"
+
+#: .\bid\templates\bid\redactor\collection-list.html:20
+msgid "Выберите том для статьи"
+msgstr "Мақалаға арналған томды таңдаңыз"
+
+#: .\bid\templates\bid\redactor\collection-list.html:35
+msgid "Выбрать"
+msgstr "Таңдау"
+
+#: .\bid\templates\bid\redactor\edit-request.html:11
+msgid "История версии статьи"
+msgstr "Мақала нұсқаларының тарихы"
+
+#: .\bid\templates\bid\redactor\edit-request.html:11
+msgid "Просмотреть"
+msgstr "Қарау"
+
+#: .\bid\templates\bid\redactor\edit-request.html:12
+#: .\bid\templates\bid\redactor\version_view.html:12
+msgid "Автор статьи"
+msgstr "Мақала авторы"
+
+#: .\bid\templates\bid\redactor\edit-request.html:13
+#: .\bid\templates\bid\redactor\version_view.html:13
+msgid "Электронный адрес отправителя"
+msgstr "Жіберушінің электронды поштасы"
+
+#: .\bid\templates\bid\redactor\edit-request.html:21
+#: .\bid\templates\bid\redactor\version_view.html:22
+#: .\bid\templates\bid\view-request.html:22
+msgid "Файл рукописи статьи"
+msgstr "Мақала қолжазбасы файлы"
+
+#: .\bid\templates\bid\redactor\edit-request.html:22
+#: .\bid\templates\bid\redactor\version_view.html:23
+#: .\bid\templates\bid\view-request.html:23
+msgid "Файл со сведениями об авторах"
+msgstr "Авторлар туралы мәлімет файлы"
+
+#: .\bid\templates\bid\redactor\edit-request.html:23
+#: .\bid\templates\bid\redactor\version_view.html:24
+#: .\bid\templates\bid\view-request.html:24
+msgid "Файл с заполненным и подписанным всеми авторами письмом"
+msgstr "Барлық авторлар қол қойған хаттың толтырылған файлы"
+
+#: .\bid\templates\bid\redactor\edit-request.html:24
+#: .\bid\templates\bid\redactor\version_view.html:15
+#: .\bid\templates\bid\redactor\version_view.html:25
+#: .\bid\templates\bid\view-request.html:25
+msgid "Сведения об антиплагиате"
+msgstr "Антиплагиат туралы мәліметтер"
+
+#: .\bid\templates\bid\redactor\edit-request.html:28
+#: .\bid\templates\bid\redactor\version_view.html:29
+#: .\bid\templates\bid\view-request.html:30
+msgid "Рецензенты"
+msgstr "Рецензенттер"
+
+#: .\bid\templates\bid\redactor\edit-request.html:31
+msgid "Добавить"
+msgstr "Қосу"
+
+#: .\bid\templates\bid\redactor\edit-request.html:37
+msgid "Исполнитель"
+msgstr "Орындаушы"
+
+#: .\bid\templates\bid\redactor\edit-request.html:47
+#: .\bid\templates\bid\redactor\version_view.html:45
+#: .\bid\templates\bid\redactor\version_view.html:51
+#: .\bid\templates\bid\view-request.html:46
+#: .\bid\templates\bid\view-request.html:52
+msgid "Рецензия не готова"
+msgstr "Рецензия дайын емес"
+
+#: .\bid\templates\bid\redactor\edit-request.html:49
+#: .\bid\templates\bid\redactor\version_view.html:47
+#: .\bid\templates\bid\view-request.html:48
+msgid "Скачать рецензию"
+msgstr "Рецензияны жүктеу"
+
+#: .\bid\templates\bid\redactor\edit-request.html:51
+#: .\bid\templates\bid\requests.html:41
+msgid "Удалить"
+msgstr "Жою"
+
+#: .\bid\templates\bid\redactor\edit-request.html:62
+msgid "Выберите рецензента"
+msgstr "Рецензентті таңдаңыз"
+
+#: .\bid\templates\bid\redactor\edit-request.html:65
+msgid "Рецензент:"
+msgstr "Рецензент:"
+
+#: .\bid\templates\bid\redactor\edit-request.html:68
+msgid "Языки"
+msgstr "Тілдер"
+
+#: .\bid\templates\bid\redactor\edit-request.html:73
+msgid "Назначить"
+msgstr "Тапсыру"
+
+#: .\bid\templates\bid\redactor\edit-request.html:86
+#: .\bid\templates\bid\redactor\version_view.html:70
+#: .\bid\templates\bid\view-request.html:71
+msgid "Отклонить"
+msgstr "Қабылдамау"
+
+#: .\bid\templates\bid\redactor\edit-request.html:89
+#: .\bid\templates\bid\redactor\version_view.html:73
+#: .\bid\templates\bid\view-request.html:74
+msgid "Принять к публикации"
+msgstr "Жариялауға қабылдау"
+
+#: .\bid\templates\bid\redactor\version-list.html:19
+msgid "История версии"
+msgstr "Нұсқалар тарихы"
+
+#: .\bid\templates\bid\redactor\version_view.html:8
+msgid "Версия статьи №"
+msgstr "Мақала нұсқасы №"
+
+#: .\bid\templates\bid\redactor\version_view.html:53
+#: .\bid\templates\bid\view-request.html:54
+msgid "Перейти"
+msgstr "Өту"
+
+#: .\bid\templates\bid\requests.html:5 .\templates\base.html:35
+msgid "Мои заявки"
+msgstr "Менің өтінімдерім"
+
+#: .\bid\templates\bid\requests.html:25
+msgid "Дата подачи"
+msgstr "Жіберілген күні"
+
+#: .\bid\templates\bid\requests.html:34
+msgid "Подробнее"
+msgstr "Толығырақ"
+
+#: .\bid\templates\bid\requests.html:38
+msgid "Отредактировать"
+msgstr "Өңдеу"
+
+#: .\bid\templates\bid\reviewer.html:6
+#: .\bid\templates\bid\reviewer\edit-request.html:6
+msgid "Рецензирование статей"
+msgstr "Мақалаларды рецензиялау"
+
+#: .\bid\templates\bid\reviewer\bid-list.html:6
+msgid "Рецензист – Очередь статей"
+msgstr "Рецензент – Мақалалар кезегі"
+
+#: .\bid\templates\bid\reviewer\edit-request.html:21
+msgid "Рецензирование статьи"
+msgstr "Мақаланы рецензиялау"
+
+#: .\bid\templates\bid\reviewer\edit-request.html:34
+msgid "Скачать статью"
+msgstr "Мақаланы жүктеу"
+
+#: .\bid\templates\bid\reviewer\edit-request.html:42
+msgid "Сохранить"
+msgstr "Сақтау"
+
+#: .\bid\templates\bid\reviewer\edit-request.html:43
+msgid "Отправить рецензию"
+msgstr "Рецензияны жіберу"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:14
+msgid "Ответ рецензента"
+msgstr "Рецензенттің жауабы"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:15
+msgid "Рецензент"
+msgstr "Рецензент"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:16
+msgid "Новизна"
+msgstr "Жаңашылдығы"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:17
+msgid "Оригинальность"
+msgstr "Түпнұсқалығы"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:18
+msgid "Инновационность"
+msgstr "Инновациялық мазмұны"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:19
+msgid "Значимость"
+msgstr "Мәнділігі"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:20
+msgid "Структурированность"
+msgstr "Құрылымдылығы"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:21
+msgid "Литературный уровень"
+msgstr "Әдеби деңгейі"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:22
+msgid "Качество оформления"
+msgstr "Рәсімдеудің сапасы"
+
+#: .\bid\templates\bid\reviewer\review-detail.html:23
+msgid "Заключение"
+msgstr "Қорытынды"
+
+#: .\bid\templates\bid\view-request.html:36
+msgid "ФИО"
+msgstr "Т.А.Ә."
+
+#: .\bid\templates\bid\view-request.html:37
+msgid "Рецензия"
+msgstr "Рецензия"
+
+#: .\bid\templates\bid\view-request.html:44
+msgid "Скрыто"
+msgstr "Жасырын"
+#: .\journal\templates\journal\archives.html:6
+msgid "Архивы"
+msgstr "Мұрағаттар"
+
+#: .\journal\templates\journal\archives.html:21
+msgid "Архивы публикаций"
+msgstr "Жарияланым мұрағаттары"
+
+#: .\journal\templates\journal\archives.html:27
+msgid "Описание:"
+msgstr "Сипаттама:"
+
+#: .\journal\templates\journal\archives.html:28
+#: .\journal\templates\journal\article_detail.html:23
+#: .\journal\templates\journal\collection_detail.html:98
+msgid "Скачать PDF"
+msgstr "PDF жүктеу"
+
+#: .\journal\templates\journal\archives.html:29
+msgid "Просмотреть онлайн"
+msgstr "Онлайн қарау"
+
+#: .\journal\templates\journal\article_detail.html:6
+msgid "Просмотр статьи — Вестник Туран"
+msgstr "Мақаланы қарау — Туран хабаршысы"
+
+#: .\journal\templates\journal\article_detail.html:19
+msgid "Авторы:"
+msgstr "Авторлар:"
+
+#: .\journal\templates\journal\article_detail.html:20
+msgid "Дата публикации:"
+msgstr "Жарияланған күні:"
+
+#: .\journal\templates\journal\article_detail.html:20
+msgid "Страницы:"
+msgstr "Беттер:"
+
+#: .\journal\templates\journal\article_detail.html:24
+msgid "Просмотры:"
+msgstr "Қаралым саны:"
+
+#: .\journal\templates\journal\article_detail.html:25
+msgid "Цитирования"
+msgstr "Дәйексөздер саны"
+
+#: .\journal\templates\journal\article_detail.html:33
+msgid "Введение"
+msgstr "Кіріспе"
+
+#: .\journal\templates\journal\article_detail.html:34
+msgid ""
+"Циркулярная экономика представляет собой модель устойчивого развития, "
+"предполагающую максимальное использование ресурсов, снижение отходов и "
+"замкнутый цикл производства и потребления. В условиях Казахстана данная "
+"модель набирает всё большую актуальность..."
+msgstr ""
+"Айналмалы экономика — бұл ресурстарды барынша тиімді пайдалану, қалдықтарды "
+"азайту және тұйық өндіріс пен тұтыну циклін көздейтін тұрақты даму үлгісі. "
+"Қазақстан жағдайында бұл модель барған сайын өзектілікке ие болуда..."
+
+#: .\journal\templates\journal\article_detail.html:37
+msgid "Основное содержание"
+msgstr "Негізгі мазмұны"
+
+#: .\journal\templates\journal\authors.html:6 .\templates\guest-base.html:43
+msgid "Авторам"
+msgstr "Авторларға"
+
+#: .\journal\templates\journal\authors.html:19
+msgid "Информация для авторов"
+msgstr "Авторларға арналған ақпарат"
+
+#: .\journal\templates\journal\authors.html:21
+msgid "Уважаемые авторы!"
+msgstr "Құрметті авторлар!"
+
+#: .\journal\templates\journal\authors.html:21
+msgid ""
+"Благодарим вас за интерес к публикации в нашем научном журнале. Ниже "
+"представлены основные требования и рекомендации."
+msgstr ""
+"Ғылыми журналымызға мақала жариялауға қызығушылық танытқандарыңызға алғысымызды білдіреміз. "
+"Төменде негізгі талаптар мен ұсынымдар көрсетілген."
+
+#: .\journal\templates\journal\authors.html:23
+msgid "Требования к статьям:"
+msgstr "Мақала талаптары:"
+
+#: .\journal\templates\journal\authors.html:46
+msgid "Скачать шаблон статьи"
+msgstr "Мақала үлгісін жүктеу"
+
+#: .\journal\templates\journal\authors.html:47
+msgid "Скачать авторскую справку"
+msgstr "Авторлық анықтаманы жүктеу"
+
+#: .\journal\templates\journal\collection_detail.html:90
+msgid "Темы выпуска:"
+msgstr "Шығарылым тақырыптары:"
+
+#: .\news\templates\news\news-detail.html:5
+msgid "Детали новости — Вестник Туран"
+msgstr "Жаңалықтар егжей-тегжейі — Туран хабаршысы"
+
+#: .\news\templates\news\news-detail.html:18
+msgid "Дата: 20 мая 2025 | Автор: Редакция"
+msgstr "Күні: 2025 ж. 20 мамыр | Авторы: Редакция"
+
+#: .\news\templates\news\news-detail.html:26
+msgid "← Назад"
+msgstr "← Артқа"
+
+#: .\news\templates\news\news-list.html:21
+msgid "Новости журнала"
+msgstr "Журнал жаңалықтары"
+
+#: .\news\templates\news\news-list.html:32
+msgid "Читать далее"
+msgstr "Толығырақ оқу"
+
+#: .\templates\base.html:34
+msgid "Моя панель"
+msgstr "Менің панелім"
+#: .\templates\base.html:75 .\templates\guest-base.html:79
+msgid "Закрыть"
+msgstr "Жабу"
+
+#: .\templates\base.html:95 .\templates\guest-base.html:99
+#: .\templates\redactor-base.html:96
+msgid "Политика конфиденциальности"
+msgstr "Құпиялылық саясаты"
+
+#: .\templates\base.html:95 .\templates\guest-base.html:99
+#: .\templates\redactor-base.html:96
+msgid "Условия использования"
+msgstr "Пайдалану шарттары"
+
+#: .\templates\guest-base.html:10
+msgid "Публикации"
+msgstr "Жарияланымдар"
+
+#: .\templates\guest-base.html:34
+msgid "Войти в систему"
+msgstr "Жүйеге кіру"
+
+#: .\templates\guest-base.html:37
+msgid "Личный кабинет"
+msgstr "Жеке кабинет"
+
+#: .\templates\guest-base.html:39
+msgid "Новости"
+msgstr "Жаңалықтар"
+
+#: .\templates\guest-base.html:40
+msgid "Архив"
+msgstr "Мұрағат"
+
+#: .\templates\guest-base.html:41
+msgid "Контакты"
+msgstr "Байланыс"
+
+#: .\templates\guest-base.html:42
+msgid "О нас"
+msgstr "Біз туралы"
+
+#: .\templates\guest-base.html:98
+msgid "&copy; 2025 Вестник Университета Туран-Астана. Все права защищены."
+msgstr "&copy; 2025 Туран-Астана Университетінің Хабаршысы. Барлық құқықтар қорғалған."
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
 msgid "Messages"
+msgstr "Хабарламалар"
+
+msgid "Просмотреть статью"
+msgstr "Мақаланы қарау"
+
+msgid "Поиск"
+msgstr ""
+
+msgid "Поиск публикаций"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8

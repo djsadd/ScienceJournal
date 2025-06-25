@@ -1,8 +1,9 @@
 {% extends 'redactor-base.html' %}
+{% load i18n %}
 {% load static %}
 
   {% block title %}
-    <title>Рецензист – Очередь статей</title>
+    <title>{% trans 'Рецензист – Очередь статей' %}</title>
   {% endblock %}
 
 
@@ -16,16 +17,16 @@
 
   <main class="main-content">
     <section class="article-queue">
-      <h2>Очередь статей</h2>
+      <h2>{% trans 'Очередь статей' %}</h2>
       <table class="article-table">
         <thead>
           <tr>
             <th>№</th>
-            <th>Название</th>
+            <th>{% trans 'Название' %}</th>
 <!--            <th>Автор</th>-->
-            <th>Дата отправки</th>
-            <th>Статус</th>
-            <th>Действие</th>
+            <th>{% trans 'Дата отправки' %}</th>
+            <th>{% trans 'Статус' %}</th>
+            <th>{% trans 'Действие' %}</th>
           </tr>
         </thead>
         <tbody>
@@ -36,7 +37,7 @@
 <!--            <td data-label="Автор">{{ obj.bid.article.authors }}</td>-->
             <td data-label="Дата отправки">{{ obj.datetime_created }}</td>
             <td data-label="Статус">{{ obj.get_status_display  }}</td>
-            <td data-label="Действие"><a href="{% url 'edit-request-reviewer' obj.pk %}" class="btn-small">Проверить</a></td>
+            <td data-label="Действие"><a href="{% url 'edit-request-reviewer' obj.pk %}" class="btn-small">{% trans 'Проверить' %}</a></td>
           </tr>
         {% endfor %}
 

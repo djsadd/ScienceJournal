@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
   {% block title %}
-  <title>Мои заявки</title>
+  <title>{% trans 'Мои заявки' %}</title>
   {% endblock %}
   {% block css %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}"> <!-- Подключаем внешний файл стилей -->
@@ -21,23 +22,23 @@
 
         <div class="request-item">
           <h3 class="request-title">{{ obj.article.title }}</h3>
-          <p class="request-date">Дата подачи: {{ obj.date_created }}</p>
-          <p class="request-status">Статус: {{ obj.get_status_display  }}</p>
+          <p class="request-date">{% trans 'Дата подачи' %}: {{ obj.date_created }}</p>
+          <p class="request-status">{% trans 'Статус' %}: {{ obj.get_status_display  }}</p>
           {% if obj.comment %}
-            <p class="request-status">Комментарии редактора: {{ obj.comment|safe  }}</p>
+            <p class="request-status">{% trans 'Комментарии редактора' %}: {{ obj.comment|safe  }}</p>
           {% endif %}
           <div class="request-actions">
             <button class="btn">
               <a style="color: inherit; text-decoration: none;"
                  href="{% url 'view-request-author' obj.pk %}">
-                Подробнее
+                {% trans 'Подробнее' %}
               </a>
             </button>
             <button class="btn">
-              <a href="{% url 'edit-request' obj.pk %}" style="color: inherit; text-decoration: none;">Отредактировать</a>
+              <a href="{% url 'edit-request' obj.pk %}" style="color: inherit; text-decoration: none;">{% trans 'Отредактировать' %}</a>
             </button>
 
-            <button class="btn">Удалить</button>
+            <button class="btn">{% trans 'Удалить' %}</button>
           </div>
         </div>
 

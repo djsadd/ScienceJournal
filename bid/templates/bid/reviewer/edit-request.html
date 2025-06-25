@@ -1,8 +1,9 @@
 {% extends 'redactor-base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  <title>Рецензирование статей</title>
+  <title>{% trans 'Рецензирование статей' %}</title>
 {% endblock %}
 
 {% block css %}
@@ -17,20 +18,20 @@
     <!-- Основной контент -->
     <main class="main-content">
       <section class="upload-section">
-        <h2>Рецензирование статьи</h2>
+        <h2>{% trans 'Рецензирование статьи' %}</h2>
 
         <div class="input-group">
-          <label>Название статьи</label>
+          <label>{% trans 'Название статьи' %}</label>
           <p>{{ object.bid.article.title }}</p>
         </div>
 
         <div class="input-group">
-          <label>Аннотация</label>
+          <label>{% trans 'Аннотация' %}</label>
           <p>{{ object.bid.article.annotation|safe }}</p>
         </div>
         <div class="input-group">
-          <label>Файл статьи</label>
-          <a href="{{ object.article.file.url }}" target="_blank">Скачать статью</a>
+          <label>{% trans 'Файл статьи' %}</label>
+          <a href="{{ object.article.file.url }}" target="_blank">{% trans 'Скачать статью' %}</a>
         </div>
         {{ form.media }}
         <form id="reviewForm" enctype="multipart/form-data" method="POST">
@@ -38,8 +39,8 @@
         {{ form.as_p }}
 
           <div class="input-group">
-            <button type="submit" class="btn" name="decision" value="save">Сохранить</button>
-            <button type="submit" class="btn" name="decision" value="submit">Отправить рецензию</button>
+            <button type="submit" class="btn" name="decision" value="save">{% trans 'Сохранить' %}</button>
+            <button type="submit" class="btn" name="decision" value="submit">{% trans 'Отправить рецензию' %}</button>
           </div>
         </form>
       </section>
