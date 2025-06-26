@@ -25,8 +25,8 @@
         <div class="archive-item">
           <h2>{{ obj.title }}</h2>
           <p><strong>{% trans 'Описание:' %}</strong> {{ obj.description|safe }}</p>
-          <a href="{% url 'collection_detail' obj.pk %}" class="btn">{% trans 'Скачать PDF' %}</a>
-          <a href="{% url 'collection_detail' obj.pk %}" class="btn">{% trans 'Просмотреть онлайн' %}</a>
+          <a href="{% url 'collection_detail' obj.pk %}" class="btn">{% trans 'Весь номер (скачать PDF)' %}</a>
+          <a href="{% url 'collection_detail' obj.pk %}" class="btn">{% trans 'Статьи (смотреть онлайн)' %}</a>
         </div>
         {% endfor %}
 

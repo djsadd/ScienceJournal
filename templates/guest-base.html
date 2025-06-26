@@ -26,21 +26,28 @@
       <a href="{% url 'home' %}">
       <img src="{% static 'images/logo.png' %}" alt="Вестник Туран" class="logo-img">
       </a>
-      <span class="logo-text">{% trans 'Вестник университета Туран-Астана' %}</span>
+      <span class="logo-text">{% trans 'Известия университета Туран-Астана' %}</span>
     </div>
     <nav>
       <ul>
-        {% if not user.is_authenticated %}
+        <li><a href="{% url 'about' %}"><span class="material-icons">info</span>{% trans 'О журнале' %}</a></li>
+        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Архив номеров' %}</a></li>
+        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Редакционная коллегия' %}</a></li>
+        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Редакционная политика' %}</a></li>
+        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Публикационная политика' %}</a></li>
+        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Регламенты, процедуры, документация' %}</a></li>
+
+<!--        <li><a href="{% url 'list-news' %}"><span class="material-icons">announcement</span>{% trans 'Новости' %}</a></li>-->
+        <li><a href="{% url 'contacts' %}"><span class="material-icons">contacts</span>{% trans 'Контактная информация' %}</a></li>
+        <li><a href="{% url 'home' %}"><span class="material-icons">contacts</span>{% trans 'Поиск' %}</a></li>
+
+        <li><a href="{% url 'for_authors' %}"><span class="material-icons">edit</span>{% trans 'Для авторов' %}</a></li>
+      {% if not user.is_authenticated %}
             <li><a href="{% url 'login' %}"><span class="material-icons">login</span>{% trans 'Войти в систему' %}</a></li>
         {% endif %}
         {% if user.is_authenticated %}
           <li><a href="{% url 'dashboard' %}"><span class="material-icons">dashboard</span>{% trans 'Личный кабинет' %}</a></li>
         {% endif %}
-        <li><a href="{% url 'list-news' %}"><span class="material-icons">announcement</span>{% trans 'Новости' %}</a></li>
-        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Архив' %}</a></li>
-        <li><a href="{% url 'contacts' %}"><span class="material-icons">contacts</span>{% trans 'Контакты' %}</a></li>
-        <li><a href="{% url 'about' %}"><span class="material-icons">info</span>{% trans 'О нас' %}</a></li>
-        <li><a href="{% url 'for_authors' %}"><span class="material-icons">edit</span>{% trans 'Авторам' %}</a></li>
       </ul>
     </nav>
 {% get_current_language as LANGUAGE_CODE %}
