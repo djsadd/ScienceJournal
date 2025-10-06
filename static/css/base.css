@@ -1,78 +1,92 @@
-/* base.css */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f7fa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+:root{
+  --tau-maroon:#7c2942;
+  --tau-maroon-dark:#661f35;
+  --text:#1f1f1f;
+  --border:#dfe3ea;
+  --muted:#6b7280;
 }
 
-.auth-container {
-  width: 100%;
-  max-width: 400px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  text-align: center;
+/* фон и центровка */
+.auth-wrapper{
+  min-height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  background:#f4f6fb;
 }
 
-.form-container h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
+/* карточка */
+.auth-card{
+  width:100%; max-width:420px;
+  background:#fff;
+  border-radius:16px;
+  padding:28px;
+  box-shadow:0 12px 30px rgba(16,24,40,.08);
+  border:1px solid rgba(0,0,0,.06);
 }
 
-.input-group {
-  margin-bottom: 15px;
-  text-align: left;
+/* логотип/бренд при желании */
+.brand{
+  display:flex; align-items:center; gap:12px; margin-bottom:6px;
+}
+.brand img{height:34px;}
+.brand .brand-text{font-weight:600; font-size:14px; color:#888;}
+
+/* заголовок формы (если добавите) */
+.auth-title{font-size:26px; font-weight:700; margin:10px 0 18px;}
+
+/* подписи и поля */
+.auth-card label{
+  font-weight:600; font-size:13px; margin-bottom:6px; display:block;
+}
+.auth-card input[type="text"],
+.auth-card input[type="password"],
+.auth-card input[type="email"]{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 44px 10px 12px;   /* место под кнопку-глаз */
+  font-size:14px;
+  transition:border-color .2s, box-shadow .2s, background .2s;
+  outline:none;
+  background:#fff;
+}
+.auth-card input:focus{
+  border-color:var(--tau-maroon);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--tau-maroon) 25%, transparent);
 }
 
-.input-group label {
-  font-size: 14px;
-  color: #666;
+/* кнопка-глаз внутри поля */
+.position-relative{ position:relative; }
+.toggle-pass{
+  margin-top: 12px;
+  position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+  border:0; background:#f2f4f7; border-radius:8px; cursor:pointer;
+  font-size:16px; line-height:1; color:#333; opacity:.8;
 }
+.toggle-pass:hover{ opacity:1; background:#eceff3; }
 
-.input-group input {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+/* ошибки под полем */
+.invalid-hint{ color:#c22727; font-size:12px; margin-top:6px; }
+
+/* кнопка входа */
+.btn-primary{
+  background:var(--tau-maroon);
+  border-color:var(--tau-maroon);
+  font-weight:600; padding:.6rem .75rem; border-radius:10px;
 }
+.btn-primary:hover{ background:var(--tau-maroon-dark); border-color:var(--tau-maroon-dark); }
 
-.input-group input:focus {
-  outline: none;
-  border-color: #007bff;
-}
+/* ссылки под формой */
+.switch-form{ font-size:14px; }
+.switch-form a{ color:var(--tau-maroon); text-decoration:none; font-weight:600; }
+.switch-form a:hover{ text-decoration:underline; }
 
-.btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
+/* подсветка placeholder чуть мягче */
+::placeholder{ color:#9aa3af; }
 
-.btn:hover {
-  background-color: #0056b3;
-}
-
-.switch-form {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.switch-form a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.switch-form a:hover {
-  text-decoration: underline;
+/* мобильный полиш */
+@media (max-width:480px){
+  .auth-card{ padding:22px; border-radius:14px; }
 }

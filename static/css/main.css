@@ -4,9 +4,87 @@ html, body {
   padding: 0;
   
 }
+/* 1) Цвет и отключаем подчёркивание у бренда и ссылок в навигации */
+.navbar,
+.navbar .navbar-brand,
+.navbar .nav-link{
+  color:#fff !important;
+  text-decoration:none !important;
+}
+.navbar .nav-link:hover,
+.navbar .navbar-brand:hover{ color:#ffe6f3 !important; }
 
-/* Стиль для пагинации */
-.pagination {
+/* 2) Ровняем иконку и текст в одну линию */
+.navbar .nav-link{
+  display:flex;                  /* иконка + текст в ряд */
+  align-items:center;            /* по базовой линии */
+  gap:.35rem;
+  line-height:1.2;
+  padding:.5rem .6rem;
+  white-space:nowrap;            /* не переносить текст (десктоп) */
+}
+.navbar .nav-link .material-icons{
+  font-size:20px;
+  line-height:1;
+  translate: 0 1px;              /* тонкая подстройка базовой линии */
+}
+
+/* 3) Для очень узких экранов разрешаем перенос (иначе уедет горизонтальный скролл) */
+@media (max-width: 991.98px){
+  .navbar .nav-link{ white-space:normal; }   /* можно переносить */
+}
+
+/* Дополнительно: немного сжать промежутки между пунктами */
+.navbar .navbar-nav .nav-item{ margin:0 .1rem; }
+
+body .header nav ul li{
+  font-size: 16px;
+}
+body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body main{ flex: 1 0 auto; }   /* тянем центральную область */
+.footer{ margin-top: auto; }
+
+/* На всякий случай отменим «плавающее» позиционирование */
+body .footer{ position: static; bottom: auto; }
+body .text-muted{ 
+  color: white !important;
+  margin-left: 80px;
+}
+body .dropdown-item{
+  color: black !important;
+}
+/* Спрятать все выпадашки по умолчанию */
+body .navbar .dropdown .dropdown-menu{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0;
+  transition: opacity .12s ease;
+    color: black !important;
+}
+
+/* Показать только когда реально раскрыто */
+.navbar .dropdown.show > .dropdown-menu,
+.navbar .nav-link.dropdown-toggle[aria-expanded="true"] + .dropdown-menu{
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1;
+}
+
+/* (опционально) на десктопе по ховеру вместо клика */
+@media (min-width: 992px){
+  /* раскомментируйте следующую строку, если хотите по наведению */
+  /* .navbar .dropdown:hover > .dropdown-menu{ display:block !important; visibility:visible !important; opacity:1; } */
+}
+
+
+body .bg-body-tertiary{
+  --bs-bg-opacity: none !important;
+}
+ .pagination {
   text-align: center;
   margin-top: 30px;
 }
@@ -83,6 +161,8 @@ html, body {
   text-align: center;
 }
 .logo-text {
+font-size: 14px;
+color: white;
 margin-left: 20px;
 }
 .logo-img {
@@ -177,7 +257,7 @@ h3 {
 .search-bar {
   padding: 10px;
   font-size: 16px;
-  width: 50%;
+  width: 70%;
   border-radius: 6px;
   border: 1px solid #ccc;
 }

@@ -12,58 +12,68 @@
   <link rel="stylesheet" href=" {% static 'css/base.css' %}"> <!-- Подключаем внешний файл стилей -->
       <!-- В head шаблона -->
 </head>
-<body>
-{% if messages %}
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        {% for message in messages %}
-            {% if "error" in message.tags %}
-                <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            {% elif "warning" in message.tags %}
-                <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            {% else %}
-                <div class="toast align-items-center text-bg-{{ message.tags }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            {% endif %}
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ message }}
-                    </div>
-                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+<body class="d-flex flex-column min-vh-100">
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var toastElList = document.querySelectorAll(".toast");
-            toastElList.forEach(function (toastEl) {
-                var toast = new bootstrap.Toast(toastEl, { delay: 5000 }); // Авто-закрытие через 5 сек
-                toast.show();
-            });
-        });
-    </script>
-{% endif %}
+  <!-- ФОН + ЦЕНТРОВКА -->
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="brand">
+  
+    
+      </div>
 
-  <div class="auth-container">
-    <div class="form-container">
-      <h2>Вход </h2>
-      <form id="loginForm" method="POST">
-          {% csrf_token %}
+  
 
-          <div class="input-group">
-              {{ form.username.label_tag }}
-              {{ form.username }}
-          </div>
-          <div class="input-group">
-              {{ form.password.label_tag }}
-              {{ form.password }}
-          </div>
-          <button type="submit" class="btn">Войти</button>
-          <p class="switch-form">Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+      <!-- Ошибки формы -->
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger py-2 mb-3">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <form id="loginForm" method="POST" novalidate>
+        {% csrf_token %}
+
+        <div class="mb-3">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="invalid-hint">{{ form.username.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3 position-relative">
+          {{ form.password.label_tag }}
+          {{ form.password }}
+          <button type="button" class="toggle-pass" aria-label="Показать пароль">👁</button>
+          {% if form.password.errors %}
+            <div class="invalid-hint">{{ form.password.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Войти</button>
+
+        <p class="switch-form mt-3 text-center">
+          Нет аккаунта?
+          <a href="{% url 'register' %}">Зарегистрироваться</a>
+        </p>
       </form>
-
     </div>
   </div>
 
+  <script>
+    // Показ/скрытие пароля
+    document.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('toggle-pass')) return;
+      const input = e.target.closest('.position-relative').querySelector('input');
+      const isText = input.type === 'text';
+      input.type = isText ? 'password' : 'text';
+      e.target.textContent = isText ? '👁' : '🙈';
+    });
+    // Авто-Bootstrap тосты (если есть сообщения)
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".toast").forEach(el => new bootstrap.Toast(el, { delay: 5000 }).show());
+    });
+  </script>
 </body>
 </html>

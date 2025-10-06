@@ -20,52 +20,122 @@
 </head>
 <body>
 
-  <!-- Хедер -->
-  <header class="header">
-    <div class="logo-container">
-      <a href="{% url 'home' %}">
-      <img src="{% static 'images/logo.png' %}" alt="Вестник Туран" class="logo-img">
+  <header class="header border-bottom">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+
+      <!-- Бренд -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
+        <img src="{% static 'images/logo.png' %}" alt="TAU" class="logo-img" style="height:36px">
+        <span class="logo-text fw-semibold">{% trans 'Известия университета Туран-Астана' %}</span>
       </a>
-      <span class="logo-text">{% trans 'Известия университета Туран-Астана' %}</span>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="{% url 'about' %}"><span class="material-icons">info</span>{% trans 'О журнале' %}</a></li>
-        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Архив номеров' %}</a></li>
-        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Редакционная коллегия' %}</a></li>
-        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Редакционная политика' %}</a></li>
-        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Публикационная политика' %}</a></li>
-        <li><a href="{% url 'collection'  %}"><span class="material-icons">archive</span>{% trans 'Регламенты, процедуры, документация' %}</a></li>
 
-<!--        <li><a href="{% url 'list-news' %}"><span class="material-icons">announcement</span>{% trans 'Новости' %}</a></li>-->
-        <li><a href="{% url 'contacts' %}"><span class="material-icons">contacts</span>{% trans 'Контактная информация' %}</a></li>
-        <li><a href="{% url 'home' %}"><span class="material-icons">contacts</span>{% trans 'Поиск' %}</a></li>
+      <!-- Бургер -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <li><a href="{% url 'for_authors' %}"><span class="material-icons">edit</span>{% trans 'Для авторов' %}</a></li>
-      {% if not user.is_authenticated %}
-            <li><a href="{% url 'login' %}"><span class="material-icons">login</span>{% trans 'Войти в систему' %}</a></li>
-        {% endif %}
-        {% if user.is_authenticated %}
-          <li><a href="{% url 'dashboard' %}"><span class="material-icons">dashboard</span>{% trans 'Личный кабинет' %}</a></li>
-        {% endif %}
-      </ul>
-    </nav>
-{% get_current_language as LANGUAGE_CODE %}
-{% with LANGUAGE_CODE|slice:":2" as LANG %}
-  <form action="{% url 'set_language' %}" method="post">
-    {% csrf_token %}
-    <div class="d-flex align-items-center">
-      <label for="languageSelect" class="me-2 mb-0">Язык:</label>
-      <select name="language" id="languageSelect" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">
-        <option value="ru" {% if LANG == 'ru' %}selected{% endif %}>Русский</option>
-        <option value="kk" {% if LANG == 'kk' %}selected{% endif %}>Қазақша</option>
-        <option value="en" {% if LANG == 'en' %}selected{% endif %}>English</option>
-      </select>
+      <!-- Меню -->
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">
+              <span class="material-icons me-1 align-text-bottom">info</span>
+              <span class="d-none d-xl-inline">{% trans 'О журнале' %}</span>
+              <span class="d-xl-none">{% trans 'О журнале' %}</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'collection' %}">
+              <span class="material-icons me-1 align-text-bottom">archive</span>
+              {% trans 'Архив номеров' %}
+            </a>
+          </li>
+
+          <!-- Группа: Редакция -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="material-icons me-1 align-text-bottom">groups</span>
+              {% trans 'Редакция' %}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Редакционная коллегия' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Редакционная политика' %}</a></li>
+            </ul>
+          </li>
+
+          <!-- Группа: Политики -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="material-icons me-1 align-text-bottom">policy</span>
+              {% trans 'Политики' %}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Публикационная политика' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Регламенты, процедуры, документация' %}</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contacts' %}">
+              <span class="material-icons me-1 align-text-bottom">contacts</span>
+              {% trans 'Контактная информация' %}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'collection' %}">
+              <span class="material-icons me-1 align-text-bottom">search</span>
+              {% trans 'Поиск' %}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'for_authors' %}">
+              <span class="material-icons me-1 align-text-bottom">edit</span>
+              {% trans 'Для авторов' %}
+            </a>
+          </li>
+        </ul>
+
+        <!-- Правая панель: язык + вход/кабинет -->
+        <div class="d-flex align-items-center gap-3">
+
+          {# Языки #}
+          {% get_current_language as LANGUAGE_CODE %}
+          {% with LANGUAGE_CODE|slice:":2" as LANG %}
+          <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center">
+            {% csrf_token %}
+            <label for="languageSelect" class="me-2 mb-0 small text-muted">{% trans 'Язык' %}:</label>
+            <select name="language" id="languageSelect" class="form-select form-select-sm" style="width:auto" onchange="this.form.submit()">
+              <option value="ru" {% if LANG == 'ru' %}selected{% endif %}>Русский</option>
+              <option value="kk" {% if LANG == 'kk' %}selected{% endif %}>Қазақша</option>
+              <option value="en" {% if LANG == 'en' %}selected{% endif %}>English</option>
+            </select>
+            <input type="hidden" name="next" value="{{ request.path }}">
+          </form>
+          {% endwith %}
+
+          {% if not user.is_authenticated %}
+            <a class="btn btn-outline-primary btn-sm" href="{% url 'login' %}">
+              <span class="material-icons me-1 align-text-bottom">login</span>
+              {% trans 'Войти' %}
+            </a>
+          {% else %}
+            <a class="btn btn-primary btn-sm" href="{% url 'dashboard' %}">
+              <span class="material-icons me-1 align-text-bottom">dashboard</span>
+              {% trans 'Личный кабинет' %}
+            </a>
+          {% endif %}
+        </div>
+      </div>
     </div>
-    <input type="hidden" name="next" value="{{ request.path }}">
-  </form>
-{% endwith %}
-  </header>
+  </nav>
+</header>
+
 {% block content %}
 
 {% endblock %}
