@@ -76,7 +76,69 @@ class AboutView(View):
         }
         return render(request, self.template_name, context)
 
+class EditorialView(View):
+    template_name = "journal/editorial_policy.html"
 
+    def get(self, request, *args, **kwargs):
+        context = {
+            "page_title": "Editorial"
+        }
+        return render(request, self.template_name, context)
+    
+class PublicationView(View):
+    template_name = "journal/publication_ethics.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "page_title": "Publication"
+        }
+        return render(request, self.template_name, context)
+    
+class Editorial_boardView(View):
+    template_name = "journal/editorial_board.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "page_title": "Editorial_board"
+        }
+        return render(request, self.template_name, context)
+    
+class Requirements_articlesView(View):
+    template_name = "journal/Requirements.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "page_title": "Requitements"
+        }
+        return render(request, self.template_name, context)
+
+class statementView(View):
+    template_name = "journal/statement.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "page_title": "statement"
+        }
+        return render(request, self.template_name, context)
+
+class regulationsView(View):
+    template_name = "journal/regulations.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "page_title": "regulations"
+        }
+        return render(request, self.template_name, context)
+    
+class copyrightView(View):
+    template_name = "journal/copyright_agreement.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "page_title": "copyright"
+        }
+        return render(request, self.template_name, context)
+    
 class ForAuthorsView(View):
     template_name = "journal/authors.html"
 

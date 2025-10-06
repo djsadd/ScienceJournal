@@ -1,0 +1,199 @@
+{% extends 'guest-base.html' %}
+
+
+{% load i18n %}
+{% load static %}
+{% block title %}<title>{% trans 'Редакционная коллегия' %}</title>{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  /* ===== Editorial styles (lightweight) ===== */
+  .edl-hero{max-width:900px;margin:0 auto 24px;}
+  .edl-hero h1{font-weight:800;margin:0 0 8px;}
+  .edl-hero p{color:#555;margin:0;}
+  .edl-toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:18px 0;}
+  .edl-search{flex:1 1 320px;}
+  .edl-card{border:1px solid #e6e8ee;border-radius:14px;padding:16px;background:#fff;box-shadow:0 2px 10px rgba(16,24,40,.04);}
+  .edl-name{font-weight:700;font-size:1.05rem;margin:0;}
+  .edl-meta{color:#555;margin:6px 0 0;line-height:1.45;}
+  .edl-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+  .edl-badge{font-size:.8rem;border-radius:999px;padding:6px 10px;background:#f5f6fa;border:1px solid #eceff3;color:#333;}
+  .edl-link{color:#0b66c3;text-decoration:none;}
+  .edl-link:hover{text-decoration:underline;}
+  .edl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media (max-width: 992px){ .edl-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width: 576px){ .edl-grid{grid-template-columns:1fr;} }
+
+  .edl-tabs .nav-link{border:0;border-bottom:3px solid transparent;color:#444;font-weight:600;}
+  .edl-tabs .nav-link.active{color:#721438;border-bottom-color:#721438;background:transparent;}
+  .edl-muted{color:#6b7280;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+  <main class="main-content">
+
+    <!-- Заголовок + кратко о принципах -->
+    <section class="edl-hero text-center">
+      <h1>{% trans 'Редакционная коллегия' %}</h1>
+      <p class="edl-muted">
+        {% trans 'Принципы формирования редколлегии: научная репутация, тематическая экспертиза и международное представительство. Ниже — состав редколлегии и редсовета с основными научными идентификаторами.' %}
+      </p>
+    </section>
+
+    <!-- Вкладки -->
+    <ul class="nav nav-tabs edl-tabs justify-content-center" id="edlTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="board-tab" data-bs-toggle="tab" data-bs-target="#board" type="button" role="tab">
+          {% trans 'Редакционная коллегия' %}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="council-tab" data-bs-toggle="tab" data-bs-target="#council" type="button" role="tab">
+          {% trans 'Редакционный совет' %}
+        </button>
+      </li>
+    </ul>
+
+    <!-- Панель инструментов (поиск/фильтр) -->
+    <div class="edl-toolbar">
+      <input id="edlSearch" class="form-control edl-search" type="search" placeholder="{% trans 'Поиск по ФИО, организации…' %}">
+      <select id="edlCountry" class="form-select" style="max-width:220px">
+        <option value="">{% trans 'Все страны' %}</option>
+        <option>Казахстан</option>
+        <option>Россия</option>
+        <option>США</option>
+        <option>Турция</option>
+        <option>Великобритания</option>
+      </select>
+      <button id="edlReset" class="btn btn-outline-secondary">{% trans 'Сброс' %}</button>
+    </div>
+
+    <div class="tab-content mt-3">
+
+      <!-- Вкладка: Редакционная коллегия -->
+      <div class="tab-pane fade show active" id="board" role="tabpanel" aria-labelledby="board-tab">
+        <div class="edl-grid" id="grid-board">
+          <!-- Пример карточек (фронт-демо). Позже замените на цикл Django. -->
+          <article class="edl-card" data-name="Иванов Иван Иванович" data-org="Туран-Астана" data-country="Казахстан">
+            <h3 class="edl-name">Иванов Иван Иванович</h3>
+            <div class="edl-meta">
+              {% trans 'Кафедра права, Университет «Туран-Астана»' %}<br>
+              {% trans 'Астана, Казахстан' %}<br>
+              {% trans 'д.ю.н., профессор' %}
+            </div>
+            <div class="edl-badges">
+              <a class="edl-badge edl-link" href="https://orcid.org/0000-0001-2345-6789" target="_blank" rel="noopener">ORCID: 0000-0001-2345-6789</a>
+              <span class="edl-badge">h-index Scopus: 8</span>
+              <span class="edl-badge">h-index WoS: 5</span>
+            </div>
+          </article>
+
+          <article class="edl-card" data-name="Aidos Beketov" data-org="Al-Farabi KazNU" data-country="Казахстан">
+            <h3 class="edl-name">Aidos Beketov</h3>
+            <div class="edl-meta">
+              {% trans 'Факультет международного права, КазНУ им. аль-Фараби' %}<br>
+              {% trans 'Алматы, Казахстан' %}<br>
+              {% trans 'PhD, ассоц. профессор' %}
+            </div>
+            <div class="edl-badges">
+              <a class="edl-badge edl-link" href="https://orcid.org/0000-0002-1111-2222" target="_blank" rel="noopener">ORCID: 0000-0002-1111-2222</a>
+              <span class="edl-badge">h-index Scopus: 6</span>
+            </div>
+          </article>
+
+          <article class="edl-card" data-name="Jane Smith" data-org="Oxford University" data-country="Великобритания">
+            <h3 class="edl-name">Jane Smith</h3>
+            <div class="edl-meta">
+              {% trans 'Faculty of Law, University of Oxford' %}<br>
+              {% trans 'Оксфорд, Великобритания' %}<br>
+              {% trans 'DPhil, Professor' %}
+            </div>
+            <div class="edl-badges">
+              <a class="edl-badge edl-link" href="https://orcid.org/0000-0003-3333-4444" target="_blank" rel="noopener">ORCID: 0000-0003-3333-4444</a>
+              <span class="edl-badge">h-index Scopus: 14</span>
+              <span class="edl-badge">h-index WoS: 12</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Вкладка: Редакционный совет -->
+      <div class="tab-pane fade" id="council" role="tabpanel" aria-labelledby="council-tab">
+        <div class="edl-grid" id="grid-council">
+          <article class="edl-card" data-name="Серикова Айжан" data-org="НУ" data-country="Казахстан">
+            <h3 class="edl-name">Серикова Айжан</h3>
+            <div class="edl-meta">
+              {% trans 'Школа наук, Назарбаев Университет' %}<br>
+              {% trans 'Астана, Казахстан' %}<br>
+              {% trans 'к.ю.н., доцент' %}
+            </div>
+            <div class="edl-badges">
+              <a class="edl-badge edl-link" href="https://orcid.org/0000-0002-5555-6666" target="_blank" rel="noopener">ORCID: 0000-0002-5555-6666</a>
+              <span class="edl-badge">h-index Scopus: 4</span>
+            </div>
+          </article>
+
+          <article class="edl-card" data-name="John Doe" data-org="Harvard" data-country="США">
+            <h3 class="edl-name">John Doe</h3>
+            <div class="edl-meta">
+              Harvard Law School<br>
+              {% trans 'Бостон, США' %}<br>
+              {% trans 'LL.D., Professor' %}
+            </div>
+            <div class="edl-badges">
+              <a class="edl-badge edl-link" href="https://orcid.org/0000-0001-7777-9999" target="_blank" rel="noopener">ORCID: 0000-0001-7777-9999</a>
+              <span class="edl-badge">h-index WoS: 18</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- Блок «Принципы формирования» (расширяемый текст) -->
+    <section class="mt-5" style="max-width: 900px; margin: 0 auto;">
+      <h3>{% trans 'Принципы формирования редколлегии' %}</h3>
+      <ul class="mt-3">
+        <li>{% trans 'Научная компетентность и релевантность тематике журнала.' %}</li>
+        <li>{% trans 'Международное представительство (географическое и институциональное разнообразие).' %}</li>
+        <li>{% trans 'Наличие публикаций в рецензируемых изданиях, индексируемых в Scopus и Web of Science.' %}</li>
+        <li>{% trans 'Прозрачные процедуры обновления состава и предотвращение конфликта интересов.' %}</li>
+        <li>{% trans 'Готовность к экспертной оценке материалов и участию в развитии журнала.' %}</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<!-- Мини-скрипт фильтра/поиска (фронт-only) -->
+<script>
+(function(){
+  const q = document.getElementById('edlSearch');
+  const country = document.getElementById('edlCountry');
+  const reset = document.getElementById('edlReset');
+
+  function applyFilter(){
+    const query = (q.value || '').toLowerCase().trim();
+    const ctry = (country.value || '').toLowerCase().trim();
+
+    document.querySelectorAll('#board .edl-card, #council .edl-card').forEach(card=>{
+      const text = (card.dataset.name + ' ' + card.dataset.org).toLowerCase();
+      const okText = !query || text.includes(query);
+      const okCtry = !ctry || (card.dataset.country || '').toLowerCase() === ctry;
+      card.style.display = (okText && okCtry) ? '' : 'none';
+    });
+  }
+
+  q.addEventListener('input', applyFilter);
+  country.addEventListener('change', applyFilter);
+  reset.addEventListener('click', ()=>{ q.value=''; country.value=''; applyFilter(); });
+
+  applyFilter();
+})();
+</script>
+{% endblock %}

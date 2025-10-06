@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 # My Views
 from .views import (JournalView, CollectionListView, CollectionDetailView, ContactsView, AboutView, ForAuthorsView,
-                    BidDetailView)
+                    BidDetailView, EditorialView, PublicationView, Editorial_boardView, Requirements_articlesView,statementView, regulationsView, copyrightView)
 
 urlpatterns = [
     path("", JournalView.as_view(), name="home"),
@@ -27,5 +27,12 @@ urlpatterns = [
     path("article-detail/<int:pk>", BidDetailView.as_view(), name="article_detail"),
     path("contacts/", ContactsView.as_view(), name="contacts"),
     path("about/", AboutView.as_view(), name="about"),
+    path("editorial/", EditorialView.as_view(), name="editorial"),
+    path("editorial_board/", Editorial_boardView.as_view(), name="editorial_board"),
+    path("requirements_articles/", Requirements_articlesView.as_view(), name="requirements"),
+    path("publication/", PublicationView.as_view(), name="publication"),
+    path("statement/", statementView.as_view(), name="statement"),
+    path("regulations/", regulationsView.as_view(), name="regulations"),
+    path("copyright/", copyrightView.as_view(), name="copyright"),
     path("for-authors/", ForAuthorsView.as_view(), name="for_authors"),
 ]

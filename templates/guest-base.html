@@ -27,7 +27,7 @@
       <!-- Бренд -->
       <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
         <img src="{% static 'images/logo.png' %}" alt="TAU" class="logo-img" style="height:36px">
-        <span class="logo-text fw-semibold">{% trans 'Известия университета Туран-Астана' %}</span>
+ 
       </a>
 
       <!-- Бургер -->
@@ -62,8 +62,8 @@
               {% trans 'Редакция' %}
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Редакционная коллегия' %}</a></li>
-              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Редакционная политика' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'editorial_board' %}">{% trans 'Редакционная коллегия' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'editorial' %}">{% trans 'Редакционная политика' %}</a></li>
             </ul>
           </li>
 
@@ -71,11 +71,12 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="material-icons me-1 align-text-bottom">policy</span>
-              {% trans 'Политики' %}
+              {% trans 'Регламенты, процедуры, документация' %}
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Публикационная политика' %}</a></li>
-              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Регламенты, процедуры, документация' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'publication' %}">{% trans 'Публикационная этика' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'statement' %}">{% trans 'Заявление об отношении к использованию ИИ' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'regulations' %}">{% trans 'Регламент рецензирования' %}</a></li>
             </ul>
           </li>
 
@@ -93,11 +94,16 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'for_authors' %}">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="{% url 'for_authors' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="material-icons me-1 align-text-bottom">edit</span>
               {% trans 'Для авторов' %}
             </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'requirements' %}">{% trans 'Требования к статьям' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'collection' %}">{% trans 'Алгоритм подачи статьи' %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'copyright' %}">{% trans 'Авторский договор' %}</a></li>
+            </ul>
           </li>
         </ul>
 
@@ -172,6 +178,7 @@
 
 
   <footer class="footer">
+     <p>{% trans '&copy; This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.' %}</p>
     <p>{% trans '&copy; 2025 Вестник Университета Туран-Астана. Все права защищены.' %}</p>
     <p><a href="#">{% trans 'Политика конфиденциальности' %}</a> | <a href="#">{% trans 'Условия использования' %}</a></p>
   </footer>
