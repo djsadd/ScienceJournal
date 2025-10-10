@@ -7,6 +7,8 @@ from django.views.generic import UpdateView
 from django.views.generic.detail import DetailView
 from articles.models import Article
 # Models
+from .mixins import BidAccessMixin
+from django.http import HttpResponseForbidden
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -92,10 +94,15 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+
         decision = request.POST.get('decision')
         comment = request.POST.get("comment")
 
         bid_obj = self.get_object()
+        if bid_obj.status==BidStatus.PUBLISHED:
+            messages.error(request, "Данная статья уже опубликована")
+            return redirect("edit-request-redactor", bid_obj.pk)
+
         if comment:
             bid_obj.comment = comment
             messages.success(self.request, 'Комментарии успешно оставлен!')
@@ -227,6 +234,10 @@ def assign_reviewer(request):
         bid_id = data.get('bid_id')
         bid_obj = Bid.objects.get(id=bid_id)
         old_reviews = Review.objects.filter(bid_id=bid_id, reviewer_id=reviewer_id)
+
+        if bid_obj.status == BidStatus.PUBLISHED:
+            return JsonResponse({'message': f'Рецензент с ID {reviewer_id} не может быть назначен так как статья уже находится в публикации.'})
+
         for row in old_reviews:
             if row.status != ReviewStatus.SUBMITTED:
                 return JsonResponse({'message': f'Рецензент с ID {reviewer_id} не назначен, так как он еще не опубликовал рецензию на эту статью.'})
@@ -282,7 +293,7 @@ class BidVersionDetailView(DetailView):
         return context
 
 
-class CollectionRedactorListView(ListView):
+class CollectionRedactorListView(BidAccessMixin, ListView):
     model = Collection
     template_name = "bid/redactor/collection-list.html"
 
@@ -314,8 +325,12 @@ def select_collection_bid(request, bid_pk, collection_pk):
 
 
 def inactive_review(request, review_pk):
+
     if request.user.role == CustomUser.REDACTOR:
         obj = get_object_or_404(Review, id=review_pk)
+        if obj.bid.status == BidStatus.PUBLISHED:
+            messages.error(request, "Данная статья уже опубликована")
+            return redirect("edit-request-redactor", obj.bid.pk)
         obj.is_active = False
         obj.save()
 
