@@ -6,95 +6,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   {% block title %}
   <title>{% trans 'Профиль' %}</title>
   {% endblock %}
-    {% block css %}
+
+  {% block css %}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    {% endblock %}
+      <link rel="stylesheet" href="{% static 'css/main.css' %}">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+  {% endblock %}
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- В head шаблона -->
-
 </head>
 <body>
 
-  <!-- Хедер -->
-  <header class="header">
-        <div class="logo-container">
-          <a href="{% url 'home' %}">
-          <img src="{% static 'images/logo.png' %}" alt="Вестник Туран" class="logo-img">
-          </a>
-          <span class="logo-text">{% trans 'Известия университета Туран-Астана' %}</span>
-        </div>
-    <nav>
-      <ul>
-        <li><a href="{% url 'dashboard' %}"><span class="material-icons">dashboard</span>{% trans 'Моя панель' %}</a></li>
-        <li><a href="{% url 'my_bids' %}"><span class="material-icons">assignment</span>{% trans 'Мои заявки' %}</a></li>
-        <li><a href="{% url 'profile' %}"><span class="material-icons">account_circle</span>{% trans 'Профиль' %}</a></li>
-        <li><a href="{% url 'logout' %}"><span class="material-icons">logout</span>{% trans 'Выход' %}</a></li>
-      </ul>
-    </nav>
-{% get_current_language as LANGUAGE_CODE %}
-{% with LANGUAGE_CODE|slice:":2" as LANG %}
-  <form action="{% url 'set_language' %}" method="post">
-    {% csrf_token %}
-    <div class="d-flex align-items-center">
-      <label for="languageSelect" class="me-2 mb-0">Язык:</label>
-      <select name="language" id="languageSelect" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">
-        <option value="ru" {% if LANG == 'ru' %}selected{% endif %}>Русский</option>
-        <option value="kk" {% if LANG == 'kk' %}selected{% endif %}>Қазақша</option>
-        <option value="en" {% if LANG == 'en' %}selected{% endif %}>English</option>
-      </select>
-    </div>
-    <input type="hidden" name="next" value="{{ request.path }}">
-  </form>
-{% endwith %}
+<header class="header border-bottom">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
 
-  </header>
+      <!-- Логотип -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
+        <img src="{% static 'images/logo.png' %}" alt="Вестник Туран" class="logo-img" style="height:36px">
+        <span class="d-none d-md-inline fw-bold">{% trans 'Известия университета Туран-Астана' %}</span>
+      </a>
+
+      <!-- Бургер -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#profileNav"
+              aria-controls="profileNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Меню -->
+      <div class="collapse navbar-collapse" id="profileNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+              <span class="material-icons me-1 align-text-bottom">dashboard</span>
+              {% trans 'Моя панель' %}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'my_bids' %}">
+              <span class="material-icons me-1 align-text-bottom">assignment</span>
+              {% trans 'Мои заявки' %}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">
+              <span class="material-icons me-1 align-text-bottom">account_circle</span>
+              {% trans 'Профиль' %}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-danger" href="{% url 'logout' %}">
+              <span class="material-icons me-1 align-text-bottom">logout</span>
+              {% trans 'Выход' %}
+            </a>
+          </li>
+
+        </ul>
+
+        <!-- Переключатель языка -->
+        {% get_current_language as LANGUAGE_CODE %}
+        {% with LANGUAGE_CODE|slice:":2" as LANG %}
+        <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center">
+          {% csrf_token %}
+          <label for="languageSelect" class="me-2 mb-0 small text-muted">{% trans 'Язык' %}:</label>
+          <select name="language" id="languageSelect" class="form-select form-select-sm" style="width:auto" onchange="this.form.submit()">
+            <option value="ru" {% if LANG == 'ru' %}selected{% endif %}>Русский</option>
+            <option value="kk" {% if LANG == 'kk' %}selected{% endif %}>Қазақша</option>
+            <option value="en" {% if LANG == 'en' %}selected{% endif %}>English</option>
+          </select>
+          <input type="hidden" name="next" value="{{ request.path }}">
+        </form>
+        {% endwith %}
+      </div>
+    </div>
+  </nav>
+</header>
 
 {% block content %}
-
 {% endblock %}
-{% if messages %}
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        {% for message in messages %}
-            {% if "error" in message.tags %}
-                <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            {% elif "warning" in message.tags %}
-                <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            {% else %}
-                <div class="toast align-items-center text-bg-{{ message.tags }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            {% endif %}
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ message }}
-                    </div>
-                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="{% trans 'Закрыть' %}"></button>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var toastElList = document.querySelectorAll(".toast");
-            toastElList.forEach(function (toastEl) {
-                var toast = new bootstrap.Toast(toastEl, { delay: 5000 }); // Авто-закрытие через 5 сек
-                toast.show();
-            });
-        });
-    </script>
+{% if messages %}
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  {% for message in messages %}
+    {% if "error" in message.tags %}
+      <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    {% elif "warning" in message.tags %}
+      <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    {% else %}
+      <div class="toast align-items-center text-bg-{{ message.tags }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    {% endif %}
+        <div class="d-flex">
+          <div class="toast-body">{{ message }}</div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="{% trans 'Закрыть' %}"></button>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var toastElList = document.querySelectorAll(".toast");
+    toastElList.forEach(function (toastEl) {
+      var toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+      toast.show();
+    });
+  });
+</script>
 {% endif %}
 
-
-  <footer class="footer">
-    <p>{% trans '&copy; 2025 Вестник Туран. Все права защищены.' %}</p>
-    <p><a href="#">{% trans 'Политика конфиденциальности' %}</a> | <a href="#">{% trans 'Условия использования' %}</a></p>
-  </footer>
-
+<footer class="footer text-center mt-5 border-top py-3">
+  <p class="mb-1">{% trans '&copy; 2025 Вестник Туран. Все права защищены.' %}</p>
+  <p>
+    <a href="#">{% trans 'Политика конфиденциальности' %}</a> |
+    <a href="#">{% trans 'Условия использования' %}</a>
+  </p>
+</footer>
 
 </body>
 </html>
