@@ -1,5 +1,5 @@
 html, body {
-  height: 100%;
+
   margin: 0;
   padding: 0;
   
@@ -45,11 +45,11 @@ body{
   flex-direction: column;
   min-height: 100vh;
 }
-body main{ flex: 1 0 auto; }   /* тянем центральную область */
-.footer{ margin-top: auto; }
+body main{ flex: 1 0 auto !important; }   /* тянем центральную область */
+body .footer{ margin-top: auto !important; }
 
 /* На всякий случай отменим «плавающее» позиционирование */
-body .footer{ position: static; bottom: auto; }
+body .footer{ position: static; bottom: auto !important; }
 body .text-muted{ 
   color: white !important;
   margin-left: 80px;
@@ -234,7 +234,7 @@ h3 {
 }
 
 /* Основной контент */
-.main-content {
+body .main-content {
   flex: 1;
   padding: 20px;
   max-width: 1200px;
@@ -351,14 +351,14 @@ a:hover {
 
 /* Футер */
 /* Футер */
-.footer {
+body .footer {
   background-color: rgba(114, 20, 56, 0.9);
   color: #e1e1e1;
   text-align: center;
   padding: 30px;
 }
-.main-content {
-  flex: 1;
+body .main-content {
+  flex: 1 !important;
 }
 
 .footer p {
