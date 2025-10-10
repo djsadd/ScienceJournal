@@ -10,10 +10,10 @@
 
     <div class="article-info">
       <p><strong>{% trans 'Название статьи' %}: </strong> {{ object.article.title }}</p>
-      <p><strong>{% trans Автор статьи' %}: </strong> {{ object.article.authors }}</p>
-      <p><strong>{% trans Электронный адрес отправителя' %}: </strong> {{ object.responsible.email }}</p>
-      <p><strong>{% trans Аннотация' %}: </strong>{{ object.article.annotation|safe }}</p>
-      <p><strong>{% trans Ключевые слова' %}:</strong>
+      <p><strong>{% trans 'Автор статьи' %}: </strong> {{ object.article.authors }}</p>
+      <p><strong>{% trans 'Электронный адрес отправителя' %}: </strong> {{ object.responsible.email }}</p>
+      <p><strong>{% trans 'Аннотация' %}: </strong>{{ object.article.annotation|safe }}</p>
+      <p><strong>{% trans 'Ключевые слова' %}:</strong>
         {% for tag in object.article.tags.all %}
           {{ tag.name }}{% if not forloop.last %}, {% endif %}
         {% endfor %}
