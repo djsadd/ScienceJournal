@@ -4,6 +4,9 @@ html, body {
   padding: 0;
   
 }
+body .text-dark{
+  color: white !important;
+}
 /* 1) Цвет и отключаем подчёркивание у бренда и ссылок в навигации */
 .navbar,
 .navbar .navbar-brand,

@@ -174,7 +174,11 @@ margin-left: 20px;
   0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-
+.wrapper {
+  flex: 1; /* чтобы занимал всё оставшееся пространство между header и footer */
+  display: flex;
+  flex-direction: column;
+}
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -182,7 +186,7 @@ body {
   background-color: #f9f9f9;
   color: #333;
   line-height: 1.6;
-  min-height: 100vh; /* Добавлено для предотвращения пустого пространства внизу */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
