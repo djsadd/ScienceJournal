@@ -1864,3 +1864,30 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+msgid "Черновик"
+msgstr "Draft"
+
+msgid "Отправлено"
+msgstr "Submitted"
+
+msgid "На проверке у редактора"
+msgstr "Under editor review"
+
+msgid "Отправлено на рецензию"
+msgstr "Sent for review"
+
+msgid "Требуется доработка"
+msgstr "Needs revision"
+
+msgid "Повторная рецензия"
+msgstr "Re-review"
+
+msgid "Принято к публикации"
+msgstr "Accepted for publication"
+
+msgid "Отклонено"
+msgstr "Rejected"
+
+msgid "Опубликовано"
+msgstr "Published"

@@ -8,6 +8,7 @@ from ckeditor.fields import RichTextField
 from django.core.exceptions import ValidationError
 from django.core.exceptions import PermissionDenied
 import re
+from django.utils.translation import gettext as _
 # Create your models here.
 
 
@@ -21,6 +22,10 @@ class BidStatus(models.TextChoices):
     ACCEPTED = 'accepted', 'Принято к публикации'
     REJECTED = 'rejected', 'Отклонено'
     PUBLISHED = 'published', 'Опубликовано'
+
+    def get_status_display(self):
+        # вытащим метку из enum и переведём в момент вызова
+        return _(BidStatus(self.status).label)
 
 
 class BidManager(models.Manager):

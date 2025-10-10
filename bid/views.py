@@ -226,6 +226,10 @@ def assign_reviewer(request):
         # Get objects in orm
         bid_id = data.get('bid_id')
         bid_obj = Bid.objects.get(id=bid_id)
+        old_reviews = Review.objects.filter(bid_id=bid_id, reviewer_id=reviewer_id)
+        for row in old_reviews:
+            if row.status != ReviewStatus.SUBMITTED:
+                return JsonResponse({'message': f'Рецензент с ID {reviewer_id} не назначен, так как он еще не опубликовал рецензию на эту статью.'})
 
         # Create obj review
         review = Review.objects.create(reviewer=reviewer, bid=bid_obj)

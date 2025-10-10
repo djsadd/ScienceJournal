@@ -23,7 +23,7 @@
         <div class="request-item">
           <h3 class="request-title">{{ obj.article.title }}</h3>
           <p class="request-date">{% trans 'Дата подачи' %}: {{ obj.date_created }}</p>
-          <p class="request-status">{% trans 'Статус' %}: {{ obj.get_status_display  }}</p>
+          <p class="request-status">{% trans 'Статус' %}: {% trans obj.get_status_display %}</p>
           {% if obj.comment %}
             <p class="request-status">{% trans 'Комментарии редактора' %}: {{ obj.comment|safe  }}</p>
           {% endif %}

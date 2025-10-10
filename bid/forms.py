@@ -1,7 +1,7 @@
 from django import forms
 from .models import Bid, BidStatus, Review
 from ckeditor.widgets import CKEditorWidget
-
+from django.utils.translation import gettext_lazy as _
 
 class BidForm(forms.ModelForm):
     class Meta:
@@ -38,7 +38,7 @@ class CommentBid(forms.Form):
             'rows': 5,
             'cols': 40
         }),
-        label='Комментарий для автора',
+        label=_('Комментарий для автора'),
     )
 
 

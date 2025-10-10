@@ -84,8 +84,19 @@
 
 
               <div class="input-group">
-                {% trans 'Авторы' %}:
-                {{ form.authors }}
+                {% trans 'Авторы статьи на Английском' %}:
+                {{ form.authors_en }}
+              </div>
+
+
+              <div class="input-group">
+                {% trans 'Авторы статьи на Казахском' %}:
+                {{ form.authors_kk }}
+              </div>
+
+              <div class="input-group">
+                {% trans 'Авторы статьи на Русском' %}:
+                {{ form.authors_ru }}
               </div>
 
               <div class="input-group">

@@ -37,7 +37,7 @@
             <td data-label="Название">{{ obj.article.title }}</td>
             <td data-label="Автор">{{ obj.article.authors }}</td>
             <td data-label="Дата отправки">{{ obj.date_created }}</td>
-            <td data-label="Статус">{{ obj.get_status_display  }}</td>
+            <td data-label="Статус">{% trans obj.get_status_display %}</td>
             <td data-label="Действие"><a href="{% url 'edit-request-redactor' obj.pk %}" class="btn-small">{% trans 'Проверить' %}</a></td>
           </tr>
         {% endfor %}

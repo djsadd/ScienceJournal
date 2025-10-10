@@ -28,7 +28,9 @@ class ArticleCreateForm(forms.ModelForm):
             "annotation_en",
             "annotation_kk",
             "annotation_ru",
-            "authors"
+            "authors_en",
+            "authors_kk",
+            "authors_ru"
                   ]
 
     def __init__(self, *args, **kwargs):
@@ -41,7 +43,9 @@ class ArticleCreateForm(forms.ModelForm):
         self.fields['title_en'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
         self.fields['title_kk'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
         self.fields['title_ru'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Введите название статьи'})
-        self.fields['authors'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Авторы статьи'})
+        self.fields['authors_en'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Авторы статьи'})
+        self.fields['authors_kk'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Авторы статьи'})
+        self.fields['authors_ru'].widget.attrs.update({**common_text_input_attrs, 'placeholder': 'Авторы статьи'})
         self.fields['file'].widget.attrs.update({'class': 'form-control', 'required': 'required'})
         self.fields['plagiarism'].widget.attrs.update({'class': 'form-control', 'required': 'required'})
 
