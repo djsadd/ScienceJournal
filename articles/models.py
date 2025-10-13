@@ -40,8 +40,8 @@ def layout_upload_path(instance, filename):
 
 # Article model
 class Article(models.Model):
-    file = models.FileField(upload_to='articles/', null=True, blank=True)
-    PDF = models.FileField(upload_to=layout_upload_path)
+    file = models.FileField(upload_to='articles/')
+    PDF = models.FileField(upload_to=layout_upload_path, null=True, blank=True)
     language = models.CharField(choices=LanguageChoicesArticle.choices, default=LanguageChoicesArticle.RU)
     tags = models.ManyToManyField(Tag, related_name="articles")
     date = models.DateTimeField(auto_now_add=True)
