@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-
+from datetime import datetime
+import os
 # My Models
 
 
@@ -27,10 +28,20 @@ class LanguageChoicesArticle(models.TextChoices):
     ENG = "Английский"
 
 
+def layout_upload_path(instance, filename):
+    # Получаем расширение файла
+    ext = filename.split('.')[-1]
+    # Формируем новое имя файла с датой и временем
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    new_filename = f"{timestamp}_{filename}"
+    # Возвращаем путь внутри папки layouts
+    return os.path.join('layouts', new_filename)
+
+
 # Article model
 class Article(models.Model):
-    file = models.FileField(upload_to='articles/')
-    # PDF
+    file = models.FileField(upload_to='articles/', null=True, blank=True)
+    PDF = models.FileField(upload_to=layout_upload_path)
     language = models.CharField(choices=LanguageChoicesArticle.choices, default=LanguageChoicesArticle.RU)
     tags = models.ManyToManyField(Tag, related_name="articles")
     date = models.DateTimeField(auto_now_add=True)
