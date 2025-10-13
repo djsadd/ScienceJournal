@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans "Ошибка сервера" %}</title>
+{% endblock %}
+
+{% block content %}
+<div class="error-page container py-5">
+  <h1 class="display-1 fw-bold text-danger">500</h1>
+  <h2 class="mb-4">{% trans "Внутренняя ошибка сервера" %}</h2>
+  <p class="lead mb-4">
+    {% trans "Извините, на сервере произошла ошибка. Пожалуйста, попробуйте позже или свяжитесь с администрацией сайта." %}
+  </p>
+
+  <div class="mb-5">
+    <img src="{% static 'images/500.svg' %}" alt="500" class="img-fluid" style="max-width: 400px;">
+  </div>
+
+  <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+    <span class="material-icons align-middle me-2">home</span>
+    {% trans "На главную" %}
+  </a>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans "Сайт временно недоступен" %}</title>
+{% endblock %}
+
+{% block content %}
+<div class="error-page container py-5">
+  <h1 class="display-1 fw-bold text-secondary">503</h1>
+  <h2 class="mb-4">{% trans "Сайт временно недоступен" %}</h2>
+  <p class="lead mb-4">
+    {% trans "Мы проводим техническое обслуживание. Пожалуйста, попробуйте позже." %}
+  </p>
+
+  <img src="{% static 'images/503.svg' %}" alt="503" class="img-fluid" style="max-width: 400px;">
+
+  <a href="{% url 'home' %}" class="btn btn-primary btn-lg mt-4">
+    <span class="material-icons align-middle me-2">refresh</span>
+    {% trans "Обновить страницу" %}
+  </a>
+</div>
+{% endblock %}

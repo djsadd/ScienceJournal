@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans "Доступ запрещён" %}</title>
+{% endblock %}
+
+{% block content %}
+<div class="error-page container py-5">
+  <h1 class="display-1 fw-bold text-warning">403</h1>
+  <h2 class="mb-4">{% trans "Доступ запрещён" %}</h2>
+  <p class="lead mb-4">
+    {% trans "У вас нет прав для просмотра этой страницы." %}
+  </p>
+
+  <div class="mb-5">
+    <img src="{% static 'images/403.svg' %}" alt="403" class="img-fluid" style="max-width: 400px;">
+  </div>
+
+  <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+    <span class="material-icons align-middle me-2">home</span>
+    {% trans "На главную" %}
+  </a>
+</div>
+{% endblock %}

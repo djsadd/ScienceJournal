@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans "Страница не найдена" %}</title>
+{% endblock %}
+
+{% block content %}
+<div class="error-page container py-5">
+  <h1>404</h1>
+  <h2>{% trans "Страница не найдена" %}</h2>
+  <p class="lead">
+    {% trans "К сожалению, запрашиваемая страница не существует или была удалена." %}
+  </p>
+
+  <img src="{% static 'images/404.svg' %}" alt="404">
+
+  <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+    <span class="material-icons align-middle me-2">home</span>
+    {% trans "На главную" %}
+  </a>
+</div>
+{% endblock %}
