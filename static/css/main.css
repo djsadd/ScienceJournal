@@ -1,3 +1,191 @@
+body .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select{
+width: 100% !important;
+position: relative;
+
+}
+
+/* === Основной контейнер === */
+.upload-section {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 30px 40px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  margin-top: 30px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* === Заголовок === */
+.upload-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #222;
+  font-family: 'Playfair Display', serif;
+}
+
+/* === Группы полей === */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #444;
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+}
+
+/* === Поля формы === */
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: 'Playfair Display', serif;
+  transition: all 0.2s ease;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+  background-color: #fafafa;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0,123,255,0.3);
+  outline: none;
+}
+
+/* === Отдельные группы (формы bid_form) === */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  font-size: 15px;
+  transition: border-color 0.2s ease;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #007bff;
+}
+
+/* === Кнопки === */
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: 'Playfair Display', serif;
+}
+
+.btn-primary {
+  background-color: rgba(114, 20, 56, 0.9);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: rgba(114, 20, 56, 0.9);
+}
+
+
+
+/* === File input улучшение === */
+input[type="file"] {
+  background: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+input[type="file"]:hover {
+  background-color: #f1f1f1;
+}
+
+/* === Адаптивность === */
+@media (max-width: 768px) {
+  .upload-section {
+    padding: 20px;
+  }
+
+  .input-group input,
+  .input-group select,
+  .input-group textarea {
+    font-size: 14px;
+  }
+
+  .btn,
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+
+
+  .input-group {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .input-group select,
+  .input-group input,
+  .input-group textarea {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 html, body {
 
   margin: 0;
@@ -7,7 +195,7 @@ html, body {
 body .text-dark{
   color: white !important;
 }
-
+body .btn {border-radius: 10px !important;}
 
 .error-page {
   min-height: 70vh;
@@ -165,8 +353,8 @@ body .bg-body-tertiary{
 }
 
 /* Стиль для кнопки "Просмотреть статью" */
-.btn {
-  background-color: rgba(114, 20, 56, 0.9);
+body .btn {
+  background-color: rgba(114, 20, 56, 0.9) !important;
   color: white;
   padding: 10px 20px;
   font-size: 16px;
@@ -627,16 +815,17 @@ ul li a {
 
  
   .btn-small {
+    text-decoration: none !important;
     font-size: 14px;
     padding: 4px 8px;
-    background-color: #007bff;
+    background-color: rgba(114, 20, 56, 0.9411764705882353);
     color: white;
     border-radius: 4px;
     text-decoration: none;
   }
 
   .btn-small:hover {
-    background-color: #0056b3;
+    background-color: rgba(114, 20, 56, 0.9411764705882353);
   }
 
   .add-reviewer-btn {

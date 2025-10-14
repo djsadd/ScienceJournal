@@ -22,38 +22,117 @@
 
 {% block content %}
 
-  <main class="main-content">
-    <section class="article-queue">
-      <h2>{% trans 'Очередь статей' %}</h2>
-      <table class="article-table">
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>{% trans 'Название' %}</th>
-            <th>{% trans 'Автор' %}</th>
-            <th>{% trans 'Дата отправки' %}</th>
-            <th>{% trans 'Статус' %}</th>
-            <th>{% trans 'Действие' %}</th>
-          </tr>
-        </thead>
-        <tbody>
+<main class="main-content">
+  <section class="article-queue">
+    <h2>{% trans 'Очередь статей' %}</h2>
+    <div class="filter-container mb-3">
+      <div class="row g-2">
+        <div class="col-md-3">
+          <input type="text" id="titleFilter" class="form-control" placeholder="{% trans 'Фильтр по названию' %}">
+        </div>
+        <div class="col-md-3">
+          <input type="text" id="authorFilter" class="form-control" placeholder="{% trans 'Фильтр по автору' %}">
+        </div>
+        <div class="col-md-3">
+          <input type="text" id="dateFilter" class="form-control" placeholder="{% trans 'Фильтр по дате' %}">
+        </div>
+        <div class="col-md-2">
+          <select id="statusFilter" class="form-select">
+            <option value="">{% trans 'Все статусы' %}</option>
+            <option value="Черновик">{% trans 'Черновик' %}</option>
+            <option value="Отправлено">{% trans 'Отправлено' %}</option>
+            <option value="На проверке у редактора">{% trans 'На проверке у редактора' %}</option>
+            <option value="Отправлено на рецензию">{% trans 'Отправлено на рецензию' %}</option>
+            <option value="Требуется доработка">{% trans 'Требуется доработка' %}</option>
+            <option value="Повторная рецензия">{% trans 'Повторная рецензия' %}</option>
+            <option value="Принято к публикации">{% trans 'Принято к публикации' %}</option>
+            <option value="Отклонено">{% trans 'Отклонено' %}</option>
+            <option value="Опубликовано">{% trans 'Опубликовано' %}</option>
+          </select>
+        </div>
+    
+      </div>
+ 
+    </div>
+           
+    <table class="article-table">
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>{% trans 'Название' %}</th>
+          <th>{% trans 'Автор' %}</th>
+          <th>{% trans 'Дата отправки' %}</th>
+          <th>{% trans 'Статус' %}</th>
+          <th>{% trans 'Действие' %}</th>
+        </tr>
+      </thead>
+      <tbody id="articleTable">
         {% for obj in object_list %}
         <tr>
-            <td data-label="№">{{ obj.pk }}</td>
-            <td data-label="Название">{{ obj.article.title }}</td>
-            <td data-label="Автор">{{ obj.article.authors }}</td>
-            <td data-label="Дата отправки">{{ obj.date_created }}</td>
-            <td data-label="Статус">{% trans obj.get_status_display %}</td>
-            <td data-label="Действие"><a href="{% url 'edit-request-redactor' obj.pk %}" class="btn-small">{% trans 'Проверить' %}</a></td>
-          </tr>
+          <td data-label="№">{{ obj.pk }}</td>
+          <td data-label="Название">{{ obj.article.title }}</td>
+          <td data-label="Автор">{{ obj.article.authors }}</td>
+          <td data-label="Дата отправки">{{ obj.date_created|date:"d.m.Y" }}</td>
+          <td data-label="Статус">{% trans obj.get_status_display %}</td>
+          <td data-label="Действие">
+            <a href="{% url 'edit-request-redactor' obj.pk %}" class="btn-small">{% trans 'Проверить' %}</a>
+          </td>
+        </tr>
         {% endfor %}
+      </tbody>
+    </table>
 
-        </tbody>
-      </table>
-       {% include "includes/pagination.html" %}
+    {% include "includes/pagination.html" %}
+  </section>
+</main>
 
-    </section>
-  </main>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const titleInput = document.getElementById("titleFilter");
+  const authorInput = document.getElementById("authorFilter");
+  const dateInput = document.getElementById("dateFilter");
+  const statusSelect = document.getElementById("statusFilter");
+  const clearBtn = document.getElementById("clearFilters");
+  const rows = document.querySelectorAll("#articleTable tr");
+
+  function filterTable() {
+    const titleVal = titleInput.value.toLowerCase();
+    const authorVal = authorInput.value.toLowerCase();
+    const dateVal = dateInput.value.toLowerCase();
+    const statusVal = statusSelect.value.toLowerCase();
+
+    rows.forEach(row => {
+      const title = row.children[1].textContent.toLowerCase();
+      const author = row.children[2].textContent.toLowerCase();
+      const date = row.children[3].textContent.toLowerCase();
+      const status = row.children[4].textContent.toLowerCase();
+
+      if (
+        title.includes(titleVal) &&
+        author.includes(authorVal) &&
+        date.includes(dateVal) &&
+        (statusVal === "" || status.includes(statusVal))
+      ) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  }
+
+  [titleInput, authorInput, dateInput, statusSelect].forEach(el => {
+    el.addEventListener("input", filterTable);
+  });
+
+  clearBtn.addEventListener("click", () => {
+    titleInput.value = "";
+    authorInput.value = "";
+    dateInput.value = "";
+    statusSelect.value = "";
+    filterTable();
+  });
+});
+</script>
 
 </div>
 {% endblock %}
