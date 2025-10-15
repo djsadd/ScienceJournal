@@ -1,3 +1,13 @@
+body .text-dark{
+  margin-top: 17px;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: white !important; /* классический тёмный */
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ffcc00; /* синий акцент */
+  padding-bottom: 6px;
+  letter-spacing: 0.5px !important;
+}
 ul li a {
   display: flex;
   align-items: center;  /* Центрирует по вертикали */
@@ -26,8 +36,9 @@ ul li a {
     letter-spacing: 1px;
   }
   
-.requests-section {
-  max-width: 1000px;
+body .requests-section {
+  max-width: 1000px !important;
+  min-width: 700px !important;
   margin: 40px auto;
   padding: 0 20px;
 }
@@ -70,8 +81,13 @@ ul li a {
   grid-template-columns: 1fr;
   gap: 20px;
 }
+body .request-actions{
+  display: flex !important;
+  flex-direction: row !important;
 
+}
 .request-item {
+  min-width: 500px !important;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);

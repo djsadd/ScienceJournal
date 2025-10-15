@@ -1,10 +1,81 @@
+.d-none.d-md-inline.fw-bold {
+  margin-top: 17px;
+  margin-bottom: 20px;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  border-bottom: 2px solid #ffcc00; /* жёлтый акцент */
+  padding-bottom: 6px;
+  letter-spacing: 0.5px !important;
+}
+
+
+body .btn-download{
+ background-color: rgba(114, 20, 56, 0.9) !important;
+ text-decoration: none !important;
+}
+.publications-section{
+  min-width: 500px !important;
+  margin: auto !important;
+}
+.article-info {
+  background-color: #f9fafc;
+  border: 1px solid #e0e4e8;
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin-top: 20px;
+  line-height: 1.6;
+}
+
+.article-info p {
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #333;
+}
+
+.article-info strong {
+  display: inline-block;
+  width: 260px; 
+  font-weight: 600;
+  color: #111;
+}
+
+
+.article-info a {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  text-decoration: none !important;
+  background-color: rgba(114, 20, 56, 0.9);
+  color: #fff;
+  transition: all 0.3s ease;
+  margin-left: 8px; 
+}
+
+.article-info a:hover {
+  background-color: rgba(114, 20, 56, 0.9);
+  transform: translateY(-1px);
+}
+
+
 body .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select{
 width: 100% !important;
 position: relative;
 
 }
+.editor-review{
+    background-color: #ffffff;
+  border-radius: 16px;
+  padding: 30px 40px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  margin-top: 30px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-/* === Основной контейнер === */
+
 .upload-section {
   background-color: #ffffff;
   border-radius: 16px;
@@ -16,7 +87,7 @@ position: relative;
   margin-right: auto;
 }
 
-/* === Заголовок === */
+
 .upload-section h2 {
   font-size: 1.8rem;
   font-weight: 600;
@@ -26,7 +97,6 @@ position: relative;
   font-family: 'Playfair Display', serif;
 }
 
-/* === Группы полей === */
 .input-group {
   margin-bottom: 20px;
 }
@@ -40,7 +110,7 @@ position: relative;
   font-size: 17px;
 }
 
-/* === Поля формы === */
+
 .input-group input,
 .input-group select,
 .input-group textarea {
@@ -64,7 +134,7 @@ position: relative;
   outline: none;
 }
 
-/* === Отдельные группы (формы bid_form) === */
+
 .form-group {
   margin-bottom: 18px;
 }
@@ -92,7 +162,7 @@ position: relative;
   border-color: #007bff;
 }
 
-/* === Кнопки === */
+
 .btn {
   display: inline-block;
   padding: 10px 22px;
@@ -116,7 +186,7 @@ position: relative;
 
 
 
-/* === File input улучшение === */
+
 input[type="file"] {
   background: #f8f9fa;
   border: 1px solid #ccc;
@@ -130,7 +200,7 @@ input[type="file"]:hover {
   background-color: #f1f1f1;
 }
 
-/* === Адаптивность === */
+
 @media (max-width: 768px) {
   .upload-section {
     padding: 20px;
@@ -148,7 +218,17 @@ input[type="file"]:hover {
   }
 }
 
-
+body .main-btn{
+   background-color: rgba(114, 20, 56, 0.9) !important;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
 
   .input-group {
     font-family: 'Playfair Display', serif;
@@ -178,23 +258,23 @@ input[type="file"]:hover {
 
 
 
-
-
-
-
-
-
-
-
 html, body {
 
   margin: 0;
   padding: 0;
   
 }
-body .text-dark{
-  color: white !important;
+body .text-dark {
+  margin-top: 17px;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: white !important; /* классический тёмный */
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ffcc00; /* синий акцент */
+  padding-bottom: 6px;
+  letter-spacing: 0.5px !important;
 }
+
 body .btn {border-radius: 10px !important;}
 
 .error-page {
@@ -302,6 +382,9 @@ body .text-muted{
 body .dropdown-item{
   color: black !important;
 }
+.dropdown-item:hover{
+ background-color: #ffcc00 !important;
+}
 /* Спрятать все выпадашки по умолчанию */
 body .navbar .dropdown .dropdown-menu{
   display: none !important;
@@ -339,7 +422,7 @@ body .bg-body-tertiary{
   padding: 10px 15px;
   background-color: #f0f0f0;
   color: #333;
-  text-decoration: none;
+  text-decoration: none !important;
   border-radius: 5px;
 }
 
@@ -361,11 +444,12 @@ body .btn {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
   transition: background-color 0.3s ease;
 }
 
-.btn:hover {
+body .btn:hover {
+  color: white !important;
   background-color: #9c1a4a;
 }
 
@@ -394,7 +478,9 @@ body .btn {
   transition: background-color 0.3s ease;
 }
 
-.submit-article-btn:hover {
+body .submit-article-btn:hover {
+  text-decoration: none;
+  color: white !important;
   background-color: #9c1a4a;
 }
 
@@ -790,12 +876,7 @@ body .main-content {
   color: #333;
 }
 
-.page-btn:hover,
-.page-btn.active {
-  background: #1976d2;
-  color: #fff;
-  border-color: #1976d2;
-}
+
 ul li a {
   display: flex;
   align-items: center;  /* Центрирует по вертикали */

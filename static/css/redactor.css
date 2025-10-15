@@ -1,3 +1,14 @@
+body .text-dark{
+  margin-top: 17px;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: white !important; /* классический тёмный */
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ffcc00; /* синий акцент */
+  padding-bottom: 6px;
+  letter-spacing: 0.5px !important;
+}
+
 /* === Основной блок страницы === */
 .editor-review {
   background: #fff;
@@ -619,6 +630,7 @@ body thead th {
   background-color: rgba(114, 20, 56, 0.9) !important;
   color: #ffffff;
   font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 tbody td {

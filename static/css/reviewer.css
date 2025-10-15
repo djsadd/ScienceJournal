@@ -1,4 +1,13 @@
-
+body .text-dark{
+  margin-top: 17px;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: white !important; /* классический тёмный */
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ffcc00; /* синий акцент */
+  padding-bottom: 6px;
+  letter-spacing: 0.5px !important;
+}
 
 .upload-section h2 {
   text-align: center;
@@ -43,7 +52,7 @@ textarea:focus {
 
 
 body .input-group .btn {
-  background-color: #3498db !important;
+  background-color: rgba(114, 20, 56, 0.9) !important;
   color: white;
   border: none;
   border-radius: 10px;

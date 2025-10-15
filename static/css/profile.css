@@ -1,3 +1,13 @@
+.d-none.d-md-inline.fw-bold {
+  margin-top: 17px;
+  margin-bottom: 20px;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  border-bottom: 2px solid #ffcc00; /* жёлтый акцент */
+  padding-bottom: 6px;
+  letter-spacing: 0.5px !important;
+}
 
 @media (max-width: 991.98px){
   .navbar .nav-link{ white-space:normal; }   /* можно переносить */
