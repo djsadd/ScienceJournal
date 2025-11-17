@@ -187,3 +187,6 @@ EMAIL_USE_SSL = True  # Используем SSL
 EMAIL_HOST_USER = 'zharshy@tau-edu.kz'  # ваш адрес
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/1"

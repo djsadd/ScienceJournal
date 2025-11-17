@@ -1,0 +1,115 @@
+{% extends 'redactor-base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+  <title>{% trans 'Редактирование тома' %}</title>
+{% endblock %}
+
+{% block css %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/redactor.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/Articlequeue.css' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
+{% block content %}
+  <main class="main-content">
+    <section class="article-queue">
+      <h2>{% trans 'Редактирование тома' %}: {{ object.title }}</h2>
+
+      <div class="mb-4">
+        {% if object.layout %}
+          <p>
+            <strong>{% trans 'Вёрстка тома' %}:</strong>
+            <a href="{{ object.layout.url }}" target="_blank">
+              {% trans 'Скачать' %}
+            </a>
+          </p>
+        {% else %}
+          <form method="post" enctype="multipart/form-data" style="margin-bottom: 1rem;">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="save_layout">
+            <div class="mb-2">
+              <label class="form-label" for="id_layout">
+                {% trans 'Загрузить вёрстку тома (PDF)' %}
+              </label>
+              <input type="file" name="layout" id="id_layout" accept="application/pdf">
+            </div>
+            <button type="submit" class="btn approve">
+              {% trans 'Сохранить вёрстку тома' %}
+            </button>
+          </form>
+        {% endif %}
+      </div>
+
+      <h3 class="mt-4">{% trans 'Статьи в этом томе' %}</h3>
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>{% trans 'Название статьи' %}</th>
+            <th>{% trans 'Действие' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for bid in bids_in_collection %}
+          <tr>
+            <td data-label="№">{{ bid.pk }}</td>
+            <td data-label="{% trans 'Название статьи' %}">{{ bid.article.title }}</td>
+            <td data-label="{% trans 'Действие' %}">
+              <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="bid_id" value="{{ bid.pk }}">
+                <input type="hidden" name="action" value="remove">
+                <button type="submit" class="btn-small reject">
+                  {% trans 'Убрать из тома' %}
+                </button>
+              </form>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3">{% trans 'В этом томе пока нет статей.' %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+      <h3 class="mt-5">{% trans 'Доступные статьи (без тома)' %}</h3>
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>{% trans 'Название статьи' %}</th>
+            <th>{% trans 'Действие' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for bid in available_bids %}
+          <tr>
+            <td data-label="№">{{ bid.pk }}</td>
+            <td data-label="{% trans 'Название статьи' %}">{{ bid.article.title }}</td>
+            <td data-label="{% trans 'Действие' %}">
+              <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="bid_id" value="{{ bid.pk }}">
+                <input type="hidden" name="action" value="add">
+                <button type="submit" class="btn-small approve">
+                  {% trans 'Добавить в том' %}
+                </button>
+              </form>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3">{% trans 'Нет статей, доступных для добавления.' %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </main>
+{% endblock %}

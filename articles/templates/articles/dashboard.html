@@ -29,9 +29,20 @@
                 {% trans 'Выберите тип статьи' %}:
                 {{ form.category }}
               </div>
+                            <div class="input-group flex-column align-items-start">
+                <label class="form-label">{% trans 'Выберите ключевые слова' %}:</label>
+                <div class="d-flex flex-wrap gap-2">
+                  {{ form.tags }}
+                </div>
+              </div>
               <div class="input-group">
-                {% trans 'Выберите ключевые слова' %}:
-                {{ form.tags }}
+                <label class="form-label">{% trans 'Создайте новые ключевые слова' %}:</label>
+                {{ form.new_tags }}
+                <datalist id="tagList">
+                  {% for tag in tag_list %}
+                    <option value="{{ tag.name }}"></option>
+                  {% endfor %}
+                </datalist>
               </div>
               <div class="input-group">
                 {% trans 'Название статьи на Английском' %}:

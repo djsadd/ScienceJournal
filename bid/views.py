@@ -17,7 +17,7 @@ from users.models import CustomUser
 from .models import Bid, BidStatus, Review, ReviewStatus
 from bid.forms import BidForm
 from articles.forms import ArticleCreateForm, ArticleUpdateForm
-from .forms import ReviewForm, CommentBid
+from .forms import ReviewForm, CommentBid, UploadLayoutFile
 from django.views.generic.edit import CreateView
 from .models import ArticleVersion, BidVersion
 # Create your views here.
@@ -27,10 +27,11 @@ from permissions.redactor import RedactorRequiredMixin
 from permissions.reviewer import ReviewRequiredMixin
 from permissions.Author import BidAccessPermissionMixin
 from django.core.exceptions import PermissionDenied
-from components.email import send_html_email
+from components.tasks import send_html_email_task
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
 class BidListView(LoginRequiredMixin, ListView):
@@ -76,6 +77,12 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
     model = Bid
     template_name = "bid/redactor/edit-request.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Пример: добавляем ещё одну форму
+        context['extra_form'] = UploadLayoutFile()
+        return context
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
 
@@ -94,14 +101,19 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        bid_obj = self.get_object()
+
+        if "save_layout" in request.POST:
+            layout_form = UploadLayoutFile(request.POST, request.FILES, instance=bid_obj.article)
+            print(request.FILES)
+            if layout_form.is_valid():
+                layout_form.save()
+                return redirect("edit-request-redactor", bid_obj.pk)
 
         decision = request.POST.get('decision')
         comment = request.POST.get("comment")
 
         bid_obj = self.get_object()
-        if bid_obj.status==BidStatus.PUBLISHED:
-            messages.error(request, "Данная статья уже опубликована")
-            return redirect("edit-request-redactor", bid_obj.pk)
 
         if comment:
             bid_obj.comment = comment
@@ -116,6 +128,17 @@ class BidDetailViewRedactor(RedactorRequiredMixin, DetailView):
             bid_obj.status = BidStatus.NEEDS_REVISION
             bid_obj.save()
             messages.success(self.request, 'Статья успешно отправлена на доработку!')
+            if bid_obj.responsible and bid_obj.responsible.email:
+                article_title = getattr(bid_obj.article, "title_ru", None) or bid_obj.article.title
+                send_html_email_task.delay(
+                    f"Ваша статья «{article_title}» отправлена на доработку",
+                    bid_obj.responsible.email,
+                    "email/request-revision.html",
+                    context={
+                        "user": {"first_name": bid_obj.responsible.first_name},
+                        "article": {"title": article_title},
+                    },
+                )
         if decision == "accept":
             return redirect("collection-redactor", bid_pk=bid_obj.pk)
             # bid_obj.status = BidStatus.ACCEPTED
@@ -156,7 +179,17 @@ class UpdateBidView(BidAccessPermissionMixin, UpdateView):
     fields = ["manuscript", "authors_file", "cover_letter", "ai_usage_details"]
 
     def dispatch(self, request, *args, **kwargs):
-        if self.get_object().status not in [BidStatus.SUBMITTED, BidStatus.NEEDS_REVISION, BidStatus.REJECTED, BidStatus.PUBLISHED] and request.user.role == CustomUser.AUTHOR:
+        allowed_statuses = [
+            BidStatus.DRAFT,
+            BidStatus.SUBMITTED,
+            BidStatus.NEEDS_REVISION,
+            BidStatus.REJECTED,
+            BidStatus.PUBLISHED,
+        ]
+        if (
+            request.user.role == CustomUser.AUTHOR
+            and self.get_object().status not in allowed_statuses
+        ):
             raise PermissionDenied()
         return super().dispatch(request, *args, **kwargs)
 
@@ -216,6 +249,29 @@ class UpdateBidView(BidAccessPermissionMixin, UpdateView):
         return reverse('my_bids')  # или "/dashboard/"
 
 
+@login_required(login_url='/users/login/')
+def withdraw_bid(request, pk):
+    """
+    Allow the responsible author to withdraw a submitted bid back to draft.
+    """
+    if request.method != "POST":
+        return HttpResponseForbidden()
+
+    bid_obj = get_object_or_404(Bid, pk=pk)
+
+    if bid_obj.responsible != request.user:
+        raise PermissionDenied()
+
+    if bid_obj.status == BidStatus.SUBMITTED:
+        bid_obj.status = BidStatus.DRAFT
+        bid_obj.save()
+        messages.success(request, "Заявка отозвана и переведена в черновик.")
+    else:
+        messages.error(request, "Эту заявку нельзя отозвать.")
+
+    return redirect("my_bids")
+
+
 class ReviewDetailView(RedactorRequiredMixin, DetailView):
     model = Review
     template_name = "bid/reviewer/review-detail.html"
@@ -248,15 +304,15 @@ def assign_reviewer(request):
         review_url = reverse('edit-request-reviewer', args=[review.id])
         review_link = request.build_absolute_uri(review_url)
 
-        send_html_email(
-            f"Вам назначили рецензию: {bid_obj.article.title_ru}",
+        send_html_email_task.delay(
+            f"?'???? ?????????????>?? ????O???????: {bid_obj.article.title_ru}",
             reviewer.email,
             "email/review-add.html",
             context={
-                "bid": bid_obj,
-                'review_link': review_link
+                "user": {"first_name": reviewer.first_name},
+                "article": {"title": bid_obj.article.title},
+                "review_link": review_link
             },
-
         )
 
         return JsonResponse({'message': f'Рецензент с ID {reviewer_id} назначен.'})
@@ -312,15 +368,17 @@ def select_collection_bid(request, bid_pk, collection_pk):
         bid_obj.status = BidStatus.PUBLISHED
         bid_obj.published_at = now().date()
         bid_obj.save()
-        send_html_email(
-            f"Ваша статья {bid_obj.article.title_ru} успешно опубликована! Выпуск: {collection_obj.title}",
+        send_html_email_task.delay(
+            f"?'?????? ???'???'???? {bid_obj.article.title_ru} ????????????? ???????+?>????????????! ?'?<????????: {collection_obj.title}",
             request.user.email,
             "email/request-add.html",
             context={
-                "collection": collection_obj,
-                "bid": bid_obj,
+                "user": {"first_name": request.user.first_name},
+                "article": {"title": bid_obj.article.title},
+                "collection": {"title": collection_obj.title},
             },
         )
+
         return redirect("my_bids")
 
 
@@ -335,3 +393,4 @@ def inactive_review(request, review_pk):
         obj.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+

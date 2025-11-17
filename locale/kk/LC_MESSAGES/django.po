@@ -17,6 +17,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: users/templates/users/login.html:9
+msgid "Вход"
+msgstr "Кіру"
+
+#: users/templates/users/login.html:30
+#: users/templates/users/register.html:54
+msgid "Показать пароль"
+msgstr "Құпия сөзді көрсету"
+
+#: users/templates/users/login.html:30
+#: users/templates/users/register.html:54
+#: users/templates/users/register.html:64
+msgid "Показать"
+msgstr "Көрсету"
+
+#: users/templates/users/login.html:48
+msgid "Войти"
+msgstr "Кіру"
+
+#: users/templates/users/login.html:51
+msgid "Нет аккаунта?"
+msgstr "Тіркелгіңіз жоқ па?"
+
+#: users/templates/users/login.html:52
+#: users/templates/users/register.html:69
+msgid "Зарегистрироваться"
+msgstr "Тіркелу"
+
+#: users/templates/users/register.html:9
+#: users/templates/users/register.html:32
+msgid "Регистрация"
+msgstr "Регистрация"
+
+#: users/templates/users/register.html:67
+msgid "Уже есть аккаунт?"
+msgstr "Тіркелгіңіз бар ма?"
+
+#: users/templates/users/login.html:38
+#: users/templates/users/register.html:75
+msgid "Скрыть"
+msgstr "Жасыру"
+
+#: users/models.py:7
+msgid "Русский"
+msgstr "Орыс"
+
+#: users/models.py:8
+msgid "Английский"
+msgstr "Агылшын"
+
+#: users/models.py:9
+msgid "Казахский"
+msgstr "Казакша"
+
+#: users/models.py:16
+msgid "Редактор"
+msgstr "Редактор"
+
+
 #: .\articles\templates\articles\dashboard.html:7
 msgid "Загрузка статьи"
 msgstr "Мақаланы жүктеу"
@@ -425,10 +485,6 @@ msgstr "Рецензияны жіберу"
 msgid "Ответ рецензента"
 msgstr "Рецензенттің жауабы"
 
-#: .\bid\templates\bid\reviewer\review-detail.html:15
-msgid "Рецензент"
-msgstr "Рецензент"
-
 #: .\bid\templates\bid\reviewer\review-detail.html:16
 msgid "Новизна"
 msgstr "Жаңашылдығы"
@@ -649,9 +705,6 @@ msgstr "Хабарламалар"
 msgid "Просмотреть статью"
 msgstr "Мақаланы қарау"
 
-msgid "Поиск"
-msgstr ""
-
 msgid "Поиск публикаций"
 msgstr ""
 
@@ -666,6 +719,92 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
 msgid "Syndication"
 msgstr ""
+
+#: .\journal\templates\journal\about.html:16
+msgid ""
+"Научный журнал «Вестник Туран-Астана» является рецензируемым изданием, "
+"публикующим результаты оригинальных научных исследований в области "
+"экономики, управления, права, социальных и гуманитарных наук."
+msgstr "«Вестник Туран-Астана» ғылыми журналы – экономика, менеджмент, құқық, әлеуметтік және гуманитарлық ғылымдар салаларындағы түпнұсқа ғылыми зерттеулердің нәтижелерін жариялайтын рецензияланатын басылым."
+
+#: .\journal\templates\journal\about.html:20
+msgid ""
+"Журнал издается с 2019 года, имеет свидетельство о регистрации и "
+"международный номер ISSN 2663-631X. Учредителем журнала является "
+"Университет «Туран-Астана»."
+msgstr "Журнал 2019 жылдан бері жарық көріп келеді және тіркеу куәлігі және 2663-631X халықаралық ISSN нөмірі бар. Журналдың негізін қалаушы - Тұран-Астана университеті."
+
+#: .\journal\templates\journal\about.html:24
+msgid ""
+"Редакционная политика журнала направлена на развитие академического диалога "
+"между исследователями, преподавателями и практиками, а также на продвижение "
+"лучших научных и прикладных исследований."
+msgstr "Журналдың редакциялық саясаты зерттеушілер, мұғалімдер және практиктер арасындағы академиялық диалогты дамытуға, сондай-ақ ең үздік ғылыми және қолданбалы зерттеулерді насихаттауға бағытталған."
+
+#: .\journal\templates\journal\about.html:30
+msgid "Цель журнала"
+msgstr "Журналдың мақсаты"
+
+#: .\journal\templates\journal\about.html:32
+msgid ""
+"Цель журнала «Вестник Туран-Астана» — содействовать развитию научных "
+"исследований и распространению актуальных знаний в области "
+"социально-экономических и гуманитарных наук."
+msgstr "«Вестник Туран-Астана» журналының мақсаты - ғылыми зерттеулердің дамуына және әлеуметтік-экономикалық және гуманитарлық ғылымдар саласындағы өзекті білімді таратуға ықпал ету."
+
+#: .\journal\templates\journal\about.html:36
+msgid "Тематика журнала"
+msgstr "Журнал тақырыптары"
+
+#: .\journal\templates\journal\about.html:38
+msgid "Журнал принимает к публикации статьи по следующим направлениям:"
+msgstr "Журнал келесі бағыттар бойынша жарияланатын мақалаларды қабылдайды:"
+
+#: .\journal\templates\journal\about.html:40
+msgid "экономика и управление;"
+msgstr "Экономика және менеджмент;"
+
+#: .\journal\templates\journal\about.html:41
+msgid "право и государственное управление;"
+msgstr "құқық және мемлекеттік басқару;"
+
+#: .\journal\templates\journal\about.html:42
+msgid "социальные и гуманитарные науки;"
+msgstr "әлеуметтік және гуманитарлық ғылымдар;"
+
+#: .\journal\templates\journal\about.html:43
+msgid "маркетинг, финансы и предпринимательство."
+msgstr "Маркетинг, қаржы және кәсіпкерлік."
+
+#: .\journal\templates\journal\about.html:47
+msgid "Периодичность и язык публикаций"
+msgstr "Басылымдардың жиілігі мен тілі"
+
+#: .\journal\templates\journal\about.html:49
+msgid ""
+"Журнал выходит 4 раза в год. Публикации принимаются на русском, казахском и "
+"английском языках."
+msgstr "Журнал жылына төрт рет жарық көреді. Мақалалар орыс, қазақ және ағылшын тілдерінде қабылданады."
+
+#: .\journal\templates\journal\about.html:55
+msgid "Свидетельство о регистрации"
+msgstr "Тіркеу туралы куәлік"
+
+#: .\journal\templates\journal\about.html:63
+msgid "Учредитель"
+msgstr "Негізін қалаушы"
+
+#: .\journal\templates\journal\about.html:64
+msgid "Университет «Туран-Астана»"
+msgstr "«Тұран-Астана» университеті"
+
+#: .\journal\templates\journal\about.html:71
+msgid "Периодичность"
+msgstr "Мерзімділік"
+
+#: .\journal\templates\journal\about.html:72
+msgid "4 раза в год"
+msgstr "Жылына 4 рет"
 
 #. Translators: String used to replace omitted page numbers in elided page
 #. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
@@ -1792,7 +1931,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:720
 #, python-format
-msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgid "Invalid date string \"%(datestr)s\" given format \"%(format)s\""
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\generic\detail.py:56
@@ -1801,7 +1940,7 @@ msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\generic\list.py:70
-msgid "Page is not “last”, nor can it be converted to an int."
+msgid "Page is not \"last\", nor can it be converted to an int."
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\generic\list.py:77
@@ -1811,7 +1950,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\generic\list.py:173
 #, python-format
-msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgid "Empty list and \"%(class_name)s.allow_empty\" is False."
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\static.py:49
@@ -1820,7 +1959,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\static.py:51
 #, python-format
-msgid "“%(path)s” does not exist"
+msgid "\"%(path)s\" does not exist"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\static.py:68
@@ -1906,4 +2045,75 @@ msgstr "Жарияланды"
 msgid "Комментарий для автора"
 msgstr "Авторға түсініктеме"
 
+msgid "О журнале"
+msgstr "Журнал туралы"
 
+msgid "Архив номеров"
+msgstr "Мәселелер мұрағаты"
+
+msgid "Редакция"
+msgstr "Редакциялық"
+
+msgid "Редакционная коллегия"
+msgstr "Редакциялық алқа"
+
+msgid "Редакционная политика"
+msgstr "Редакциялық саясат"
+
+msgid "Регламенты, процедуры, документация"
+msgstr "Ережелер, рәсімдер, құжаттама"
+
+msgid "Контактная информация"
+msgstr "Байланыс ақпараты"
+
+msgid "Поиск"
+msgstr "Іздеу"
+
+msgid "Для авторов"
+msgstr "Авторлар үшін"
+
+msgid "Требования к статьям"
+msgstr "Мақалаларға қойылатын талаптар"
+
+msgid "Алгоритм подачи статьи"
+msgstr "Мақаланы ұсыну алгоритмі"
+
+
+msgid "Авторский договор"
+msgstr "Авторлық құқық туралы келісім"
+
+msgid "Публикационная этика"
+msgstr "Басылым этикасы"
+
+msgid "Заявление об отношении к использованию ИИ"
+msgstr "Жасанды интеллектті пайдалану туралы мәлімдеме"
+
+msgid "Регламент рецензирования"
+msgstr "Ережелерді қарау"
+#: users/forms.py:9
+msgid "��� ������������ ��� email"
+msgstr "����������� ��� ������ email"
+
+#: users/forms.py:13
+msgid "������� ��� ������������ ��� email"
+msgstr "����������� ��� ������ email ����?��"
+
+#: users/forms.py:20
+msgid "������"
+msgstr "??����?�"
+
+#: users/forms.py:24
+msgid "������� ������"
+msgstr "??����?�� ����?��"
+
+#: users/forms.py:31
+msgid "���"
+msgstr "���"
+
+#: users/forms.py:32
+msgid "�������"
+msgstr "���"
+
+#: users/forms.py:33
+msgid "����������� �����"
+msgstr "���������� �����"

@@ -7,5 +7,5 @@ class Collection(models.Model):
     title = models.CharField(null=True, blank=True)
     description = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
+    layout = models.FileField(upload_to="collections_layouts/", null=True, blank=True)
 

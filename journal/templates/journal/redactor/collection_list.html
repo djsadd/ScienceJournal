@@ -1,0 +1,59 @@
+{% extends 'redactor-base.html' %}
+{% load i18n %}
+{% load static %}
+
+  {% block title %}
+    <title>{% trans 'Список томов' %}</title>
+  {% endblock %}
+
+
+  {% block css %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/redactor.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/Articlequeue.css' %}" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  {% endblock %}
+
+{% block content %}
+
+  <main class="main-content">
+    <section class="article-queue">
+      <h2>{% trans 'Список коллекции томов' %}</h2>
+      <a href="{% url 'collection_create' %}" class="btn approve">
+        {% trans 'Создать том' %}
+      </a>
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>{% trans 'Название' %}</th>
+
+            <th>{% trans 'Действие' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for obj in object_list %}
+        <tr>
+            <td data-label="№">{{ obj.pk }}</td>
+            <td data-label="Название">{{ obj.title }}</td>
+            <td data-label="Действие">
+              <a href="{% url 'collection_edit' obj.pk %}" class="btn-small">
+                {% trans 'Изменить' %}
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+       {% include "includes/pagination.html" %}
+
+    </section>
+  </main>
+
+</div>
+{% endblock %}

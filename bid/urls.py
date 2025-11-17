@@ -20,12 +20,14 @@ from django.urls import path, include
 # My Views
 from .views import (BidListView, UpdateBidView, BidDetailViewRedactor, BidDetailViewReviewer, ReviewDetailView,
                     assign_reviewer, BidDetailView, BidVersionList, BidVersionDetailView, CollectionRedactorListView,
-                    select_collection_bid, inactive_review)
+                    select_collection_bid, inactive_review, withdraw_bid)
 
 
 urlpatterns = [
     path("my/", BidListView.as_view(), name="my_bids"),
+    path("collection_list/", BidListView.as_view(), name="my_bids"),
     path("edit/<int:pk>", UpdateBidView.as_view(), name="edit-request"),
+    path("withdraw/<int:pk>", withdraw_bid, name="withdraw-request"),
     path("request/<int:pk>", BidDetailViewRedactor.as_view(), name="edit-request-redactor"),
     path("request-review/<int:pk>", BidDetailViewReviewer.as_view(), name="edit-request-reviewer"),
     path("request-author/<int:pk>", BidDetailView.as_view(), name="view-request-author"),

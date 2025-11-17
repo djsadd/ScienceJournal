@@ -17,12 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 # My Views
-from .views import (JournalView, CollectionListView, CollectionDetailView, ContactsView, AboutView, ForAuthorsView,
-                    BidDetailView, EditorialView, PublicationView, Editorial_boardView, Requirements_articlesView,statementView, regulationsView, copyrightView)
+from .views import (SearchPublicationView, CollectionListView, CollectionDetailView, ContactsView, AboutView, ForAuthorsView,
+                    BidDetailView, EditorialView, PublicationView, Editorial_boardView, Requirements_articlesView,statementView,
+                    regulationsView, copyrightView, CollectionRedactorListView, CollectionCreateView, CollectionEditView)
 
 urlpatterns = [
-    path("", JournalView.as_view(), name="home"),
+    path("", AboutView.as_view(), name="home"),
+    path("search/", SearchPublicationView.as_view(), name="search_publications"),
     path("collection/", CollectionListView.as_view(), name="collection"),
+    path("collection_redactor/", CollectionRedactorListView.as_view(), name="collection_redactor_list"),
+    path("collection_redactor/create/", CollectionCreateView.as_view(), name="collection_create"),
+    path("collection_redactor/<int:pk>/edit/", CollectionEditView.as_view(), name="collection_edit"),
     path("collection-detail/<int:pk>", CollectionDetailView.as_view(), name="collection_detail"),
     path("article-detail/<int:pk>", BidDetailView.as_view(), name="article_detail"),
     path("contacts/", ContactsView.as_view(), name="contacts"),

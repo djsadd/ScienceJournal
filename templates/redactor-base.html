@@ -42,7 +42,12 @@
         <!-- Меню -->
         <div class="collapse navbar-collapse" id="editorNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
+              <li class="nav-item">
+              <a class="nav-link" href="{% url 'collection_redactor_list' %}">
+                <span class="material-icons me-1 align-text-bottom">assignment</span>
+                {% trans 'Коллекция томов' %}
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'my_bids' %}">
                 <span class="material-icons me-1 align-text-bottom">assignment</span>

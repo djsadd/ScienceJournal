@@ -1,10 +1,9 @@
 from django.shortcuts import redirect
 from django.views.generic import FormView
-from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
-from components.email import send_html_email
+from components.tasks import send_html_email_task
 # Mixins
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -15,6 +14,7 @@ from django.contrib import messages
 from .forms import ArticleCreateForm
 from bid.forms import BidForm
 from users.models import CustomUser
+from articles.models import Tag
 # Views
 
 
@@ -38,6 +38,7 @@ class Dashboard(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['bid_form'] = BidForm(self.request.POST or None, self.request.FILES or None)
+        context['tag_list'] = Tag.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -53,6 +54,8 @@ class Dashboard(LoginRequiredMixin, FormView):
         article = article_form.save(commit=False)
         article.user = self.request.user
         article.save()
+        article_form.save_m2m()
+        article_form.attach_new_tags(article)
 
         bid = bid_form.save(commit=False)
         bid.article = article
@@ -70,15 +73,14 @@ class Dashboard(LoginRequiredMixin, FormView):
         )
         ArticleVersion(article=article, bid_version=bid_version).save()
 
-        send_html_email(
-            "Ваша заявка успешно отправлена!",
+        send_html_email_task.delay(
+            "?'?????? ??????????? ????????????? ???'?????????>?????!",
             self.request.user.email,
             "email/request-add.html",
             context={
-                "article": article,
-                "bid": bid,
+                "user": {"first_name": self.request.user.first_name},
+                "article": {"title": article.title},
             },
-
         )
 
         return super().form_valid(article_form)

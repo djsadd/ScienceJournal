@@ -59,6 +59,12 @@
         </button>
       </li>
     </ul>
+    <div class="edl-toolbar">
+      <div class="edl-search">
+        <input type="text" id="edlSearch" class="form-control" placeholder="{% trans 'Найти по имени или организации' %}">
+      </div>
+    </div>
+
 
     <!-- Панель инструментов (поиск/фильтр) -->
     <div class="edl-toolbar">
@@ -76,110 +82,73 @@
 
     <div class="tab-content mt-3">
 
-      <!-- Вкладка: Редакционная коллегия -->
       <div class="tab-pane fade show active" id="board" role="tabpanel" aria-labelledby="board-tab">
-        <div class="edl-grid" id="grid-board">
-          <!-- Пример карточек (фронт-демо). Позже замените на цикл Django. -->
-          <article class="edl-card" data-name="Иванов Иван Иванович" data-org="Туран-Астана" data-country="Казахстан">
-            <h3 class="edl-name">Иванов Иван Иванович</h3>
-            <div class="edl-meta">
-              {% trans 'Кафедра права, Университет «Туран-Астана»' %}<br>
-              {% trans 'Астана, Казахстан' %}<br>
-              {% trans 'д.ю.н., профессор' %}
-            </div>
-            <div class="edl-badges">
-              <a class="edl-badge edl-link" href="https://orcid.org/0000-0001-2345-6789" target="_blank" rel="noopener">ORCID: 0000-0001-2345-6789</a>
-              <span class="edl-badge">h-index Scopus: 8</span>
-              <span class="edl-badge">h-index WoS: 5</span>
-            </div>
-          </article>
-
-          <article class="edl-card" data-name="Aidos Beketov" data-org="Al-Farabi KazNU" data-country="Казахстан">
-            <h3 class="edl-name">Aidos Beketov</h3>
-            <div class="edl-meta">
-              {% trans 'Факультет международного права, КазНУ им. аль-Фараби' %}<br>
-              {% trans 'Алматы, Казахстан' %}<br>
-              {% trans 'PhD, ассоц. профессор' %}
-            </div>
-            <div class="edl-badges">
-              <a class="edl-badge edl-link" href="https://orcid.org/0000-0002-1111-2222" target="_blank" rel="noopener">ORCID: 0000-0002-1111-2222</a>
-              <span class="edl-badge">h-index Scopus: 6</span>
-            </div>
-          </article>
-
-          <article class="edl-card" data-name="Jane Smith" data-org="Oxford University" data-country="Великобритания">
-            <h3 class="edl-name">Jane Smith</h3>
-            <div class="edl-meta">
-              {% trans 'Faculty of Law, University of Oxford' %}<br>
-              {% trans 'Оксфорд, Великобритания' %}<br>
-              {% trans 'DPhil, Professor' %}
-            </div>
-            <div class="edl-badges">
-              <a class="edl-badge edl-link" href="https://orcid.org/0000-0003-3333-4444" target="_blank" rel="noopener">ORCID: 0000-0003-3333-4444</a>
-              <span class="edl-badge">h-index Scopus: 14</span>
-              <span class="edl-badge">h-index WoS: 12</span>
-            </div>
-          </article>
+        <div class="edl-grid" data-section="board">
+          {% for member in board_members %}
+            <article class="edl-card"
+                     data-name="{{ member.display_name|default:''|lower }}"
+                     data-org="{{ member.institution|default:''|lower }}"
+                     data-country="{{ member.location|default:''|lower }}">
+              <h3 class="edl-name">{{ member.display_name }}</h3>
+              <div class="edl-meta">
+                {% if member.academic_degree %}<p>{{ member.academic_degree }}</p>{% endif %}
+                {% if member.department or member.institution %}
+                  <p>
+                    {{ member.department }}{% if member.department and member.institution %}, {% endif %}{{ member.institution }}
+                  </p>
+                {% endif %}
+                {% if member.location %}<p>{{ member.location }}</p>{% endif %}
+                {% if member.orcid %}<p>ORCID: {{ member.orcid }}</p>{% endif %}
+              </div>
+              <div class="edl-badges">
+                <span class="edl-badge">{% trans 'Член редакционной коллегии' %}</span>
+              </div>
+            </article>
+          {% empty %}
+            <p class="text-muted">{% trans 'Члены редакционной коллегии пока не назначены.' %}</p>
+          {% endfor %}
         </div>
       </div>
-
-      <!-- Вкладка: Редакционный совет -->
       <div class="tab-pane fade" id="council" role="tabpanel" aria-labelledby="council-tab">
-        <div class="edl-grid" id="grid-council">
-          <article class="edl-card" data-name="Серикова Айжан" data-org="НУ" data-country="Казахстан">
-            <h3 class="edl-name">Серикова Айжан</h3>
-            <div class="edl-meta">
-              {% trans 'Школа наук, Назарбаев Университет' %}<br>
-              {% trans 'Астана, Казахстан' %}<br>
-              {% trans 'к.ю.н., доцент' %}
-            </div>
-            <div class="edl-badges">
-              <a class="edl-badge edl-link" href="https://orcid.org/0000-0002-5555-6666" target="_blank" rel="noopener">ORCID: 0000-0002-5555-6666</a>
-              <span class="edl-badge">h-index Scopus: 4</span>
-            </div>
-          </article>
-
-          <article class="edl-card" data-name="John Doe" data-org="Harvard" data-country="США">
-            <h3 class="edl-name">John Doe</h3>
-            <div class="edl-meta">
-              Harvard Law School<br>
-              {% trans 'Бостон, США' %}<br>
-              {% trans 'LL.D., Professor' %}
-            </div>
-            <div class="edl-badges">
-              <a class="edl-badge edl-link" href="https://orcid.org/0000-0001-7777-9999" target="_blank" rel="noopener">ORCID: 0000-0001-7777-9999</a>
-              <span class="edl-badge">h-index WoS: 18</span>
-            </div>
-          </article>
+        <div class="edl-grid" data-section="council">
+          {% for member in council_members %}
+            <article class="edl-card"
+                     data-name="{{ member.display_name|default:''|lower }}"
+                     data-org="{{ member.institution|default:''|lower }}"
+                     data-country="{{ member.location|default:''|lower }}">
+              <h3 class="edl-name">{{ member.display_name }}</h3>
+              <div class="edl-meta">
+                {% if member.academic_degree %}<p>{{ member.academic_degree }}</p>{% endif %}
+                {% if member.department or member.institution %}
+                  <p>
+                    {{ member.department }}{% if member.department and member.institution %}, {% endif %}{{ member.institution }}
+                  </p>
+                {% endif %}
+                {% if member.location %}<p>{{ member.location }}</p>{% endif %}
+                {% if member.orcid %}<p>ORCID: {{ member.orcid }}</p>{% endif %}
+              </div>
+              <div class="edl-badges">
+                <span class="edl-badge">{% trans 'Член редакционного совета' %}</span>
+              </div>
+            </article>
+          {% empty %}
+            <p class="text-muted">{% trans 'Члены редакционного совета пока не назначены.' %}</p>
+          {% endfor %}
         </div>
       </div>
     </div>
-
-    <!-- Блок «Принципы формирования» (расширяемый текст) -->
-    <section class="mt-5" style="max-width: 900px; margin: 0 auto;">
-      <h3>{% trans 'Принципы формирования редколлегии' %}</h3>
-      <ul class="mt-3">
-        <li>{% trans 'Научная компетентность и релевантность тематике журнала.' %}</li>
-        <li>{% trans 'Международное представительство (географическое и институциональное разнообразие).' %}</li>
-        <li>{% trans 'Наличие публикаций в рецензируемых изданиях, индексируемых в Scopus и Web of Science.' %}</li>
-        <li>{% trans 'Прозрачные процедуры обновления состава и предотвращение конфликта интересов.' %}</li>
-        <li>{% trans 'Готовность к экспертной оценке материалов и участию в развитии журнала.' %}</li>
-      </ul>
-    </section>
-
   </main>
 </div>
-
-<!-- Мини-скрипт фильтра/поиска (фронт-only) -->
 <script>
 (function(){
   const q = document.getElementById('edlSearch');
+  if (!q) return;
   const country = document.getElementById('edlCountry');
   const reset = document.getElementById('edlReset');
 
   function applyFilter(){
     const query = (q.value || '').toLowerCase().trim();
-    const ctry = (country.value || '').toLowerCase().trim();
+    const ctry = (country ? (country.value || '').toLowerCase().trim() : '');
 
     document.querySelectorAll('#board .edl-card, #council .edl-card').forEach(card=>{
       const text = (card.dataset.name + ' ' + card.dataset.org).toLowerCase();
@@ -190,8 +159,8 @@
   }
 
   q.addEventListener('input', applyFilter);
-  country.addEventListener('change', applyFilter);
-  reset.addEventListener('click', ()=>{ q.value=''; country.value=''; applyFilter(); });
+  if (country) country.addEventListener('change', applyFilter);
+  if (reset) reset.addEventListener('click', ()=>{ q.value=''; if (country) country.value=''; applyFilter(); });
 
   applyFilter();
 })();

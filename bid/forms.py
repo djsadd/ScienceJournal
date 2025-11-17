@@ -1,7 +1,10 @@
 from django import forms
+
+from articles.models import Article
 from .models import Bid, BidStatus, Review
 from ckeditor.widgets import CKEditorWidget
 from django.utils.translation import gettext_lazy as _
+
 
 class BidForm(forms.ModelForm):
     class Meta:
@@ -40,6 +43,17 @@ class CommentBid(forms.Form):
         }),
         label=_('Комментарий для автора'),
     )
+
+
+class UploadLayoutFile(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ["PDF"]
+        labels = {
+            "PDF": "Прикрепить верстку файла (*.pdf)",
+        }
+        widgets = {
+        }
 
 
 class ReviewForm(forms.ModelForm):

@@ -533,4 +533,64 @@ a:hover {
 }
 
 
+.form-section {
+  background-color: #ffffff;
+  border: 1px solid #e0e5f1;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.form-section h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #2b2b2b;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #3a3a3a;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.edit-request-comment {
+  border: 1px solid #f5c4de;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  background: #fff5fb;
+}
+
+.edit-request-comment h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.comment-content {
+  font-size: 0.95rem;
+  color: #333333;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 

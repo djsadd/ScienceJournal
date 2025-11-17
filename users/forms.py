@@ -1,34 +1,45 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.utils.translation import gettext_lazy as _
+
 from .models import CustomUser
 
 
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(
-        label='Имя пользователя',
+        label=_('Имя пользователя или email'),
         widget=forms.TextInput(attrs={
             'id': 'username',
             'class': 'form-control',
-            'placeholder': 'Введите имя пользователя',
+            'placeholder': _('Введите имя пользователя или email'),
             'required': True
         })
     )
     password = forms.CharField(
-        label='Пароль',
+        label=_('Пароль'),
         widget=forms.PasswordInput(attrs={
             'id': 'password',
             'class': 'form-control',
-            'placeholder': 'Введите ваш пароль',
+            'placeholder': _('Введите пароль'),
             'required': True
         })
     )
 
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        if username and '@' in username:
+            try:
+                user = CustomUser.objects.get(email__iexact=username)
+                self.cleaned_data['username'] = user.get_username()
+            except CustomUser.DoesNotExist:
+                pass
+        return super().clean()
+
 
 class CustomRegisterForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, label="Имя", required=True)
-    last_name = forms.CharField(max_length=30, label="Фамилия", required=True)
-    email = forms.EmailField(label="Электронная почта", required=True)
+    first_name = forms.CharField(max_length=30, label=_("Имя"), required=True)
+    last_name = forms.CharField(max_length=30, label=_("Фамилия"), required=True)
+    email = forms.EmailField(label=_("Электронная почта"), required=True)
 
     class Meta:
         model = CustomUser

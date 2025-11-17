@@ -1,0 +1,77 @@
+{% extends 'guest-base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>{% trans 'Поиск публикаций' %}</title>{% endblock %}
+
+{% block css %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <style>
+    .search-hero { text-align: center; margin-bottom: 32px; }
+    .search-card { border: 1px solid #e6e8ee; border-radius: 14px; padding: 20px; background: #fff; transition: box-shadow .2s ease; }
+    .search-card:hover { box-shadow: 0 8px 30px rgba(15,23,42,.08); }
+    .search-meta { color: #555; font-size: 0.95rem; }
+    .search-meta span { display: inline-block; margin-right: 16px; }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+  <main class="main-content">
+    <section class="search-hero">
+      <h1>{% trans 'Поиск публикаций' %}</h1>
+      <p class="text-muted">{% trans 'Быстро найдите статьи по названию, автору или кафедре.' %}</p>
+      <form class="d-flex justify-content-center mt-3" method="get" action="{% url 'search_publications' %}">
+        <input type="text" name="q" class="form-control me-2" style="max-width:420px;"
+               placeholder="{% trans 'Введите запрос' %}" value="{{ query }}">
+        <button type="submit" class="btn btn-primary">{% trans 'Найти' %}</button>
+      </form>
+    </section>
+
+    {% if object_list %}
+      <div class="row gy-4">
+        {% for bid in object_list %}
+          <div class="col-12 col-md-6">
+            <article class="search-card">
+              <h3 class="h5 mb-2">
+                <a href="{% url 'article_detail' bid.pk %}" class="text-dark text-decoration-none">{{ bid.article.title }}</a>
+              </h3>
+              <div class="search-meta">
+                <span>{% trans 'Автор' %}: {{ bid.article.authors|default:_('Не указано') }}</span>
+                <span>{% trans 'Дата' %}: {{ bid.article.date|date:"d F Y" }}</span>
+              </div>
+              <p class="mt-2 text-muted">{{ bid.article.annotation|truncatewords:30 }}</p>
+              <div>
+                <a href="{% url 'article_detail' bid.pk %}" class="edl-link">{% trans 'Подробнее' %} →</a>
+              </div>
+            </article>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if is_paginated %}
+        <nav aria-label="{% trans 'Навигация по страницам' %}" class="mt-4">
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+              <li class="page-item"><a class="page-link" href="?q={{ query }}&page={{ page_obj.previous_page_number }}">{% trans 'Предыдущая' %}</a></li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link">{% trans 'Предыдущая' %}</span></li>
+            {% endif %}
+            <li class="page-item disabled"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+              <li class="page-item"><a class="page-link" href="?q={{ query }}&page={{ page_obj.next_page_number }}">{% trans 'Следующая' %}</a></li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link">{% trans 'Следующая' %}</span></li>
+            {% endif %}
+          </ul>
+        </nav>
+      {% endif %}
+    {% else %}
+      <p class="text-center text-muted mt-4">{% trans 'По вашему запросу ничего не найдено.' %}</p>
+    {% endif %}
+
+  </main>
+</div>
+{% endblock %}

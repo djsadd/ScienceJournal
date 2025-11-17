@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
-from django.core.mail import send_mail
+from components.tasks import send_mail_task
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
@@ -97,7 +97,7 @@ def register_view(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
             })
-            send_mail(
+            send_mail_task.delay(
                 subject,
                 message,
                 settings.EMAIL_HOST_USER,

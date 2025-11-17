@@ -2,6 +2,8 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from datetime import datetime
 import os
+import uuid
+from django.utils.text import slugify
 # My Models
 
 
@@ -38,6 +40,13 @@ def layout_upload_path(instance, filename):
     return os.path.join('layouts', new_filename)
 
 
+def manuscript_upload_path(instance, filename):
+    base, ext = os.path.splitext(filename)
+    slug = slugify(base)[:30] or uuid.uuid4().hex[:8]
+    unique = uuid.uuid4().hex[:6]
+    return os.path.join('manuscripts', f"{slug}_{unique}{ext}")
+
+
 # Article model
 class Article(models.Model):
     file = models.FileField(upload_to='articles/')
@@ -51,6 +60,7 @@ class Article(models.Model):
     user = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, null=True, blank=True)
     plagiarism = models.FileField(null=True, blank=True)
+    manuscript = models.FileField(upload_to=manuscript_upload_path, null=True, blank=True, max_length=4096)
 
     def __str__(self):
         return f"{self.title}"

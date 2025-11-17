@@ -38,10 +38,21 @@
               </a>
             </button>
             <button class="btn">
-              <a href="{% url 'edit-request' obj.pk %}" style="color: inherit; text-decoration: none;">{% trans 'Отредактировать' %}</a>
+              <a href="{% url 'edit-request' obj.pk %}" style="color: inherit; text-decoration: none;">
+                {% trans 'Отредактировать' %}
+              </a>
             </button>
 
-            <button class="btn">{% trans 'Удалить' %}</button>
+            {% if obj.status == 'submitted' %}
+              <form method="post"
+                    action="{% url 'withdraw-request' obj.pk %}"
+                    style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn">
+                  {% trans 'Отозвать' %}
+                </button>
+              </form>
+            {% endif %}
           </div>
         </div>
 

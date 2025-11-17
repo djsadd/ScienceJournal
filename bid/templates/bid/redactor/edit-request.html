@@ -23,8 +23,24 @@
       <p><strong>{% trans 'Файл с заполненным и подписанным всеми авторами письмом' %}:</strong> <a href="{{ object.cover_letter.url }}" target="_blank">{% trans 'Скачать' %}</a></p>
       <p><strong>{% trans 'Сведения об антиплагиате' %}:</strong> <a href="{{ object.article.plagiarism.url }}" target="_blank">{% trans 'Скачать' %}</a></p>
       <p><strong>{% trans 'Статус' %}:</strong> {{ object.get_status_display }}</p>
+      {% if object.article.PDF %}
+        <p><strong>{% trans 'Вёрстка статьи' %}: </strong> <a href="{{ object.article.PDF.url }}" target="_blank">{% trans 'Скачать' %}</a></p>
+
+      {% else %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ extra_form.as_p }}
+            <button name="save_layout" type="submit" class="btn approve">
+              {% trans 'Сохранить вёрстку' %}
+            </button>
+        </form>
+      {% endif %}
+
+
+
 
     </div>
+
     <h2>{% trans 'Рецензенты' %}</h2>
 
     <button type="button" class="btn add-reviewer-btn" onclick="openReviewerModal()" title="Добавить рецензента">
