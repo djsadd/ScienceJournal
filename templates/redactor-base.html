@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   {% block title %}
-  <title>{% trans 'Редактор – Проверка статьи' %}</title>
+  <title>{% trans 'Redactor panel' %}</title>
   {% endblock %}
 
   {% block css %}
@@ -21,62 +21,58 @@
 
 <body>
 <div class="wrapper">
-
-  <!-- ====== ХЕДЕР с бургером ====== -->
   <header class="header border-bottom">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-
-        <!-- Логотип -->
         <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
-          <img src="{% static 'images/logo.png' %}" alt="Вестник Туран" class="logo-img" style="height:36px">
-          <span class="fw-bold text-dark d-none d-md-inline">{% trans 'Известия университета Туран-Астана' %}</span>
+          <img src="{% static 'images/logo.png' %}" alt="Journal logo" class="logo-img" style="height:36px">
+          <span class="fw-bold text-dark d-none d-md-inline">{% trans 'Science journal platform' %}</span>
         </a>
 
-        <!-- Бургер -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#editorNav"
                 aria-controls="editorNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Меню -->
         <div class="collapse navbar-collapse" id="editorNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'redactor_article_create' %}">
+                <span class="material-icons me-1 align-text-bottom">post_add</span>
+                {% trans 'Create article' %}
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'collection_redactor_list' %}">
                 <span class="material-icons me-1 align-text-bottom">assignment</span>
-                {% trans 'Коллекция томов' %}
+                {% trans 'Collections' %}
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'my_bids' %}">
                 <span class="material-icons me-1 align-text-bottom">assignment</span>
-                {% trans 'Очередь статей' %}
+                {% trans 'Requests' %}
               </a>
             </li>
-
             <li class="nav-item">
               <a class="nav-link" href="{% url 'profile' %}">
                 <span class="material-icons me-1 align-text-bottom">account_circle</span>
-                {% trans 'Профиль' %}
+                {% trans 'Profile' %}
               </a>
             </li>
-
             <li class="nav-item">
               <a class="nav-link text-danger" href="{% url 'logout' %}">
                 <span class="material-icons me-1 align-text-bottom">logout</span>
-                {% trans 'Выход' %}
+                {% trans 'Logout' %}
               </a>
             </li>
-
           </ul>
 
-          <!-- Переключатель языка -->
           {% get_current_language as LANGUAGE_CODE %}
           {% with LANGUAGE_CODE|slice:":2" as LANG %}
           <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center">
             {% csrf_token %}
-            <label for="languageSelect" class="me-2 mb-0 small text-muted">{% trans 'Язык' %}:</label>
+            <label for="languageSelect" class="me-2 mb-0 small text-muted">{% trans 'Language' %}:</label>
             <select name="language" id="languageSelect" class="form-select form-select-sm" style="width:auto" onchange="this.form.submit()">
               <option value="ru" {% if LANG == 'ru' %}selected{% endif %}>Русский</option>
               <option value="kk" {% if LANG == 'kk' %}selected{% endif %}>Қазақша</option>
@@ -105,7 +101,7 @@
           {% endif %}
               <div class="d-flex">
                   <div class="toast-body">{{ message }}</div>
-                  <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="{% trans 'Закрыть' %}"></button>
+                  <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="{% trans 'Close' %}"></button>
               </div>
           </div>
       {% endfor %}
@@ -124,8 +120,8 @@
 
   <footer class="footer">
      <p>{% trans '&copy; This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.' %}</p>
-    <p>{% trans '&copy; 2025 Вестник Университета Туран-Астана. Все права защищены.' %}</p>
-    <p><a href="#">{% trans 'Политика конфиденциальности' %}</a> | <a href="#">{% trans 'Условия использования' %}</a></p>
+    <p>{% trans '&copy; 2025 Science Journal. All rights reserved.' %}</p>
+    <p><a href="#">{% trans 'Privacy policy' %}</a> | <a href="#">{% trans 'Terms of use' %}</a></p>
   </footer>
 
 </div>

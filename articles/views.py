@@ -1,54 +1,52 @@
-from django.shortcuts import redirect
-from django.views.generic import FormView
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-from django.conf import settings
-from components.tasks import send_html_email_task
-# Mixins
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-# My Models
-from bid.models import BidStatus, ArticleVersion, BidVersion
 from django.contrib import messages
-# Forms
-from .forms import ArticleCreateForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
+from django.utils.translation import gettext as _
+
+from components.tasks import send_html_email_task
+from permissions.redactor import RedactorRequiredMixin
+
 from bid.forms import BidForm
+from bid.models import BidStatus, ArticleVersion, BidVersion
 from users.models import CustomUser
 from articles.models import Tag
-# Views
+from .forms import ArticleCreateForm
 
 
-class Dashboard(LoginRequiredMixin, FormView):
-    template_name = "articles/dashboard.html"
+class BaseArticleBidCreateView(LoginRequiredMixin, FormView):
+    """
+    Общий обработчик для создания статьи и связанной заявки.
+    Используется автором и редактором.
+    """
+
     form_class = ArticleCreateForm
-    success_url = "/articles/dashboard/"
     login_url = '/users/login/'
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and not request.user.is_active:
-            messages.error(request, 'Произошла ошибка.')
-            return redirect("home")
-        if request.user.is_authenticated and (
-                request.user.role == CustomUser.REDACTOR or request.user.role == CustomUser.REVIEWER
-        ):
-            return redirect("my_bids")
-
-        return super().dispatch(request, *args, **kwargs)
+    def get_bid_form(self):
+        return BidForm(self.request.POST or None, self.request.FILES or None)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['bid_form'] = BidForm(self.request.POST or None, self.request.FILES or None)
+        context['bid_form'] = kwargs.get('bid_form') or self.get_bid_form()
         context['tag_list'] = Tag.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):
-        self.object = None
         article_form = self.get_form()
-        bid_form = BidForm(request.POST, request.FILES)
+        bid_form = self.get_bid_form()
         if article_form.is_valid() and bid_form.is_valid():
             return self.forms_valid(article_form, bid_form)
-        else:
-            return self.form_invalid(article_form)
+        return self.form_invalid(article_form, bid_form)
+
+    def form_invalid(self, article_form, bid_form):
+        return self.render_to_response(self.get_context_data(
+            form=article_form,
+            bid_form=bid_form
+        ))
 
     def forms_valid(self, article_form, bid_form):
         article = article_form.save(commit=False)
@@ -84,3 +82,57 @@ class Dashboard(LoginRequiredMixin, FormView):
         )
 
         return super().form_valid(article_form)
+
+
+class Dashboard(BaseArticleBidCreateView):
+    template_name = "articles/dashboard.html"
+    success_url = "/articles/dashboard/"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and not request.user.is_active:
+            messages.error(request, '�?�?�?����?�?�>�� �?�?��+���.')
+            return redirect("home")
+        if request.user.is_authenticated and request.user.role == CustomUser.REDACTOR:
+            return redirect("redactor_article_create")
+        if request.user.is_authenticated and request.user.role == CustomUser.REVIEWER:
+            return redirect("my_bids")
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class RedactorArticleCreateView(RedactorRequiredMixin, BaseArticleBidCreateView):
+    template_name = "articles/redactor/create.html"
+    success_url = reverse_lazy("redactor_article_create")
+
+
+@require_POST
+def create_tag_api(request):
+    """
+    Create a new tag with translations for editors.
+    """
+    if not request.user.is_authenticated or request.user.role != CustomUser.REDACTOR:
+        return JsonResponse({"error": _("Недостаточно прав")}, status=403)
+
+    name_ru = (request.POST.get("name_ru") or "").strip()
+    name_en = (request.POST.get("name_en") or "").strip()
+    name_kk = (request.POST.get("name_kk") or "").strip()
+
+    if not name_ru:
+        return JsonResponse({"error": _("Укажите ключевое слово на русском")}, status=400)
+
+    tag, created = Tag.objects.get_or_create(name=name_ru)
+    # Populate translation fields if provided
+    if name_en:
+        setattr(tag, "name_en", name_en)
+    if name_kk:
+        setattr(tag, "name_kk", name_kk)
+    tag.save()
+
+    return JsonResponse({
+        "id": tag.id,
+        "name": tag.name,
+        "name_ru": getattr(tag, "name_ru", tag.name),
+        "name_en": getattr(tag, "name_en", ""),
+        "name_kk": getattr(tag, "name_kk", ""),
+        "created": created,
+    })

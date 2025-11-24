@@ -201,6 +201,15 @@ body .text-dark{
   }
 }
 
+/* ==== Fix bootstrap modals (tag create dialog) ==== */
+.modal {
+  background-color: transparent !important;
+  z-index: 1055 !important;
+}
+.modal-backdrop {
+  z-index: 1050 !important;
+}
+
 
 
 

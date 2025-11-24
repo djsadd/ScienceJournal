@@ -1,0 +1,320 @@
+{% extends 'redactor-base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans 'Создание статьи (редактор)' %}</title>
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main-content">
+  <section class="upload-section">
+    <h2>{% trans 'Создание статьи (редактор)' %}</h2>
+
+    {{ form.media }}
+
+    <form method="post" enctype="multipart/form-data" class="article-form">
+      {% csrf_token %}
+
+      {% if form.non_field_errors or bid_form.non_field_errors %}
+        <div class="alert alert-danger">
+          {{ form.non_field_errors }}
+          {{ bid_form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3">{% trans 'Данные статьи' %}</h5>
+
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Рубрика' %}</label>
+                {{ form.category }}
+                {{ form.category.errors }}
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Ключевые слова' %}</label>
+                <div class="input-group mb-2">
+                  <input type="text" class="form-control" id="tagSearch" list="tagList" placeholder="{% trans 'Начните вводить ключевое слово' %}">
+                  <button class="btn btn-outline-primary" type="button" id="tagSearchBtn">{% trans 'Выбрать или создать' %}</button>
+                </div>
+                <small class="text-muted d-block mb-2">{% trans 'Если слово уже есть — оно отметится, иначе предложим создать новое.' %}</small>
+                <div id="tagContainer" class="border rounded p-2 overflow-auto" style="max-height: 240px;">
+                  {% for checkbox in form.tags %}
+                    <label class="form-check d-flex align-items-center gap-2 py-1">
+                      {{ checkbox.tag }}
+                      <span class="small">{{ checkbox.choice_label }}</span>
+                    </label>
+                  {% endfor %}
+                </div>
+                <datalist id="tagList">
+                  {% for tag in tag_list %}
+                    <option value="{{ tag.name }}"></option>
+                  {% endfor %}
+                </datalist>
+                {{ form.tags.errors }}
+              </div>
+
+              <div class="mb-3 d-none">
+                {{ form.new_tags }}
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Название (англ.)' %}</label>
+                {{ form.title_en }}
+                {{ form.title_en.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Название (каз.)' %}</label>
+                {{ form.title_kk }}
+                {{ form.title_kk.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Название (рус.)' %}</label>
+                {{ form.title_ru }}
+                {{ form.title_ru.errors }}
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Аннотация (англ.)' %}</label>
+                {{ form.annotation_en }}
+                {{ form.annotation_en.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Аннотация (каз.)' %}</label>
+                {{ form.annotation_kk }}
+                {{ form.annotation_kk.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Аннотация (рус.)' %}</label>
+                {{ form.annotation_ru }}
+                {{ form.annotation_ru.errors }}
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Авторы (англ.)' %}</label>
+                {{ form.authors_en }}
+                {{ form.authors_en.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Авторы (каз.)' %}</label>
+                {{ form.authors_kk }}
+                {{ form.authors_kk.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Авторы (рус.)' %}</label>
+                {{ form.authors_ru }}
+                {{ form.authors_ru.errors }}
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Основной файл статьи' %}</label>
+                {{ form.file }}
+                {{ form.file.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans 'Отчёт о проверке на плагиат' %}</label>
+                {{ form.plagiarism }}
+                {{ form.plagiarism.errors }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3">{% trans 'Данные заявки' %}</h5>
+
+              <div class="form-check mb-2">
+                {{ bid_form.exclusive_submission }}
+                {{ bid_form.exclusive_submission.label_tag }}
+                {{ bid_form.exclusive_submission.errors }}
+              </div>
+              <div class="form-check mb-2">
+                {{ bid_form.no_plagiarism }}
+                {{ bid_form.no_plagiarism.label_tag }}
+                {{ bid_form.no_plagiarism.errors }}
+              </div>
+              <div class="form-check mb-3">
+                {{ bid_form.authors_confirmed }}
+                {{ bid_form.authors_confirmed.label_tag }}
+                {{ bid_form.authors_confirmed.errors }}
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">{{ bid_form.ai_usage_details.label }}</label>
+                {{ bid_form.ai_usage_details }}
+                {{ bid_form.ai_usage_details.errors }}
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">{{ bid_form.manuscript.label }}</label>
+                {{ bid_form.manuscript }}
+                {{ bid_form.manuscript.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{{ bid_form.authors_file.label }}</label>
+                {{ bid_form.authors_file }}
+                {{ bid_form.authors_file.errors }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{{ bid_form.cover_letter.label }}</label>
+                {{ bid_form.cover_letter }}
+                {{ bid_form.cover_letter.errors }}
+              </div>
+
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                  {% trans 'Отправить заявку' %}
+                </button>
+                <a href="{% url 'my_bids' %}" class="btn btn-outline-secondary">
+                  {% trans 'Отмена' %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</main>
+
+<!-- Modal for creating a new tag -->
+<div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tagModalLabel">{% trans 'Создать ключевое слово' %}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Close' %}"></button>
+      </div>
+      <div class="modal-body">
+        <form id="tagModalForm">
+          <div class="mb-3">
+            <label class="form-label">{% trans 'Ключевое слово (рус.)' %}</label>
+            <input type="text" class="form-control" name="name_ru" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans 'Ключевое слово (англ.)' %}</label>
+            <input type="text" class="form-control" name="name_en">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans 'Ключевое слово (каз.)' %}</label>
+            <input type="text" class="form-control" name="name_kk">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans 'Отмена' %}</button>
+        <button type="button" class="btn btn-primary" id="saveTagBtn">{% trans 'Сохранить' %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const tagInput = document.getElementById("tagSearch");
+    const tagSearchBtn = document.getElementById("tagSearchBtn");
+    const tagContainer = document.getElementById("tagContainer");
+    const tagModalEl = document.getElementById("tagModal");
+    const tagModal = new bootstrap.Modal(tagModalEl);
+    const tagModalForm = document.getElementById("tagModalForm");
+    const saveTagBtn = document.getElementById("saveTagBtn");
+
+    function getCsrfToken() {
+      const name = "csrftoken=";
+      const parts = document.cookie.split(";").map(c => c.trim());
+      for (const part of parts) {
+        if (part.startsWith(name)) return decodeURIComponent(part.slice(name.length));
+      }
+      return "";
+    }
+
+    function findCheckboxByLabel(value) {
+      const target = value.trim().toLowerCase();
+      const inputs = tagContainer.querySelectorAll('input[name="tags"]');
+      for (const input of inputs) {
+        const label = input.closest("label");
+        const text = (label ? label.textContent : input.value).trim().toLowerCase();
+        if (text === target) {
+          return input;
+        }
+      }
+      return null;
+    }
+
+    function selectExistingOrOpenModal() {
+      const value = (tagInput.value || "").trim();
+      if (!value) return;
+      const checkbox = findCheckboxByLabel(value);
+      if (checkbox) {
+        checkbox.checked = true;
+        tagInput.value = "";
+        return;
+      }
+      // pre-fill modal fields
+      tagModalForm.name_ru.value = value;
+      tagModalForm.name_en.value = value;
+      tagModalForm.name_kk.value = value;
+      tagModal.show();
+    }
+
+    function appendTagCheckbox(tag) {
+      const wrapper = document.createElement("label");
+      wrapper.className = "form-check d-flex align-items-center gap-1";
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.name = "tags";
+      input.value = tag.id;
+      input.checked = true;
+      input.className = "form-check-input";
+      const text = document.createElement("span");
+      text.className = "small";
+      text.textContent = tag.name_ru || tag.name;
+      wrapper.appendChild(input);
+      wrapper.appendChild(text);
+      tagContainer.appendChild(wrapper);
+    }
+
+    function createTag() {
+      const formData = new FormData(tagModalForm);
+      const csrfToken = getCsrfToken();
+      fetch("{% url 'redactor_tag_create' %}", {
+        method: "POST",
+        headers: { "X-CSRFToken": csrfToken },
+        body: formData
+      })
+        .then(resp => resp.json().then(data => ({ status: resp.status, data })))
+        .then(({ status, data }) => {
+          if (status >= 200 && status < 300) {
+            appendTagCheckbox(data);
+            tagModal.hide();
+            tagModalForm.reset();
+            tagInput.value = "";
+          } else {
+            alert(data.error || "Failed to create tag");
+          }
+        })
+        .catch(() => alert("Failed to create tag"));
+    }
+
+    tagSearchBtn?.addEventListener("click", selectExistingOrOpenModal);
+    tagInput?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        selectExistingOrOpenModal();
+      }
+    });
+    saveTagBtn?.addEventListener("click", createTag);
+  })();
+</script>
+{% endblock %}
